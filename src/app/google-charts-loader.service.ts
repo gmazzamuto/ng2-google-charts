@@ -11,14 +11,18 @@ export class GoogleChartsLoaderService {
   constructor() { }
 
   load() {
+    if(!this.loadCalled) {
+      this.loadCalled = true;
+      google.charts.load('current', {'packages': ['corechart', 'gauge']});
+    }
+    return this.waitForLoaded();
+  }
+
+  waitForLoaded() {
     return new Promise((resolve, reject) => {
       if(this.isLoaded) {
         resolve();
         return;
-      }
-      if(!this.loadCalled) {
-        this.loadCalled = true;
-        google.charts.load('current', {'packages': ['corechart', 'gauge']});
       }
       let i = 0;
       function checkIfLoaded() {
