@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { GoogleChartComponent } from './google-chart/google-chart.component';
 
+import { GoogleChartComponent } from './google-chart/google-chart.component';
 import { GoogleChartsLoaderService } from './google-charts-loader.service'
 
 @NgModule({
