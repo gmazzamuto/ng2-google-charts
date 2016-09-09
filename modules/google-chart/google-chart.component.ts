@@ -12,7 +12,7 @@ export const GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-google-chart',
+  selector: 'google-chart',
   template: '<div></div>',
   providers: [GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR]
 })
