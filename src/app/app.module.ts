@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
-import { GoogleChartsModule } from '../../modules/google-charts.module'
+import { GoogleChartsModule } from '../../modules/google-charts.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +15,7 @@ import { GoogleChartsModule } from '../../modules/google-charts.module'
     FormsModule,
     GoogleChartsModule,
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
