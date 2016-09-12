@@ -1,5 +1,6 @@
 <h1>Column chart</h1>
-<google-chart [(ngModel)]="columnChartData" ngDefaultControl></google-chart>
+<google-chart [(ngModel)]="columnChartData"></google-chart>
+<input type="button" value="Change data" (click)="myClick()">
 <h1>Pie chart</h1>
 <google-chart [(ngModel)]="pieChartData" ngDefaultControl></google-chart>
 <h1>Gauge</h1>

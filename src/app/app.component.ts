@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor() { }
+
   columnChartData =  {
     chartType: 'ColumnChart',
     dataTable: [
@@ -49,4 +52,13 @@ export class AppComponent {
       greenColor: '#d0e9c6'
     },
   };
+
+  myClick() {
+    // forces a reference update (otherwise angular doesn't detect the change)
+    this.columnChartData = Object.create(this.columnChartData);
+    for(let i = 1; i < 7; i++) {
+      this.columnChartData.dataTable[i][1] = Math.round(Math.random()*1000);
+      this.columnChartData.dataTable[i][2] = Math.round(Math.random()*1000);
+    }
+  }
 }

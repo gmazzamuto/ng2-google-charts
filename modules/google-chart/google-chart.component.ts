@@ -1,7 +1,17 @@
 declare var google: any;
 
-import { Component, OnInit, ElementRef, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  forwardRef,
+  ChangeDetectionStrategy
+} from '@angular/core';
+
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor
+} from '@angular/forms';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service'
 
@@ -14,7 +24,8 @@ export const GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'google-chart',
   template: '<div></div>',
-  providers: [GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR]
+  providers: [GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GoogleChartComponent implements OnInit, ControlValueAccessor {
 
@@ -60,5 +71,4 @@ export class GoogleChartComponent implements OnInit, ControlValueAccessor {
   //ControlValueAccessor interface
   registerOnChange(fn: (_: any) => {}): void { this.onChange = fn; }
   registerOnTouched(fn: () => {}): void { this.onTouched = fn; }
-
 }
