@@ -2,7 +2,6 @@ declare var google: any;
 
 import {
   Component,
-  OnInit,
   ElementRef,
   forwardRef,
   ChangeDetectionStrategy
@@ -27,7 +26,7 @@ export const GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR: any = {
   providers: [GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GoogleChartComponent implements OnInit, ControlValueAccessor {
+export class GoogleChartComponent implements ControlValueAccessor {
 
   dataModel: any;
 
@@ -38,11 +37,6 @@ export class GoogleChartComponent implements OnInit, ControlValueAccessor {
 
   constructor(private el: ElementRef,
     private loaderService: GoogleChartsLoaderService) {}
-
-  ngOnInit() {
-    this.loaderService.load().then(() =>
-      this.wrapper = new google.visualization.ChartWrapper(this.dataModel));
-  }
 
   //get accessor
   get value(): any {
@@ -60,8 +54,10 @@ export class GoogleChartComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if (value !== this.dataModel) {
       this.dataModel = value;
-      this.loaderService.waitForLoaded().then(() => {
-        this.wrapper.clear();
+      this.loaderService.waitForLoaded('corechart').then(() => {
+        if(this.wrapper !== undefined) {
+          this.wrapper.clear();
+        }
         this.wrapper = new google.visualization.ChartWrapper(this.dataModel)
         this.wrapper.draw(this.el.nativeElement.querySelector('div'));
       });
