@@ -4,21 +4,17 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 
-import { GoogleChartComponent } from './google-chart/google-chart.component'
-import { GoogleChartsLoaderService } from './google-charts-loader.service'
+import { GoogleChartsModule } from '../modules/google-charts/google-charts.module';
 
 describe('App: Ng2GoogleCharts', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        GoogleChartComponent
-      ],
-      providers: [
-        GoogleChartsLoaderService
       ],
       imports: [
-        FormsModule
+        FormsModule,
+        GoogleChartsModule
       ]
     });
   });

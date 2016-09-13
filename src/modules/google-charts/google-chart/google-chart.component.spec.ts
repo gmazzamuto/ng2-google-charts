@@ -5,16 +5,33 @@ import { Component } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
-import { GoogleChartComponent } from './google-chart.component';
+import { GoogleChartsModule } from '../google-charts.module';
+import { GoogleChartsLoaderService } from '../google-charts-loader.service';
+
+class MockGoogleChartsLoaderService {
+  load() {
+    return this.waitForLoaded();
+  }
+  waitForLoaded() {
+    return new Promise((resolve, reject) => {resolve()});
+  }
+}
 
 describe('Component: GoogleChart', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        TestChartComponent
+        TestChartComponent,
       ],
       imports: [
-        FormsModule
+        FormsModule,
+        GoogleChartsModule
+      ],
+      providers: [
+          {
+            provide: GoogleChartsLoaderService,
+            useClass: MockGoogleChartsLoaderService
+          }
       ]
     });
     TestBed.compileComponents();
@@ -37,7 +54,7 @@ describe('Component: GoogleChart', () => {
 
 @Component({
   selector: 'app-test-chart',
-  template: '<app-google-chart [(ngModel)]="testChartData" ngDefaultControl></app-google-chart>',
+  template: '<google-chart [(ngModel)]="testChartData" ngDefaultControl></google-chart>',
 })
 class TestChartComponent {
   public testChartData =  {
