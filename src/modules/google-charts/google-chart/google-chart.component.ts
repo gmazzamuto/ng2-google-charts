@@ -52,9 +52,12 @@ export class GoogleChartComponent implements ControlValueAccessor {
 
   //ControlValueAccessor interface
   writeValue(value: any) {
+    if(value === null) {
+      return;
+    }
     if (value !== this.dataModel) {
       this.dataModel = value;
-      this.loaderService.waitForLoaded('corechart').then(() => {
+      this.loaderService.load(this.dataModel.chartType).then(() => {
         if(this.wrapper !== undefined) {
           this.wrapper.clear();
         }
