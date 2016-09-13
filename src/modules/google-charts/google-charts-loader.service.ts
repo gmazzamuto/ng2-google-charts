@@ -38,7 +38,7 @@ export class GoogleChartsLoaderService {
 
   load(chartType) {
     return new Promise((resolve, reject) => {
-      google.charts.load('current', {
+      google.charts.load('45', {
         'packages': [this.chartPackage[chartType]],
         'callback': resolve
       });
