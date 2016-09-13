@@ -26,8 +26,11 @@ export class GoogleChartsLoaderService {
       }
       let i = 0;
       function checkIfLoaded() {
-        if(google.visualization !== undefined)
+        if(google.visualization !== undefined
+          && google.visualization.ChartWrapper !== undefined) {
           resolve();
+          return;
+        }
         if(i < 10) {
           setTimeout(checkIfLoaded, 200);
           i += 1;
