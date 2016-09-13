@@ -9,7 +9,7 @@ export class AppComponent {
 
   constructor() { }
 
-  columnChartData =  {
+  columnChartOptions =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -23,7 +23,7 @@ export class AppComponent {
     options: {'title': 'Countries'},
   };
 
-  pieChartData =  {
+  pieChartOptions =  {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -36,7 +36,7 @@ export class AppComponent {
     options: {'title': 'Tasks'},
   };
 
-  gaugeChartData =  {
+  gaugeChartOptions =  {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -55,10 +55,10 @@ export class AppComponent {
 
   myClick() {
     // forces a reference update (otherwise angular doesn't detect the change)
-    this.columnChartData = Object.create(this.columnChartData);
+    this.columnChartOptions = Object.create(this.columnChartOptions);
     for(let i = 1; i < 7; i++) {
-      this.columnChartData.dataTable[i][1] = Math.round(Math.random()*1000);
-      this.columnChartData.dataTable[i][2] = Math.round(Math.random()*1000);
+      this.columnChartOptions.dataTable[i][1] = Math.round(Math.random()*1000);
+      this.columnChartOptions.dataTable[i][2] = Math.round(Math.random()*1000);
     }
   }
 }
