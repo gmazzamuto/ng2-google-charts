@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GoogleChartsLoaderService {
 
-  private chartPackage = {
+  private chartPackage: { [id: string] : string; }= {
     'AnnotationChart': 'annotationchart',
     'AreaChart': 'corechart',
     'Bar': 'bar',
@@ -36,7 +36,7 @@ export class GoogleChartsLoaderService {
 
   constructor() { }
 
-  load(chartType) {
+  load(chartType: string) {
     return new Promise((resolve, reject) => {
       google.charts.load('45', {
         'packages': [this.chartPackage[chartType]],

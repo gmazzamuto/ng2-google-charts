@@ -1,8 +1,8 @@
 {
-  "name": "ng2-google-charts",
+  "name": "ng2-google-charts-example-app",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Angular2 Google Charts components",
+  "description": "ng2-google-charts example app",
   "author": "Giacomo Mazzamuto",
   "angular-cli": {},
   "scripts": {

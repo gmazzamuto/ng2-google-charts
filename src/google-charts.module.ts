@@ -14,7 +14,5 @@ import { GoogleChartsLoaderService } from "./google-charts-loader.service";
       GoogleChartComponent,
     ]
 })
-
-export class GoogleChartsModule {
-
+export class Ng2GoogleChartsModule {
 }

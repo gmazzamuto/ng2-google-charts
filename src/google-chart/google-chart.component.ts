@@ -58,10 +58,13 @@ export class GoogleChartComponent implements ControlValueAccessor {
     if (value !== this.dataModel) {
       this.dataModel = value;
       this.loaderService.load(this.dataModel.chartType).then(() => {
-        if(this.wrapper !== undefined) {
-          this.wrapper.clear();
+        if(this.wrapper === undefined) {
+          this.wrapper = new google.visualization.ChartWrapper(this.dataModel);
         }
-        this.wrapper = new google.visualization.ChartWrapper(this.dataModel)
+        else {
+          this.wrapper.setDataTable(this.dataModel.dataTable);
+          this.wrapper.setOptions(this.dataModel.options);
+        }
         this.wrapper.draw(this.el.nativeElement.querySelector('div'));
       });
     }
