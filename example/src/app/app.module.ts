@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { GoogleChartsModule } from '../modules/google-charts/google-charts.module';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { GoogleChartsModule } from '../modules/google-charts/google-charts.modul
   imports: [
     BrowserModule,
     FormsModule,
-    GoogleChartsModule,
+    HttpModule,
+    Ng2GoogleChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
