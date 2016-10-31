@@ -32,9 +32,7 @@ export class GoogleChartsLoaderService {
     'Timeline': 'timeline',
     'TreeMap': 'treemap',
     'WordTree': 'wordtree',
-  }
-
-  constructor() { }
+  };
 
   load(chartType: string) {
     return new Promise((resolve, reject) => {

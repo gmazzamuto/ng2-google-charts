@@ -12,7 +12,7 @@ import {
   ControlValueAccessor
 } from '@angular/forms';
 
-import { GoogleChartsLoaderService } from '../google-charts-loader.service'
+import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 
 export const GOOGLE_CHART_COMPONENT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -30,10 +30,10 @@ export class GoogleChartComponent implements ControlValueAccessor {
 
   dataModel: any;
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
-
   private wrapper: any;
+
+  private onChange: any = Function.prototype;
+  private onTouched: any = Function.prototype;
 
   constructor(private el: ElementRef,
     private loaderService: GoogleChartsLoaderService) {}
@@ -60,8 +60,7 @@ export class GoogleChartComponent implements ControlValueAccessor {
       this.loaderService.load(this.dataModel.chartType).then(() => {
         if(this.wrapper === undefined) {
           this.wrapper = new google.visualization.ChartWrapper(this.dataModel);
-        }
-        else {
+        } else {
           this.wrapper.setDataTable(this.dataModel.dataTable);
           this.wrapper.setOptions(this.dataModel.options);
         }

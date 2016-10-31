@@ -13,7 +13,9 @@ class MockGoogleChartsLoaderService {
     return this.waitForLoaded();
   }
   waitForLoaded() {
-    return new Promise((resolve, reject) => {resolve()});
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
   }
 }
 
@@ -70,5 +72,4 @@ class TestChartComponent {
       ],
       options: {'title': 'Countries'},
     };
-  public onChange(v: boolean) {}
 }
