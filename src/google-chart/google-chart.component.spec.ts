@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
-import { GoogleChartsModule } from '../google-charts.module';
+import { Ng2GoogleChartsModule } from '../google-charts.module';
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 
 class MockGoogleChartsLoaderService {
@@ -25,7 +25,7 @@ describe('Component: GoogleChart', () => {
       ],
       imports: [
         FormsModule,
-        GoogleChartsModule
+        Ng2GoogleChartsModule
       ],
       providers: [
           {
