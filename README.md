@@ -2,8 +2,7 @@
 
 > Google Charts module for Angular 2
 
-Please see [this page](https://gmazzamuto.github.io/ng2-google-charts) for a
-live demo.
+Please see [this page][example-page] for a live demo.
 
 [![NPM Version][npm-image]][npm-url]
 
@@ -54,8 +53,7 @@ pieChartOptions =  {
 };
 ```
 
-Please see [this page](https://gmazzamuto.github.io/ng2-google-charts) and the
-[example](example) folder for a demo with more examples.
+Please see [this page][example-page] for a demo with more examples.
 
 ## License
 
@@ -63,3 +61,4 @@ Please see [this page](https://gmazzamuto.github.io/ng2-google-charts) and the
 
 [npm-image]: https://img.shields.io/npm/v/ng2-google-charts.svg
 [npm-url]: https://npmjs.org/package/ng2-google-charts
+[example-page]: https://gmazzamuto.github.io/ng2-google-charts/example/
