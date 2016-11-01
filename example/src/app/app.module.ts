@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Ng2GoogleChartsModule } from '../../../ng2-google-charts';
 
 @NgModule({
   declarations: [
