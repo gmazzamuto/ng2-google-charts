@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() { }
-
   columnChartOptions =  {
     chartType: 'ColumnChart',
     dataTable: [
@@ -72,12 +70,16 @@ export class AppComponent {
     }
   };
 
+  constructor() { }
+
   myClick() {
     // forces a reference update (otherwise angular doesn't detect the change)
     this.columnChartOptions = Object.create(this.columnChartOptions);
-    for(let i = 1; i < 7; i++) {
-      this.columnChartOptions.dataTable[i][1] = Math.round(Math.random()*1000);
-      this.columnChartOptions.dataTable[i][2] = Math.round(Math.random()*1000);
+    for (let i = 1; i < 7; i++) {
+      this.columnChartOptions.dataTable[i][1] = Math.round(
+        Math.random() * 1000);
+      this.columnChartOptions.dataTable[i][2] = Math.round(
+        Math.random() * 1000);
     }
   }
 }
