@@ -1,20 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { TestBed, async } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 
-import { FormsModule } from '@angular/forms';
-
-import { GoogleChartsModule } from '../modules/google-charts/google-charts.module';
-
-describe('App: Ng2GoogleCharts', () => {
+describe('App: Ng2GoogleChartsExample', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-      ],
       imports: [
-        FormsModule,
-        GoogleChartsModule
+        AppModule
       ]
     });
   });
