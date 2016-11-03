@@ -5,6 +5,7 @@
 Please see [this page][example-page] for a live demo.
 
 [![NPM Version][npm-image]][npm-url]
+[![Downloads][npm-downloads-image]][npm-downloads-url]
 
 ## Install
 
@@ -61,4 +62,6 @@ Please see [this page][example-page] for a demo with more examples.
 
 [npm-image]: https://img.shields.io/npm/v/ng2-google-charts.svg
 [npm-url]: https://npmjs.org/package/ng2-google-charts
+[npm-downloads-image]: http://img.shields.io/npm/dm/ng2-google-charts.svg
+[npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
 [example-page]: https://gmazzamuto.github.io/ng2-google-charts/example/
