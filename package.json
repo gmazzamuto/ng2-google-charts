@@ -4,11 +4,13 @@
   "description": "Angular2 Google Charts module",
   "main": "build/ng2-google-charts.js",
   "typings": "build/ng2-google-charts.d.ts",
+  "files": "build",
   "scripts": {
     "flow:lint": "tslint src/*.ts src/**/*.ts",
     "flow.install:typings": "typings install",
     "flow:compile": "rm -rf build && tsc",
     "build": "npm run flow:lint && npm run flow.install:typings && npm run flow:compile",
+    "prepublish": "npm run build",
     "test": "karma start",
     "test:ci": "karma start --singleRun"
   },
@@ -22,7 +24,7 @@
     "Google",
     "Charts"
   ],
-  "author": "gmazzamuto@gmail.com",
+  "author": "Giacomo Mazzamuto",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gmazzamuto/ng2-google-charts/issues"
