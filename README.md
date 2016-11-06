@@ -58,7 +58,7 @@ Please see [this page][example-page] for a demo with more examples.
 
 ## License
 
-[MIT](http://vjpr.mit-license.org)
+[MIT](LICENSE.md)
 
 [npm-image]: https://img.shields.io/npm/v/ng2-google-charts.svg
 [npm-url]: https://npmjs.org/package/ng2-google-charts
