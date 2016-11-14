@@ -3,8 +3,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
-
 import { Ng2GoogleChartsModule } from '../google-charts.module';
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 
@@ -26,7 +24,6 @@ describe('Component: GoogleChart', () => {
         TestChartComponent,
       ],
       imports: [
-        FormsModule,
         Ng2GoogleChartsModule
       ],
       providers: [
@@ -56,7 +53,7 @@ describe('Component: GoogleChart', () => {
 
 @Component({
   selector: 'app-test-chart',
-  template: '<google-chart [(ngModel)]="testChartData" ngDefaultControl></google-chart>',
+  template: '<google-chart data="testChartData"></google-chart>',
 })
 class TestChartComponent {
   public testChartData =  {

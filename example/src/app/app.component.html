@@ -1,11 +1,11 @@
 <h1>Column chart</h1>
-<google-chart [(ngModel)]="columnChartOptions"></google-chart>
+<google-chart [data]="columnChartOptions"></google-chart>
 <input type="button" value="Change data" (click)="myClick()">
 <h1>Pie chart</h1>
-<google-chart [(ngModel)]="pieChartOptions"></google-chart>
+<google-chart [data]="pieChartOptions"></google-chart>
 <h1>Gauge</h1>
 <div style="width: 1px; margin: 0 auto;">
-  <google-chart [(ngModel)]="gaugeChartOptions"></google-chart>
+  <google-chart [data]="gaugeChartOptions"></google-chart>
 </div>
 <h1>Scatter chart</h1>
-<google-chart [(ngModel)]="scatterChartOptions"></google-chart>
+<google-chart [data]="scatterChartOptions"></google-chart>

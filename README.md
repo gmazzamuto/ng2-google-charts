@@ -36,7 +36,7 @@ export class AppModule { }
 
 In your templates, use the `google-chart` component like this:
 ```html
-<google-chart [(ngModel)]="pieChartOptions"></google-chart>
+<google-chart [data]="pieChartOptions"></google-chart>
 ```
 and in the corresponding `.ts` file:
 ```ts
