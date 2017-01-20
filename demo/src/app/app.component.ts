@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  columnChartOptions =  {
+  public columnChartOptions:any =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -18,10 +18,10 @@ export class AppComponent {
       ['France', 600, 1100],
       ['RU', 800, 1000]
     ],
-    options: {'title': 'Countries'},
+    options: {title: 'Countries'}
   };
 
-  pieChartOptions =  {
+  public pieChartOptions:any =  {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -31,10 +31,10 @@ export class AppComponent {
       ['Watch TV', 2],
       ['Sleep',    7]
     ],
-    options: {'title': 'Tasks'},
+    options: {title: 'Tasks'}
   };
 
-  gaugeChartOptions =  {
+  public gaugeChartOptions:any =  {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -48,10 +48,10 @@ export class AppComponent {
       min: 0, max: 5,
       majorTicks: ['0', '1', '2', '3', '4', '5'],
       greenColor: '#d0e9c6'
-    },
+    }
   };
 
-  scatterChartOptions = {
+  public scatterChartOptions:any = {
     chartType: 'ScatterChart',
     dataTable: [
       ['Age', 'Weight'],
@@ -70,9 +70,7 @@ export class AppComponent {
     }
   };
 
-  constructor() { }
-
-  myClick() {
+ public myClick():void {
     // forces a reference update (otherwise angular doesn't detect the change)
     this.columnChartOptions = Object.create(this.columnChartOptions);
     for (let i = 1; i < 7; i++) {

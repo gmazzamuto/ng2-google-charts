@@ -7,11 +7,13 @@ import { Ng2GoogleChartsModule } from '../google-charts.module';
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 
 class MockGoogleChartsLoaderService {
-  load() {
+  public load():Promise {
     return this.waitForLoaded();
   }
-  waitForLoaded() {
-    return new Promise((resolve, reject) => {
+
+  private waitForLoaded():Promise {
+    return new Promise((resolve:Function.prototype,
+      reject:Function.prototype) => {
       resolve();
     });
   }
@@ -21,7 +23,7 @@ describe('Component: GoogleChart', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        TestChartComponent,
+        TestChartComponent
       ],
       imports: [
         Ng2GoogleChartsModule
@@ -53,10 +55,10 @@ describe('Component: GoogleChart', () => {
 
 @Component({
   selector: 'app-test-chart',
-  template: '<google-chart data="testChartData"></google-chart>',
+  template: '<google-chart data="testChartData"></google-chart>'
 })
 class TestChartComponent {
-  public testChartData =  {
+  public testChartData:any =  {
       chartType: 'ColumnChart',
       dataTable: [
         ['Country', 'Performance', 'Profits'],
@@ -67,6 +69,6 @@ class TestChartComponent {
         ['France', 600, 1100],
         ['RU', 800, 1000]
       ],
-      options: {'title': 'Countries'},
+      options: {title: 'Countries'}
     };
 }

@@ -17,16 +17,22 @@ import { GoogleChartsLoaderService } from '../google-charts-loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GoogleChartComponent implements OnChanges {
-  @Input()
-  data: any;
+  @Input() private data: any;
 
-  wrapper: any;
+  private wrapper: any;
 
-  constructor(private el: ElementRef,
-    private loaderService: GoogleChartsLoaderService) {}
+  private el: ElementRef;
+  private loaderService: GoogleChartsLoaderService;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']) {
+  public constructor(el: ElementRef,
+                     loaderService: GoogleChartsLoaderService) {
+    this.el = el;
+    this.loaderService = loaderService;
+  }
+
+  public ngOnChanges(changes: SimpleChanges):void {
+    let key = 'data';
+    if (changes[key]) {
       if(this.data === null) {
         return;
       }

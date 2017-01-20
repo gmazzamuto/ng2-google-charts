@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 
-import { GoogleChartComponent } from "./google-chart/google-chart.component";
-import { GoogleChartsLoaderService } from "./google-charts-loader.service";
+import { GoogleChartComponent } from './google-chart/google-chart.component';
+import { GoogleChartsLoaderService } from './google-charts-loader.service';
 
 @NgModule({
     declarations: [
-      GoogleChartComponent,
+      GoogleChartComponent
     ],
     providers: [
-      GoogleChartsLoaderService,
+      GoogleChartsLoaderService
     ],
     exports: [
-      GoogleChartComponent,
+      GoogleChartComponent
     ]
 })
 export class Ng2GoogleChartsModule {
