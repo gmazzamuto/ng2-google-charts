@@ -91,6 +91,6 @@
     "tslint-config-valorsoft": "1.2.0",
     "typescript": "2.1.5",
     "webdriver-manager": "11.1.1",
-    "zone.js": "0.7.5"
+    "zone.js": "^0.7.6"
   }
 }

@@ -1,21 +1,23 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
-describe('AppComponent', () => {
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
+describe('App: Ng2GoogleCharts', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        Ng2GoogleChartsModule
+      ]
     });
-    TestBed.compileComponents();
   });
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    let fixture = TestBed.createComponent(AppComponent);
+    let app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
 });
