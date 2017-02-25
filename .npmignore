@@ -1,0 +1,9 @@
+example/
+typings/
+karma*
+tsconfig.json
+tslint.json
+typings.json
+*.ts
+!*.d.ts
+.*
