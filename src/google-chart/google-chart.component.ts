@@ -33,7 +33,7 @@ export class GoogleChartComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges):void {
     let key = 'data';
     if (changes[key]) {
-      if(this.data === null) {
+      if(!this.data) {
         return;
       }
 
