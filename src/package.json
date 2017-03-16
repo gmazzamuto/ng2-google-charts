@@ -1,6 +1,6 @@
 {
   "name": "ng2-google-charts",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "dependencies": {
     "moment": "*"
   },
