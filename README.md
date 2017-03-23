@@ -15,11 +15,6 @@ npm i --save ng2-google-charts
 
 ## Usage
 
-Add the following inside the `<head>` element in your `index.html`:
-```html
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-```
-
 Import the `Ng2GoogleChartsModule` in your `app.module.ts`:
 ```ts
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
