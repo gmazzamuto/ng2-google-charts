@@ -37,7 +37,7 @@ export class GoogleChartsLoaderService {
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
   private googleScriptIsLoading: boolean;
 
-  constructor() {
+  public constructor() {
     this.googleScriptLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
   }
@@ -51,7 +51,7 @@ export class GoogleChartsLoaderService {
           callback: resolve
         });
       }).catch(() => {
-        console.error("Google charts script could not be loaded");
+        console.error('Google charts script could not be loaded');
       });
 
     });
@@ -60,15 +60,15 @@ export class GoogleChartsLoaderService {
   private loadGoogleChartsScript(): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
-      if (typeof google !== "undefined" && google.charts) {
+      if (typeof google !== 'undefined' && google.charts) {
         resolve();
       } else if ( ! this.googleScriptIsLoading) {
 
         this.googleScriptIsLoading = true;
 
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://www.gstatic.com/charts/loader.js";
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://www.gstatic.com/charts/loader.js';
         script.async = true;
         script.defer = true;
         script.onload = () => {
@@ -81,7 +81,7 @@ export class GoogleChartsLoaderService {
           this.googleScriptLoadingNotifier.emit(false);
           reject();
         };
-        document.getElementsByTagName("head")[0].appendChild(script);
+        document.getElementsByTagName('head')[0].appendChild(script);
 
       } else {
         this.googleScriptLoadingNotifier.subscribe((loaded: boolean) => {
