@@ -17,7 +17,7 @@ import { GoogleChartsLoaderService } from '../google-charts-loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GoogleChartComponent implements OnChanges {
-  @Input() private data: any;
+  @Input() public data: any;
 
   private wrapper: any;
 
