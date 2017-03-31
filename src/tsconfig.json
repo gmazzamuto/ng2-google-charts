@@ -16,15 +16,15 @@
     "noUnusedParameters": false,
     "lib": ["dom", "es6"],
     "types": [
-      "jasmine",
-      "webpack"
+      "jasmine"
     ],
     "typeRoots": [
       "../node_modules/@types"
     ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "../node_modules"
   ],
   "files": [
     "./index.ts"
