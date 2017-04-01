@@ -84,19 +84,21 @@ export class GoogleChartComponent implements OnChanges {
       let selection: {row: number; column: number} = this.wrapper.visualization.getSelection()[0];
 
       if (selection !== undefined) {
-        let dataTable = this.wrapper.getDataTable();
-        let numberOfColumns = dataTable.getNumberOfColumns();
         let selectedRowValues = [];
 
-        for (let i = 0; i < numberOfColumns; i++) {
-          selectedRowValues.push(dataTable.getValue(selection.row, i));
+        if (selection.row !== null) {
+          let dataTable = this.wrapper.getDataTable();
+          let numberOfColumns = dataTable.getNumberOfColumns();
+          for (let i = 0; i < numberOfColumns; i++) {
+            selectedRowValues.push(dataTable.getValue(selection.row, i));
+          }
         }
 
         event = {
           message: 'select',
           row: selection.row,
           column: selection.column,
-          selectedRowValues: [selectedRowValues]
+          ['selectedRowValues']: selectedRowValues
         };
       } else {
         event = {
