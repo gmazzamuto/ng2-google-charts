@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ChartReadyEvent } from 'ng2-google-charts';
+import { ChartErrorEvent } from 'ng2-google-charts';
+import { ChartSelectEvent } from 'ng2-google-charts';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +9,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  public selectEvent: ChartSelectEvent;
 
   public columnChartOptions:any =  {
     chartType: 'ColumnChart',
@@ -80,6 +85,18 @@ export class AppComponent {
     ]
  }
 
+ public lineChartOptions:any =  {
+    chartType: 'LineChart',
+    dataTable: [
+      ['Year', 'Sales', 'Expenses'],
+      ['2004',  1000,      400],
+      ['2005',  1170,      460],
+      ['2006',  660,       1120],
+      ['2007',  1030,      540]
+    ],
+    options: {title: 'Company Performance'}
+  };
+
  public myClick():void {
     // forces a reference update (otherwise angular doesn't detect the change)
     this.columnChartOptions = Object.create(this.columnChartOptions);
@@ -90,4 +107,17 @@ export class AppComponent {
         Math.random() * 1000);
     }
   }
+
+  public ready(event: ChartReadyEvent) {
+    console.log(event.message);
+  }
+
+  public error(event: ChartErrorEvent) {
+    console.error(event);
+  }
+
+  public select(event: ChartSelectEvent) {
+    this.selectEvent = event;
+  }
+
 }

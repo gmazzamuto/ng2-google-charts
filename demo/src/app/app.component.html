@@ -11,3 +11,8 @@
 <google-chart [data]="scatterChartOptions"></google-chart>
 <h1>Timeline chart</h1>
 <google-chart [data]="timelineChartOptions"></google-chart>
+<h1>Line chart with events</h1>
+<h4>Selected row: {{selectEvent?.row}}</h4>
+<h4>Selected column: {{selectEvent?.column}}</h4>
+<pre>{{selectEvent | json}}</pre>
+<google-chart [data]="lineChartOptions" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
