@@ -51,6 +51,106 @@ pieChartOptions =  {
 
 Please see [this page][example-page] for a demo with more examples.
 
+## Events
+
+### Ready
+
+The `ready` event is fired when a chart is completely loaded.
+
+Bind the `chartReady` event in `google-chart` component, like this:
+```html
+<google-chart [data]='pieChartOptions' (chartReady)='ready($event)'></google-chart>
+```
+
+It returns an event which interface looks like this:
+```ts
+interface ChartReadyEvent {
+  message: string;
+}
+```
+
+You can import `ChartReadyEvent` interface in your `.ts` file:
+```ts
+import { ChartReadyEvent } from 'ng2-google-charts';
+```
+
+and then use it like:
+```ts
+public ready(event: ChartReadyEvent) {
+  // your logic
+}
+```
+
+### Error
+
+The `error` event is fired if there are some errors with a chart.
+
+Bind the `chartError` event in `google-chart` component, like this:
+```html
+<google-chart [data]='pieChartOptions' (chartError)='error($event)'></google-chart>
+```
+
+It returns an event which interface looks like this:
+```ts
+interface ChartErrorEvent {
+  id: string;
+  message: string;
+  detailedMessage: string;
+  options: Object;
+}
+```
+
+You can import `ChartErrorEvent` interface in your `.ts` file:
+```ts
+import { ChartErrorEvent } from 'ng2-google-charts';
+```
+
+and then use it like:
+```ts
+public error(event: ChartErrorEvent) {
+  // your logic
+}
+```
+
+See more details about [returned values for error event][google-charts-error-event]
+
+### Select
+
+The `select` event is fired when a chart is selected/clicked.
+
+Bind the `chartSelect` event in `google-chart` component, like this:
+```html
+<google-chart [data]='pieChartOptions' (chartSelect)='select($event)'></google-chart>
+```
+
+It returns an event which interface looks like this:
+```ts
+interface ChartSelectEvent {
+  message: string;
+  row: number | null;
+  column: number | null;
+  selectedRowValues: any[];
+}
+```
+
+You can import `ChartSelectEvent` interface in your `.ts` file:
+```ts
+import { ChartSelectEvent } from 'ng2-google-charts';
+```
+
+and then use it like:
+```ts
+public select(event: ChartSelectEvent) {
+  // your logic
+}
+```
+
+#### Notes
+* You could bind all events at once in `google-chart` component:
+```html
+<google-chart [data]='pieChartOptions' (chartReady)='ready($event)' (chartError)='error($event)' (chartSelect)='select($event)'>
+```
+
 ## License
 
 [MIT](LICENSE.md)
@@ -60,3 +160,4 @@ Please see [this page][example-page] for a demo with more examples.
 [npm-downloads-image]: http://img.shields.io/npm/dm/ng2-google-charts.svg
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
 [example-page]: https://gmazzamuto.github.io/ng2-google-charts
+[google-charts-error-event]: https://developers.google.com/chart/interactive/docs/events#the-error-event
