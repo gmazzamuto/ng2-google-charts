@@ -57,19 +57,19 @@ Please see [this page][example-page] for a demo with more examples.
 
 The `ready` event is fired when a chart is completely loaded.
 
-Bind the `chartReady` event in `google-chart` component, like this:
+Bind the `chartReady` event in the `google-chart` component like this:
 ```html
 <google-chart [data]='pieChartOptions' (chartReady)='ready($event)'></google-chart>
 ```
 
-It returns an event which interface looks like this:
+Your `ready()` function is passed an event whose interface looks like this:
 ```ts
 interface ChartReadyEvent {
   message: string;
 }
 ```
 
-You can import `ChartReadyEvent` interface in your `.ts` file:
+You can import the `ChartReadyEvent` interface in your `.ts` file:
 ```ts
 import { ChartReadyEvent } from 'ng2-google-charts';
 ```
@@ -85,12 +85,12 @@ public ready(event: ChartReadyEvent) {
 
 The `error` event is fired if there are some errors with a chart.
 
-Bind the `chartError` event in `google-chart` component, like this:
+Bind the `chartError` event in the `google-chart` component, like this:
 ```html
 <google-chart [data]='pieChartOptions' (chartError)='error($event)'></google-chart>
 ```
 
-It returns an event which interface looks like this:
+Your `error()` function is passed an event whose interface looks like this:
 ```ts
 interface ChartErrorEvent {
   id: string;
@@ -100,7 +100,7 @@ interface ChartErrorEvent {
 }
 ```
 
-You can import `ChartErrorEvent` interface in your `.ts` file:
+You can import the `ChartErrorEvent` interface in your `.ts` file:
 ```ts
 import { ChartErrorEvent } from 'ng2-google-charts';
 ```
@@ -112,18 +112,18 @@ public error(event: ChartErrorEvent) {
 }
 ```
 
-See more details about [returned values for error event][google-charts-error-event]
+See more details about [returned values for error event][google-charts-error-event].
 
 ### Select
 
 The `select` event is fired when a chart is selected/clicked.
 
-Bind the `chartSelect` event in `google-chart` component, like this:
+Bind the `chartSelect` event in the `google-chart` component, like this:
 ```html
 <google-chart [data]='pieChartOptions' (chartSelect)='select($event)'></google-chart>
 ```
 
-It returns an event which interface looks like this:
+Your `select()` function is passed an event whose interface looks like this:
 ```ts
 interface ChartSelectEvent {
   message: string;
@@ -133,7 +133,7 @@ interface ChartSelectEvent {
 }
 ```
 
-You can import `ChartSelectEvent` interface in your `.ts` file:
+You can import the `ChartSelectEvent` interface in your `.ts` file:
 ```ts
 import { ChartSelectEvent } from 'ng2-google-charts';
 ```
@@ -143,12 +143,6 @@ and then use it like:
 public select(event: ChartSelectEvent) {
   // your logic
 }
-```
-
-#### Notes
-* You could bind all events at once in `google-chart` component:
-```html
-<google-chart [data]='pieChartOptions' (chartReady)='ready($event)' (chartError)='error($event)' (chartSelect)='select($event)'>
 ```
 
 ## License
