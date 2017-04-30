@@ -15,6 +15,7 @@ import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
+import { MouseOverEvent }  from './mouse-over-event';
 
 @Component({
   selector: 'google-chart',
@@ -31,6 +32,8 @@ export class GoogleChartComponent implements OnChanges {
 
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
+  @Output() public onMouseOver:  EventEmitter<MouseOverEvent>;
+
   private wrapper: any;
 
   private el: ElementRef;
@@ -44,6 +47,7 @@ export class GoogleChartComponent implements OnChanges {
     this.chartSelect = new EventEmitter();
     this.chartReady = new EventEmitter();
     this.chartError = new EventEmitter();
+    this.onMouseOver = new EventEmitter();
     this.eventsLoaded = false;
   }
 
@@ -74,6 +78,12 @@ export class GoogleChartComponent implements OnChanges {
     google.visualization.events.addListener(this.wrapper, 'ready', () => {
       this.chartReady.emit({message: 'Chart ready'});
     });
+
+    if(this.onMouseOver.observers.length > 0 ) {
+      google.visualization.events.addListener(this.wrapper, 'onmouseover', (item: object) => {
+        this.onMouseOver.emit({chart:this.wrapper, hoveredItem: item});
+      });
+    }
 
     google.visualization.events.addListener(this.wrapper, 'error', (error: any) => {
       this.chartError.emit(error as ChartErrorEvent);
