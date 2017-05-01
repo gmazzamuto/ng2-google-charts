@@ -15,7 +15,8 @@ import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
-import { MouseOverEvent }  from './mouse-over-event';
+import { DataPointHoveredEvent , BoundingBox , DataPointPosition }  from './datapoint-hovered-event';
+import { ChartHTMLTooltip }  from './chart-html-tooltip';
 
 @Component({
   selector: 'google-chart',
@@ -32,9 +33,11 @@ export class GoogleChartComponent implements OnChanges {
 
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
-  @Output() public onMouseOver:  EventEmitter<MouseOverEvent>;
+  @Output() public onMouseOver:  EventEmitter<DataPointHoveredEvent>;
 
   private wrapper: any;
+  private cli: any;
+  private options: any;
 
   private el: ElementRef;
   private loaderService: GoogleChartsLoaderService;
@@ -54,36 +57,133 @@ export class GoogleChartComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges):void {
     let key = 'data';
     if (changes[key]) {
+
       if(!this.data) {
         return;
       }
+
+      this.options = this.data.options;
 
       this.loaderService.load(this.data.chartType).then(() => {
         if(this.wrapper === undefined) {
           this.wrapper = new google.visualization.ChartWrapper(this.data);
         } else {
+          this.unregisterChartEvents();
           this.wrapper.setDataTable(this.data.dataTable);
-          this.wrapper.setOptions(this.data.options);
+          this.wrapper.setOptions(this.options);
         }
-        if ( ! this.eventsLoaded) {
+        if (!this.eventsLoaded) {
+          this.registerChartWrapperEvents();
           this.eventsLoaded = true;
-          this.registerChartEvents();
         }
         this.wrapper.draw(this.el.nativeElement.querySelector('div'));
       });
     }
   }
 
-  private registerChartEvents(): void {
-    google.visualization.events.addListener(this.wrapper, 'ready', () => {
-      this.chartReady.emit({message: 'Chart ready'});
-    });
+  private getSelectorBySeriesType(seriesType: string): string {
+    let selectors: any = {
+      bars : 'bar#%s#%r',
+      haxis : 'hAxis#0#label',
+      line: 'point#%s#%r',
+      legend : 'legendentry#%s'
+    };
 
+    let selector: string = selectors[seriesType];
+
+    return selector;
+  }
+
+ /**
+  * Given a column number, counts how many
+  * columns have rol=="data". Those are mapped
+  * one-to-one to the series array. When rol is not defined
+  * a column of type number means a series column.
+  * @param column to inspect
+  */
+  private getSeriesByColumn(column:number): number  {
+    let series: number = 0;
+    let dataTable = this.wrapper.getDataTable();
+    for(let i=column-1; i>=0; i--) {
+      let role = dataTable.getColumnRole(i);
+      let type = dataTable.getColumnType(i);
+      if(role === 'data' || type === 'number' ) {
+        series++;
+      }
+    }
+    return series;
+  }
+
+  private getBoundingBoxForItem(item: DataPointPosition): BoundingBox {
+    let boundingBox = {top : 0, left:0, width:0, height:0};
+    if(this.cli) {
+      let column = item.column;
+      let series = this.getSeriesByColumn(column);
+      let bar = item.row;
+      let row = item.row;
+
+      if(this.options.series && this.options.series[series] && (this.options.series[series].type || this.options.seriesType) ) {
+        let seriesType = this.options.series[series].type || this.options.seriesType;
+        let selector = this.getSelectorBySeriesType(seriesType);
+        if(selector) {
+             selector = selector.replace('%s',series + '').replace('%c',column+'').replace('%r',row+'');
+             let box = this.cli.getBoundingBox(selector);
+             if(box) {
+              boundingBox = box;
+             }
+        }
+      }
+    }
+
+    return boundingBox;
+  }
+
+  private getDataValueAtPosition(position: DataPointPosition):any {
+    return {};
+  }
+
+  private getDataTypeAtPosition(position: DataPointPosition):string {
+    return '';
+  }
+
+  private getHTMLTooltip(): ChartHTMLTooltip {
+    let tooltipER = new ElementRef(this.el.nativeElement.querySelector('.google-visualization-tooltip'));
+    return new ChartHTMLTooltip(tooltipER);
+  }
+
+  private parseDataPointHoveredEvent(item: DataPointPosition): DataPointHoveredEvent {
+        let event = {
+          hoveredItemPosition: item,
+          hoveredItemBoundingBox: this.getBoundingBoxForItem(item),
+          hoveredItemValue: this.getDataValueAtPosition(item),
+          tooltip: this.getHTMLTooltip(),
+          hoveredItemType: this.getDataTypeAtPosition(item)
+        };
+        return event;
+  }
+
+  private unregisterChartEvents():void {
+    let chart = this.wrapper.getChart();
+    google.visualization.events.removeAllListeners(chart);
+  }
+
+  private registerChartEvents(): void {
     if(this.onMouseOver.observers.length > 0 ) {
-      google.visualization.events.addListener(this.wrapper, 'onmouseover', (item: object) => {
-        this.onMouseOver.emit({chart:this.wrapper, hoveredItem: item});
+      let chart = this.wrapper.getChart();
+      this.cli = chart.getChartLayoutInterface();
+      google.visualization.events.addListener(chart, 'onmouseover', (item: DataPointPosition) => {
+        let event = this.parseDataPointHoveredEvent(item);
+        this.onMouseOver.emit(event);
       });
     }
+  }
+
+  private registerChartWrapperEvents(): void {
+
+    google.visualization.events.addListener(this.wrapper, 'ready', () => {
+      this.chartReady.emit({message: 'Chart ready'});
+      this.registerChartEvents();
+    });
 
     google.visualization.events.addListener(this.wrapper, 'error', (error: any) => {
       this.chartError.emit(error as ChartErrorEvent);
