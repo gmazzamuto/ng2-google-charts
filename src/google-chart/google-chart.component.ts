@@ -33,7 +33,7 @@ export class GoogleChartComponent implements OnChanges {
 
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
-  @Output() public onMouseOver:  EventEmitter<DataPointHoveredEvent>;
+  @Output() public mouseOver:  EventEmitter<DataPointHoveredEvent>;
 
   private wrapper: any;
   private cli: any;
@@ -50,7 +50,7 @@ export class GoogleChartComponent implements OnChanges {
     this.chartSelect = new EventEmitter();
     this.chartReady = new EventEmitter();
     this.chartError = new EventEmitter();
-    this.onMouseOver = new EventEmitter();
+    this.mouseOver = new EventEmitter();
     this.eventsLoaded = false;
   }
 
@@ -121,9 +121,11 @@ export class GoogleChartComponent implements OnChanges {
       let series = this.getSeriesByColumn(column);
       let bar = item.row;
       let row = item.row;
-
-      if(this.options.series && this.options.series[series] && (this.options.series[series].type || this.options.seriesType) ) {
-        let seriesType = this.options.series[series].type || this.options.seriesType;
+      let seriesType = this.options.seriesType;
+      if(this.options.series && this.options.series[series] && this.options.series[series].type) {
+        seriesType = this.options.series[series].type;
+      }
+      if(seriesType) {
         let selector = this.getSelectorBySeriesType(seriesType);
         if(selector) {
              selector = selector.replace('%s',series + '').replace('%c',column+'').replace('%r',row+'');
@@ -139,11 +141,15 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private getDataValueAtPosition(position: DataPointPosition):any {
-    return {};
+    let dataTable = this.wrapper.getDataTable();
+    let value = dataTable.getValue(position.row,position.column);
+    return value;
   }
 
   private getDataTypeAtPosition(position: DataPointPosition):string {
-    return '';
+      let dataTable = this.wrapper.getDataTable();
+      let type = dataTable.getColumnType(position.column) || '';
+      return type;
   }
 
   private getHTMLTooltip(): ChartHTMLTooltip {
@@ -168,12 +174,12 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private registerChartEvents(): void {
-    if(this.onMouseOver.observers.length > 0 ) {
+    if(this.mouseOver.observers.length > 0 ) {
       let chart = this.wrapper.getChart();
       this.cli = chart.getChartLayoutInterface();
       google.visualization.events.addListener(chart, 'onmouseover', (item: DataPointPosition) => {
         let event = this.parseDataPointHoveredEvent(item);
-        this.onMouseOver.emit(event);
+        this.mouseOver.emit(event);
       });
     }
   }

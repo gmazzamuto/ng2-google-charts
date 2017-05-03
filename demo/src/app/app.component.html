@@ -17,4 +17,4 @@
 <pre>{{selectEvent | json}}</pre>
 <google-chart [data]="lineChartOptions" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
 <h1>Combo chart</h1>
-<google-chart [data]="comboChartOptions" (onMouseOver)="mouseOver($event)"></google-chart>
+<google-chart [data]="comboChartOptions" (mouseOver)="mouseOver($event)"></google-chart>
