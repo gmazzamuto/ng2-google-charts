@@ -152,6 +152,12 @@ export class GoogleChartComponent implements OnChanges {
       return type;
   }
 
+  private getColumnLabelAtPosition(position: DataPointPosition):string {
+      let dataTable = this.wrapper.getDataTable();
+      let type = dataTable.getColumnLabel(position.column) || '';
+      return type;
+  }
+
   private getHTMLTooltip(): ChartHTMLTooltip {
     let tooltipER = new ElementRef(this.el.nativeElement.querySelector('.google-visualization-tooltip'));
     return new ChartHTMLTooltip(tooltipER);
@@ -163,7 +169,8 @@ export class GoogleChartComponent implements OnChanges {
           boundingBox: this.getBoundingBoxForItem(item),
           value: this.getValueAtPosition(item),
           tooltip: this.getHTMLTooltip(),
-          columnType: this.getColumnTypeAtPosition(item)
+          columnType: this.getColumnTypeAtPosition(item),
+          columnLabel: this.getColumnLabelAtPosition(item)
         };
         return event;
   }

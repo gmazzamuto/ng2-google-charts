@@ -144,6 +144,7 @@ export class AppComponent {
     console.log('bb: ' + JSON.stringify(event.boundingBox));
     console.log('pos: ' + JSON.stringify(event.position));
     console.log('type: ' + JSON.stringify(event.columnType));
+    console.log('label: ' + JSON.stringify(event.columnLabel));
     console.log('value: ' + JSON.stringify(event.value));
   }
 

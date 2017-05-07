@@ -18,4 +18,5 @@ export interface DataPointHoveredEvent {
   value: any;
   tooltip: ChartHTMLTooltip | null;
   columnType: string;
+  columnLabel: string;
 }
