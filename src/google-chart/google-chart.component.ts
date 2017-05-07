@@ -140,13 +140,13 @@ export class GoogleChartComponent implements OnChanges {
     return boundingBox;
   }
 
-  private getDataValueAtPosition(position: DataPointPosition):any {
+  private getValueAtPosition(position: DataPointPosition):any {
     let dataTable = this.wrapper.getDataTable();
     let value = dataTable.getValue(position.row,position.column);
     return value;
   }
 
-  private getDataTypeAtPosition(position: DataPointPosition):string {
+  private getColumnTypeAtPosition(position: DataPointPosition):string {
       let dataTable = this.wrapper.getDataTable();
       let type = dataTable.getColumnType(position.column) || '';
       return type;
@@ -159,11 +159,11 @@ export class GoogleChartComponent implements OnChanges {
 
   private parseDataPointHoveredEvent(item: DataPointPosition): DataPointHoveredEvent {
         let event = {
-          hoveredItemPosition: item,
-          hoveredItemBoundingBox: this.getBoundingBoxForItem(item),
-          hoveredItemValue: this.getDataValueAtPosition(item),
+          position: item,
+          boundingBox: this.getBoundingBoxForItem(item),
+          value: this.getValueAtPosition(item),
           tooltip: this.getHTMLTooltip(),
-          hoveredItemType: this.getDataTypeAtPosition(item)
+          columnType: this.getColumnTypeAtPosition(item)
         };
         return event;
   }

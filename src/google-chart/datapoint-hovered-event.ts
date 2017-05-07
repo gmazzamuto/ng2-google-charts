@@ -13,9 +13,9 @@ export interface BoundingBox {
 }
 
 export interface DataPointHoveredEvent {
-  hoveredItemPosition: DataPointPosition;
-  hoveredItemBoundingBox: BoundingBox;
-  hoveredItemValue: any;
+  position: DataPointPosition;
+  boundingBox: BoundingBox;
+  value: any;
   tooltip: ChartHTMLTooltip | null;
-  hoveredItemType: string;
+  columnType: string;
 }

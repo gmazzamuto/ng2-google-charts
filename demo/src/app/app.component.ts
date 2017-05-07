@@ -141,10 +141,10 @@ export class AppComponent {
   }
 
   public mouseOver(event: DataPointHoveredEvent) {
-    console.log('bb: ' + JSON.stringify(event.hoveredItemBoundingBox));
-    console.log('pos: ' + JSON.stringify(event.hoveredItemPosition));
-    console.log('type: ' + JSON.stringify(event.hoveredItemType));
-    console.log('value: ' + JSON.stringify(event.hoveredItemValue));
+    console.log('bb: ' + JSON.stringify(event.boundingBox));
+    console.log('pos: ' + JSON.stringify(event.position));
+    console.log('type: ' + JSON.stringify(event.columnType));
+    console.log('value: ' + JSON.stringify(event.value));
   }
 
 }
