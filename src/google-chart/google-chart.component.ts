@@ -141,6 +141,9 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private getValueAtPosition(position: DataPointPosition):any {
+    if(position.row === null) {
+      return null;
+    }
     let dataTable = this.wrapper.getDataTable();
     let value = dataTable.getValue(position.row,position.column);
     return value;
