@@ -53,9 +53,9 @@ Please see [this page][example-page] for a demo with more examples.
 
 ## Events
 
-### Ready
+### chartReady
 
-The `ready` event is fired when a chart is completely loaded.
+The `chartReady` event is fired when a chart is completely loaded.
 
 Bind the `chartReady` event in the `google-chart` component like this:
 ```html
@@ -81,9 +81,9 @@ public ready(event: ChartReadyEvent) {
 }
 ```
 
-### Error
+### chartError
 
-The `error` event is fired if there are some errors with a chart.
+The `chartError` event is fired if there are some errors with a chart.
 
 Bind the `chartError` event in the `google-chart` component, like this:
 ```html
@@ -114,9 +114,9 @@ public error(event: ChartErrorEvent) {
 
 See more details about [returned values for error event][google-charts-error-event].
 
-### Select
+### chartSelect
 
-The `select` event is fired when a chart is selected/clicked.
+The `chartSelect` event is fired when a chart is selected/clicked.
 
 Bind the `chartSelect` event in the `google-chart` component, like this:
 ```html
