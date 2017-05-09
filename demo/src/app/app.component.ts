@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChartReadyEvent } from 'ng2-google-charts';
 import { ChartErrorEvent } from 'ng2-google-charts';
 import { ChartSelectEvent } from 'ng2-google-charts';
-import { DataPointHoveredEvent } from 'ng2-google-charts';
+import { MouseOverEvent } from 'ng2-google-charts';
 
 @Component({
   selector: 'app-root',
@@ -149,7 +149,7 @@ export class AppComponent {
     this.selectEvent = event;
   }
 
-  public mouseOver(event: DataPointHoveredEvent) {
+  public mouseOver(event: MouseOverEvent) {
     console.log('bb: ' + JSON.stringify(event.boundingBox));
     console.log('pos: ' + JSON.stringify(event.position));
     console.log('type: ' + JSON.stringify(event.columnType));

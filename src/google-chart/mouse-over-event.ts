@@ -12,7 +12,7 @@ export interface BoundingBox {
   height: number;
 }
 
-export interface DataPointHoveredEvent {
+export interface MouseOverEvent {
   position: DataPointPosition;
   boundingBox: BoundingBox;
   value: any;
