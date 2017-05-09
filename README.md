@@ -145,6 +145,40 @@ public select(event: ChartSelectEvent) {
 }
 ```
 
+### mouseOver
+
+The `mouseOver` event is fired when the user moves the mouse over some chart
+item.
+
+Bind the `MouseOver` event in the `google-chart` component like this:
+```html
+<google-chart [data]="comboChartOptions" (mouseOver)="mouseOver($event)"></google-chart>
+```
+
+Your `mouseOver()` function is passed an event whose interface looks like this:
+```ts
+interface MouseOverEvent {
+  position: DataPointPosition;
+  boundingBox: BoundingBox;
+  value: any;
+  tooltip: ChartHTMLTooltip | null;
+  columnType: string;
+  columnLabel: string;
+}
+```
+
+You can import the `MouseOverEvent` interface in your `.ts` file:
+```ts
+import { MouseOverEvent } from 'ng2-google-charts';
+```
+
+and then use it like:
+```ts
+public mouseOver(event: MouseOverEvent) {
+  // your logic
+}
+```
+
 ## License
 
 [MIT](LICENSE.md)
