@@ -128,6 +128,15 @@ export class AppComponent {
     }
   }
 
+ public changeChartType():void {
+    // forces a reference update (otherwise angular doesn't detect the change)
+    this.columnChartOptions = Object.create(this.columnChartOptions);
+    if(this.columnChartOptions.chartType == 'ColumnChart')
+      this.columnChartOptions.chartType = 'PieChart';
+    else
+      this.columnChartOptions.chartType = 'ColumnChart';
+  }
+
   public ready(event: ChartReadyEvent) {
     console.log(event.message);
   }
