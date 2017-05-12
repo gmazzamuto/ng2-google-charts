@@ -117,6 +117,52 @@ export class AppComponent {
     }
   };
 
+  public tableChartOptions:any =  {
+    chartType: 'Table',
+    dataTable: [
+      ['Department', 'Revenues', 'Another column'],
+      ['Shoes', 10700, -100],
+      ['Sports', -15400, 25],
+      ['Toys', 12500, 40],
+      ['Electronics', -2100, 889],
+      ['Food', 22600, 78],
+      ['Art', 1100, 42]
+    ],
+    formatters: [
+      {
+        columns: [1, 2],
+        type: 'NumberFormat',
+        options: {
+          prefix: '&euro;', negativeColor: 'red', negativeParens: true
+        }
+      }
+    ],
+    options: {title: 'Countries', allowHtml: true}
+  };
+
+ public geoChartOptions:any =  {
+    chartType: 'GeoChart',
+    dataTable: [
+      ['City',   'Population', 'Area'],
+      ['Rome',      2761477,    1285.31],
+      ['Milan',     1324110,    181.76],
+      ['Naples',    959574,     117.27],
+      ['Turin',     907563,     130.17],
+      ['Palermo',   655875,     158.9],
+      ['Genoa',     607906,     243.60],
+      ['Bologna',   380181,     140.7],
+      ['Florence',  371282,     102.41],
+      ['Fiumicino', 67370,      213.44],
+      ['Anzio',     52192,      43.43],
+      ['Ciampino',  38262,      11]
+    ],
+    options: {
+      region: 'IT',
+      displayMode: 'markers',
+      colorAxis: {colors: ['green', 'blue']}
+    }
+  };
+
  public myClick():void {
     // forces a reference update (otherwise angular doesn't detect the change)
     this.columnChartOptions = Object.create(this.columnChartOptions);

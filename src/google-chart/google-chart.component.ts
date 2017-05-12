@@ -76,6 +76,16 @@ export class GoogleChartComponent implements OnChanges {
           this.registerChartWrapperEvents();
           this.eventsLoaded = true;
         }
+        if(this.data.formatters !== undefined) {
+            for(let formatterConfig of this.data.formatters) {
+              let formatterConstructor = google.visualization[formatterConfig.type];
+              let formatterOptions = formatterConfig.options;
+              let formatter = new formatterConstructor(formatterOptions);
+              for(let col of formatterConfig.columns) {
+                formatter.format(this.wrapper.getDataTable(), col);
+              }
+          }
+        }
         this.wrapper.draw(this.el.nativeElement.querySelector('div'));
       });
     }
