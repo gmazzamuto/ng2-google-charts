@@ -86,9 +86,13 @@ export class GoogleChartComponent implements OnChanges {
               }
           }
         }
-        this.wrapper.draw(this.el.nativeElement.querySelector('div'));
+        this.redraw();
       });
     }
+  }
+
+  public redraw(): void {
+    this.wrapper.draw(this.el.nativeElement.querySelector('div'));
   }
 
   private getSelectorBySeriesType(seriesType: string): string {
