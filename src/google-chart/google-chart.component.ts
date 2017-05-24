@@ -35,7 +35,7 @@ export class GoogleChartComponent implements OnChanges {
 
   @Output() public mouseOver:  EventEmitter<MouseOverEvent>;
 
-  private wrapper: any;
+  public wrapper: any;
   private cli: any;
   private options: any;
 
