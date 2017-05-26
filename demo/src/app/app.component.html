@@ -1,29 +1,29 @@
 <h1>Column chart</h1>
-<google-chart [data]="columnChartOptions"></google-chart>
+<google-chart [data]="columnChartData"></google-chart>
 <input type="button" value="Change data" (click)="changeData()"> <input type="button" value="Change chart type" (click)="changeChartType()">
 <p></p>
 <h4>Animated</h4>
-<google-chart #cchart [data]="columnChartOptions2"></google-chart>
+<google-chart #cchart [data]="columnChartData2"></google-chart>
 <input type="button" value="Change data" (click)="changeData2()">
 <h1>Pie chart</h1>
-<google-chart [data]="pieChartOptions"></google-chart>
+<google-chart [data]="pieChartData"></google-chart>
 <h1>Gauge</h1>
 <div style="width: 1px; margin: 0 auto;">
-  <google-chart [data]="gaugeChartOptions"></google-chart>
+  <google-chart [data]="gaugeChartData"></google-chart>
 </div>
 <h1>Scatter chart</h1>
-<google-chart [data]="scatterChartOptions"></google-chart>
+<google-chart [data]="scatterChartData"></google-chart>
 <h1>Timeline chart</h1>
-<google-chart [data]="timelineChartOptions"></google-chart>
+<google-chart [data]="timelineChartData"></google-chart>
 <h1>Line chart with events</h1>
 <h4>Selected row: {{selectEvent?.row}}</h4>
 <h4>Selected column: {{selectEvent?.column}}</h4>
 <pre>{{selectEvent | json}}</pre>
-<google-chart [data]="lineChartOptions" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
+<google-chart [data]="lineChartData" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
 <h1>Combo chart</h1>
 <p>See console log for mouse over events.
-<google-chart [data]="comboChartOptions" (mouseOver)="mouseOver($event)"></google-chart>
+<google-chart [data]="comboChartData" (mouseOver)="mouseOver($event)"></google-chart>
 <h1>Table with formatter</h1>
 <p></p>
-<google-chart [data]="tableChartOptions"></google-chart>
+<google-chart [data]="tableChartData"></google-chart>
 <p></p>

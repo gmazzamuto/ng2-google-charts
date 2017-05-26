@@ -17,7 +17,7 @@ export class AppComponent {
 
   public selectEvent: ChartSelectEvent;
 
-  public columnChartOptions:any =  {
+  public columnChartData:any =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -31,7 +31,7 @@ export class AppComponent {
     options: {title: 'Countries'}
   };
 
-  public columnChartOptions2:any =  {
+  public columnChartData2:any =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -52,7 +52,7 @@ export class AppComponent {
     }
   };
 
-  public pieChartOptions:any =  {
+  public pieChartData:any =  {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -75,7 +75,7 @@ export class AppComponent {
     }
   };
 
-  public gaugeChartOptions:any =  {
+  public gaugeChartData:any =  {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -92,7 +92,7 @@ export class AppComponent {
     }
   };
 
-  public scatterChartOptions:any = {
+  public scatterChartData:any = {
     chartType: 'ScatterChart',
     dataTable: [
       ['Age', 'Weight'],
@@ -111,7 +111,7 @@ export class AppComponent {
     }
   };
 
- public timelineChartOptions:any =  {
+ public timelineChartData:any =  {
     chartType: 'Timeline',
     dataTable: [
       ['Name', 'From', 'To'],
@@ -121,7 +121,7 @@ export class AppComponent {
     ]
  }
 
- public lineChartOptions:any =  {
+ public lineChartData:any =  {
     chartType: 'LineChart',
     dataTable: [
       ['Year', 'Sales', 'Expenses'],
@@ -133,7 +133,7 @@ export class AppComponent {
     options: {title: 'Company Performance'}
   };
 
- public comboChartOptions:any =  {
+ public comboChartData:any =  {
     chartType: 'ComboChart',
     dataTable: [
       ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
@@ -152,7 +152,7 @@ export class AppComponent {
     }
   };
 
-  public tableChartOptions:any =  {
+  public tableChartData:any =  {
     chartType: 'Table',
     dataTable: [
       ['Department', 'Revenues', 'Another column'],
@@ -175,7 +175,7 @@ export class AppComponent {
     options: {title: 'Countries', allowHtml: true}
   };
 
- public geoChartOptions:any =  {
+ public geoChartData:any =  {
     chartType: 'GeoChart',
     dataTable: [
       ['City',   'Population', 'Area'],
@@ -200,9 +200,9 @@ export class AppComponent {
 
  ngOnInit() {
    for (let i = 1; i < 7; i++) {
-     this.columnChartOptions2.dataTable[i][1] = Math.round(
+     this.columnChartData2.dataTable[i][1] = Math.round(
        Math.random() * 1000);
-     this.columnChartOptions2.dataTable[i][2] = Math.round(
+     this.columnChartData2.dataTable[i][2] = Math.round(
        Math.random() * 1000);
    }
  }
@@ -218,22 +218,22 @@ export class AppComponent {
 
  public changeData():void {
     // forces a reference update (otherwise angular won't detect the change
-    this.columnChartOptions = Object.create(this.columnChartOptions);
+    this.columnChartData = Object.create(this.columnChartData);
     for (let i = 1; i < 7; i++) {
-      this.columnChartOptions.dataTable[i][1] = Math.round(
+      this.columnChartData.dataTable[i][1] = Math.round(
         Math.random() * 1000);
-      this.columnChartOptions.dataTable[i][2] = Math.round(
+      this.columnChartData.dataTable[i][2] = Math.round(
         Math.random() * 1000);
     }
   }
 
  public changeChartType():void {
     // forces a reference update (otherwise angular doesn't detect the change)
-    this.columnChartOptions = Object.create(this.columnChartOptions);
-    if(this.columnChartOptions.chartType == 'ColumnChart')
-      this.columnChartOptions.chartType = 'PieChart';
+    this.columnChartData = Object.create(this.columnChartData);
+    if(this.columnChartData.chartType == 'ColumnChart')
+      this.columnChartData.chartType = 'PieChart';
     else
-      this.columnChartOptions.chartType = 'ColumnChart';
+      this.columnChartData.chartType = 'ColumnChart';
   }
 
   public ready(event: ChartReadyEvent) {

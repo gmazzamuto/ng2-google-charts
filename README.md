@@ -31,11 +31,11 @@ export class AppModule { }
 
 In your templates, use the `google-chart` component like this:
 ```html
-<google-chart [data]="pieChartOptions"></google-chart>
+<google-chart [data]="pieChartData"></google-chart>
 ```
 and in the corresponding `.ts` file:
 ```ts
-pieChartOptions =  {
+pieChartData =  {
   chartType: 'PieChart',
   dataTable: [
     ['Task', 'Hours per Day'],
@@ -54,7 +54,7 @@ pieChartOptions =  {
 You can specify an array of multiple formatter types and configurations like
 this:
 ```ts
-public tableChartOptions =  {
+public tableChartData =  {
   chartType: 'Table',
   dataTable: [
     ['Department', 'Revenues', 'Another column'],
@@ -90,7 +90,7 @@ The `chartReady` event is fired when a chart is completely loaded.
 
 Bind the `chartReady` event in the `google-chart` component like this:
 ```html
-<google-chart [data]='pieChartOptions' (chartReady)='ready($event)'></google-chart>
+<google-chart [data]='pieChartData' (chartReady)='ready($event)'></google-chart>
 ```
 
 Your `ready()` function is passed an event whose interface looks like this:
@@ -118,7 +118,7 @@ The `chartError` event is fired if there are some errors with a chart.
 
 Bind the `chartError` event in the `google-chart` component, like this:
 ```html
-<google-chart [data]='pieChartOptions' (chartError)='error($event)'></google-chart>
+<google-chart [data]='pieChartData' (chartError)='error($event)'></google-chart>
 ```
 
 Your `error()` function is passed an event whose interface looks like this:
@@ -151,7 +151,7 @@ The `chartSelect` event is fired when a chart is selected/clicked.
 
 Bind the `chartSelect` event in the `google-chart` component, like this:
 ```html
-<google-chart [data]='pieChartOptions' (chartSelect)='select($event)'></google-chart>
+<google-chart [data]='pieChartData' (chartSelect)='select($event)'></google-chart>
 ```
 
 Your `select()` function is passed an event whose interface looks like this:
@@ -183,7 +183,7 @@ item.
 
 Bind the `MouseOver` event in the `google-chart` component like this:
 ```html
-<google-chart [data]="comboChartOptions" (mouseOver)="mouseOver($event)"></google-chart>
+<google-chart [data]="comboChartData" (mouseOver)="mouseOver($event)"></google-chart>
 ```
 
 Your `mouseOver()` function is passed an event whose interface looks like this:
