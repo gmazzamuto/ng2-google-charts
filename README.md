@@ -210,6 +210,30 @@ public mouseOver(event: MouseOverEvent) {
 }
 ```
 
+# Advanced usage
+You can access Google Chart's underlying [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the
+`wrapper` property of the component object:
+```html
+<google-chart #cchart [data]="columnChartData"></google-chart>
+```
+
+```ts
+import {ViewChild} from '@angular/core';
+
+export class AppComponent {
+
+  @ViewChild('cchart') cchart;
+
+  myfunction() {
+    let googleChartWrapper = this.cchart.wrapper;
+
+    //force a redraw
+    this.cchart.redraw();
+  }
+
+}
+```
+
 ## License
 
 [MIT](LICENSE.md)
