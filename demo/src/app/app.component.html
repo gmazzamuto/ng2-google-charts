@@ -1,6 +1,10 @@
 <h1>Column chart</h1>
 <google-chart [data]="columnChartOptions"></google-chart>
-<input type="button" value="Change data" (click)="myClick()"> <input type="button" value="Change chart type" (click)="changeChartType()">
+<input type="button" value="Change data" (click)="changeData()"> <input type="button" value="Change chart type" (click)="changeChartType()">
+<p></p>
+<h4>Animated</h4>
+<google-chart #cchart [data]="columnChartOptions2"></google-chart>
+<input type="button" value="Change data" (click)="changeData2()">
 <h1>Pie chart</h1>
 <google-chart [data]="pieChartOptions"></google-chart>
 <h1>Gauge</h1>

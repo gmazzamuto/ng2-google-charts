@@ -4,12 +4,16 @@ import { ChartErrorEvent } from 'ng2-google-charts';
 import { ChartSelectEvent } from 'ng2-google-charts';
 import { MouseOverEvent } from 'ng2-google-charts';
 
+import {ViewChild} from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  @ViewChild('cchart') cchart;
 
   public selectEvent: ChartSelectEvent;
 
@@ -25,6 +29,27 @@ export class AppComponent {
       ['RU', 800, 1000]
     ],
     options: {title: 'Countries'}
+  };
+
+  public columnChartOptions2:any =  {
+    chartType: 'ColumnChart',
+    dataTable: [
+      ['Country', 'Performance', 'Profits'],
+      ['Germany', 0, 0],
+      ['USA', 0, 0],
+      ['Brazil', 0, 0],
+      ['Canada', 0, 0],
+      ['France', 0, 0],
+      ['RU', 0, 0]
+    ],
+    options: {
+      title: 'Countries',
+      animation:{
+        duration: 1000,
+        easing: 'out',
+        startup: true
+      }
+    }
   };
 
   public pieChartOptions:any =  {
@@ -163,8 +188,26 @@ export class AppComponent {
     }
   };
 
- public myClick():void {
-    // forces a reference update (otherwise angular doesn't detect the change)
+ ngOnInit() {
+   for (let i = 1; i < 7; i++) {
+     this.columnChartOptions2.dataTable[i][1] = Math.round(
+       Math.random() * 1000);
+     this.columnChartOptions2.dataTable[i][2] = Math.round(
+       Math.random() * 1000);
+   }
+ }
+
+ public changeData2():void {
+    let dataTable = this.cchart.wrapper.getDataTable();
+    for (let i = 0; i < 6; i++) {
+      dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
+      dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
+    }
+    this.cchart.redraw();
+  }
+
+ public changeData():void {
+    // forces a reference update (otherwise angular won't detect the change
     this.columnChartOptions = Object.create(this.columnChartOptions);
     for (let i = 1; i < 7; i++) {
       this.columnChartOptions.dataTable[i][1] = Math.round(
