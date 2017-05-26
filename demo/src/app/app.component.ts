@@ -62,7 +62,17 @@ export class AppComponent {
       ['Watch TV', 2],
       ['Sleep',    7]
     ],
-    options: {title: 'Tasks'}
+    options: {
+      title: 'Tasks',
+      slices: {
+        0: {
+        offset: 0.3
+      },
+      1: {
+      offset: 0.2
+      }
+      }
+    }
   };
 
   public gaugeChartOptions:any =  {
