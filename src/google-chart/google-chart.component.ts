@@ -41,7 +41,6 @@ export class GoogleChartComponent implements OnChanges {
 
   private el: ElementRef;
   private loaderService: GoogleChartsLoaderService;
-  private eventsLoaded: boolean;
 
   public constructor(el: ElementRef,
                      loaderService: GoogleChartsLoaderService) {
@@ -51,7 +50,6 @@ export class GoogleChartComponent implements OnChanges {
     this.chartReady = new EventEmitter();
     this.chartError = new EventEmitter();
     this.mouseOver = new EventEmitter();
-    this.eventsLoaded = false;
   }
 
   public ngOnChanges(changes: SimpleChanges):void {
@@ -72,10 +70,7 @@ export class GoogleChartComponent implements OnChanges {
           this.wrapper.setDataTable(this.data.dataTable);
           this.wrapper.setOptions(this.options);
         }
-        if (!this.eventsLoaded) {
-          this.registerChartWrapperEvents();
-          this.eventsLoaded = true;
-        }
+        this.registerChartWrapperEvents();
         if(this.data.formatters !== undefined) {
             for(let formatterConfig of this.data.formatters) {
               let formatterConstructor = google.visualization[formatterConfig.type];
@@ -193,8 +188,7 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private unregisterChartEvents():void {
-    let chart = this.wrapper.getChart();
-    google.visualization.events.removeAllListeners(chart);
+    google.visualization.events.removeAllListeners(this.wrapper);
   }
 
   private registerChartEvents(): void {
