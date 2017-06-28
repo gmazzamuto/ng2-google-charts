@@ -15,7 +15,13 @@ import { GoogleChartsLoaderService } from '../google-charts-loader.service';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
-import { MouseOverEvent, BoundingBox, DataPointPosition }  from './mouse-over-event';
+import {
+  ChartMouseEvent,
+  ChartMouseOverEvent,
+  ChartMouseOutEvent,
+  BoundingBox,
+  DataPointPosition
+}  from './chart-mouse-event';
 import { ChartHTMLTooltip }  from './chart-html-tooltip';
 
 @Component({
@@ -33,7 +39,9 @@ export class GoogleChartComponent implements OnChanges {
 
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
-  @Output() public mouseOver:  EventEmitter<MouseOverEvent>;
+  @Output() public mouseOver: EventEmitter<ChartMouseOverEvent>;
+
+  @Output() public mouseOut: EventEmitter<ChartMouseOutEvent>;
 
   public wrapper: any;
   private cli: any;
@@ -50,6 +58,7 @@ export class GoogleChartComponent implements OnChanges {
     this.chartReady = new EventEmitter();
     this.chartError = new EventEmitter();
     this.mouseOver = new EventEmitter();
+    this.mouseOut = new EventEmitter();
   }
 
   public ngOnChanges(changes: SimpleChanges):void {
@@ -175,12 +184,11 @@ export class GoogleChartComponent implements OnChanges {
     return new ChartHTMLTooltip(tooltipER);
   }
 
-  private parseMouseOverEvent(item: DataPointPosition): MouseOverEvent {
+  private parseMouseEvent(item: DataPointPosition): ChartMouseEvent {
         let event = {
           position: item,
           boundingBox: this.getBoundingBoxForItem(item),
           value: this.getValueAtPosition(item),
-          tooltip: this.getHTMLTooltip(),
           columnType: this.getColumnTypeAtPosition(item),
           columnLabel: this.getColumnLabelAtPosition(item)
         };
@@ -196,8 +204,18 @@ export class GoogleChartComponent implements OnChanges {
       let chart = this.wrapper.getChart();
       this.cli = chart.getChartLayoutInterface();
       google.visualization.events.addListener(chart, 'onmouseover', (item: DataPointPosition) => {
-        let event = this.parseMouseOverEvent(item);
+        let event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
+        event.tooltip = this.getHTMLTooltip();
         this.mouseOver.emit(event);
+      });
+    }
+
+    if (this.mouseOut.observers.length > 0) {
+      let chart = this.wrapper.getChart();
+      this.cli = chart.getChartLayoutInterface();
+      google.visualization.events.addListener(chart, 'onmouseout', (item: DataPointPosition) => {
+        let event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
+        this.mouseOut.emit(event);
       });
     }
   }

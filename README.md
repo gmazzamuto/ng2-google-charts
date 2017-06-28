@@ -186,9 +186,9 @@ Bind the `MouseOver` event in the `google-chart` component like this:
 <google-chart [data]="comboChartData" (mouseOver)="mouseOver($event)"></google-chart>
 ```
 
-Your `mouseOver()` function is passed an event whose interface looks like this:
+Your `mouseOver()` function is passed an event whose class looks like this:
 ```ts
-interface MouseOverEvent {
+class ChartMouseOverEvent {
   position: DataPointPosition;
   boundingBox: BoundingBox;
   value: any;
@@ -198,14 +198,47 @@ interface MouseOverEvent {
 }
 ```
 
-You can import the `MouseOverEvent` interface in your `.ts` file:
+You can import the `ChartMouseOverEvent` class in your `.ts` file:
 ```ts
-import { MouseOverEvent } from 'ng2-google-charts';
+import { ChartMouseOverEvent } from 'ng2-google-charts';
 ```
 
 and then use it like:
 ```ts
-public mouseOver(event: MouseOverEvent) {
+public mouseOver(event: ChartMouseOverEvent) {
+  // your logic
+}
+```
+
+### mouseOut
+
+The `mouseOut` event is fired when the user moves the mouse out of some chart
+item.
+
+Bind the `MouseOut` event in the `google-chart` component like this:
+```html
+<google-chart [data]="comboChartData" (mouseOut)="mouseOut($event)"></google-chart>
+```
+
+Your `mouseOut()` function is passed an event whose class looks like this:
+```ts
+class ChartMouseOutEvent {
+  position: DataPointPosition;
+  boundingBox: BoundingBox;
+  value: any;
+  columnType: string;
+  columnLabel: string;
+}
+```
+
+You can import the `ChartMouseOutEvent` class in your `.ts` file:
+```ts
+import { ChartMouseOutEvent } from 'ng2-google-charts';
+```
+
+and then use it like:
+```ts
+public mouseOut(event: ChartMouseOutEvent) {
   // your logic
 }
 ```
