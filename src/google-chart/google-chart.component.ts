@@ -104,7 +104,8 @@ export class GoogleChartComponent implements OnChanges {
       bars : 'bar#%s#%r',
       haxis : 'hAxis#0#label',
       line: 'point#%s#%r',
-      legend : 'legendentry#%s'
+      legend : 'legendentry#%s',
+      area: 'point#%s#%r'
     };
 
     let selector: string = selectors[seriesType];
