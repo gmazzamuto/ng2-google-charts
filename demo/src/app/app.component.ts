@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChartReadyEvent } from 'ng2-google-charts';
 import { ChartErrorEvent } from 'ng2-google-charts';
 import { ChartSelectEvent } from 'ng2-google-charts';
-import { MouseOverEvent } from 'ng2-google-charts';
+import { ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
 
 import {ViewChild} from '@angular/core';
 
@@ -248,7 +248,17 @@ export class AppComponent {
     this.selectEvent = event;
   }
 
-  public mouseOver(event: MouseOverEvent) {
+  public mouseOver(event: ChartMouseOverEvent) {
+    console.log('ChartMouseOverEvent');
+    console.log('bb: ' + JSON.stringify(event.boundingBox));
+    console.log('pos: ' + JSON.stringify(event.position));
+    console.log('type: ' + JSON.stringify(event.columnType));
+    console.log('label: ' + JSON.stringify(event.columnLabel));
+    console.log('value: ' + JSON.stringify(event.value));
+  }
+
+  public mouseOut(event: ChartMouseOutEvent) {
+    console.log('ChartMouseOutEvent');
     console.log('bb: ' + JSON.stringify(event.boundingBox));
     console.log('pos: ' + JSON.stringify(event.position));
     console.log('type: ' + JSON.stringify(event.columnType));
