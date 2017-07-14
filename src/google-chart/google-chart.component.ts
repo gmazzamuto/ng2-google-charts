@@ -72,7 +72,7 @@ export class GoogleChartComponent implements OnChanges {
       this.options = this.data.options;
 
       this.loaderService.load(this.data.chartType).then(() => {
-        if(this.wrapper === undefined || this.wrapper.getChartType !== this.data.chartType) {
+        if(this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
           this.wrapper = new google.visualization.ChartWrapper(this.data);
         } else {
           this.unregisterChartEvents();
