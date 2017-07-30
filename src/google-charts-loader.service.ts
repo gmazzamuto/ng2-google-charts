@@ -35,7 +35,6 @@ export class GoogleChartsLoaderService {
   };
 
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
-  private googleScriptIsLoading: boolean;
 
   public constructor() {
     this.googleScriptLoadingNotifier = new EventEmitter();
@@ -62,9 +61,9 @@ export class GoogleChartsLoaderService {
 
       if (typeof google !== 'undefined' && google.charts) {
         resolve();
-      } else if ( ! this.googleScriptIsLoading) {
+      } else if ( ! window['ng2-google-charts.googleScriptIsLoading']) {
 
-        this.googleScriptIsLoading = true;
+        window['ng2-google-charts.googleScriptIsLoading'] = true;
 
         let script = document.createElement('script');
         script.type = 'text/javascript';
@@ -72,12 +71,12 @@ export class GoogleChartsLoaderService {
         script.async = true;
         script.defer = true;
         script.onload = () => {
-          this.googleScriptIsLoading = false;
+          window['ng2-google-charts.googleScriptIsLoading'] = false;
           this.googleScriptLoadingNotifier.emit(true);
           resolve();
         };
         script.onerror = () => {
-          this.googleScriptIsLoading = false;
+          window['ng2-google-charts.googleScriptIsLoading'] = false;
           this.googleScriptLoadingNotifier.emit(false);
           reject();
         };
