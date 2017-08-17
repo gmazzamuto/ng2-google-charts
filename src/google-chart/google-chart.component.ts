@@ -238,12 +238,14 @@ export class GoogleChartComponent implements OnChanges {
 
       if (selection !== undefined) {
         let selectedRowValues = [];
+        let selectedRowFormattedValues = [];
 
         if (selection.row !== null) {
           let dataTable = this.wrapper.getDataTable();
           let numberOfColumns = dataTable.getNumberOfColumns();
           for (let i = 0; i < numberOfColumns; i++) {
             selectedRowValues.push(dataTable.getValue(selection.row, i));
+            selectedRowFormattedValues.push(dataTable.getFormattedValue(selection.row, i));
           }
         }
 
@@ -251,14 +253,16 @@ export class GoogleChartComponent implements OnChanges {
           message: 'select',
           row: selection.row,
           column: selection.column,
-          ['selectedRowValues']: selectedRowValues
+          ['selectedRowValues']: selectedRowValues,
+          ['selectedRowFormattedValues']: selectedRowFormattedValues,
         };
       } else {
         event = {
           message: 'deselect',
           row: null,
           column: null,
-          selectedRowValues: []
+          selectedRowValues: [],
+          selectedRowFormattedValues: []
         };
       }
 

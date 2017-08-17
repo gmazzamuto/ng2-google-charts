@@ -161,6 +161,7 @@ interface ChartSelectEvent {
   row: number | null;
   column: number | null;
   selectedRowValues: any[];
+  selectedRowFormattedValues: any[];
 }
 ```
 
