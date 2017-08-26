@@ -254,7 +254,7 @@ export class GoogleChartComponent implements OnChanges {
           row: selection.row,
           column: selection.column,
           ['selectedRowValues']: selectedRowValues,
-          ['selectedRowFormattedValues']: selectedRowFormattedValues,
+          ['selectedRowFormattedValues']: selectedRowFormattedValues
         };
       } else {
         event = {
