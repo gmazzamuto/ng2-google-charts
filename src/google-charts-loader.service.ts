@@ -1,6 +1,6 @@
 declare var google: any;
 
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, LOCALE_ID, Inject } from '@angular/core';
 
 @Injectable()
 export class GoogleChartsLoaderService {
@@ -36,10 +36,12 @@ export class GoogleChartsLoaderService {
 
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
   private googleScriptIsLoading: boolean;
+  private localeId: string;
 
-  public constructor() {
+  public constructor(@Inject(LOCALE_ID) localeId: string) {
     this.googleScriptLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
+    this.localeId = localeId;
   }
 
   public load(chartType: string):Promise<any> {
@@ -47,8 +49,9 @@ export class GoogleChartsLoaderService {
 
       this.loadGoogleChartsScript().then(() => {
         google.charts.load('45', {
-          packages: [this.chartPackage[chartType]],
-          callback: resolve
+            packages: [this.chartPackage[chartType]],
+            language: this.localeId,
+            callback: resolve
         });
       }).catch(() => {
         console.error('Google charts script could not be loaded');
