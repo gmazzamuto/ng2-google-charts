@@ -6,7 +6,6 @@
     "noEmitHelpers" :true,
     "lib": ["es6", "dom"],
     "types": [
-      "jasmine",
       "webpack"
     ],
     "mapRoot": "./",
