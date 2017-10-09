@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "version": "3.2.0",
     "name": "ng2-google-charts"
@@ -13,10 +14,13 @@
       ],
       "index": "index.html",
       "main": "main.ts",
+      "polyfills": "polyfills.ts",
       "test": "../../scripts/test.ts",
       "tsconfig": "tsconfig.json",
+      "testTsconfig": "../../src/tsconfig.spec.json",
       "prefix": "",
       "mobile": false,
+      "serviceWorker": false,
       "styles": [
         "../../node_modules/bootstrap/dist/css/bootstrap.css",
         "styles.css"
@@ -37,6 +41,11 @@
       "config": "protractor.conf.js"
     }
   },
+  "lint": [
+    {
+      "project": "../tslint.json"
+    }
+  ],
   "test": {
     "karma": {
       "config": "karma.conf.js"

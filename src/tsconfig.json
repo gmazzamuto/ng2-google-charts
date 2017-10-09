@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "../dist",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -10,16 +10,14 @@
     "noEmitHelpers": false,
     "noImplicitAny": true,
     "declaration": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "stripInternal": true,
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "es6"],
     "types": [
       "jasmine"
-    ],
-    "typeRoots": [
-      "../node_modules/@types"
     ]
   },
   "exclude": [
@@ -30,6 +28,8 @@
     "./index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "../temp/factories"
+    "genDir": "../temp/factories",
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true
   }
 }
