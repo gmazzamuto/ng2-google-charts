@@ -5,7 +5,7 @@ import { Injectable, EventEmitter, LOCALE_ID, Inject } from '@angular/core';
 @Injectable()
 export class GoogleChartsLoaderService {
 
-  private chartPackage: { [id: string]: string; } = {
+  private chartPackage: { [id: string]: string } = {
     AnnotationChart: 'annotationchart',
     AreaChart: 'corechart',
     Bar: 'bar',
@@ -44,7 +44,7 @@ export class GoogleChartsLoaderService {
     this.localeId = localeId;
   }
 
-  public load(chartType: string):Promise<any> {
+  public load(chartType: string): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
@@ -53,10 +53,7 @@ export class GoogleChartsLoaderService {
             language: this.localeId,
             callback: resolve
         });
-      }).catch(() => {
-        console.error('Google charts script could not be loaded');
       });
-
     });
   }
 
@@ -65,11 +62,11 @@ export class GoogleChartsLoaderService {
 
       if (typeof google !== 'undefined' && google.charts) {
         resolve();
-      } else if ( ! this.googleScriptIsLoading) {
+      } else if (!this.googleScriptIsLoading) {
 
         this.googleScriptIsLoading = true;
 
-        let script = document.createElement('script');
+        const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = 'https://www.gstatic.com/charts/loader.js';
         script.async = true;

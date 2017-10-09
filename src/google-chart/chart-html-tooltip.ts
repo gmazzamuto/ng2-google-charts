@@ -11,8 +11,8 @@ export class ChartHTMLTooltip {
     this.tooltipDOMElement = el;
   }
 
-  public setPosition(x:number,y:number):void {
-    this.tooltipDOMElement.nativeElement.style.left = x + ChartHTMLTooltip.PIXELS ;
+  public setPosition(x: number, y: number): void {
+    this.tooltipDOMElement.nativeElement.style.left = x + ChartHTMLTooltip.PIXELS;
     this.tooltipDOMElement.nativeElement.style.top = y + ChartHTMLTooltip.PIXELS;
   }
 

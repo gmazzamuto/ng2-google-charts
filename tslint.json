@@ -2,7 +2,7 @@
   "extends": "tslint-config-valorsoft",
   "rulesDirectory": "./node_modules/codelyzer",
   "rules": {
-    "member-access": [true, "no-public"],
+    "member-access": [true],
     "no-void-expression": ["ignore-arrow-function-shorthand"],
     "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
     "use-host-property-decorator": false,
@@ -15,6 +15,11 @@
     "component-selector": false,
     "no-magic-numbers": false,
     "no-any": false,
-    "prefer-object-spread": false
+    "prefer-object-spread": false,
+    "max-classes-per-file": false,
+    "newline-before-return": false,
+    "prefer-function-over-method": false,
+    "prefer-template": false,
+    "whitespace": [true, "check-decl", "check-operator", "check-module", "check-separator", "check-type"]
   }
 }
