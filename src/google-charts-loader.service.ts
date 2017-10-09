@@ -48,7 +48,7 @@ export class GoogleChartsLoaderService {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
-        google.charts.load('45', {
+        google.charts.load('45.2', {
             packages: [this.chartPackage[chartType]],
             language: this.localeId,
             callback: resolve
