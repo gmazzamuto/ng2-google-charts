@@ -53,7 +53,7 @@ export class GoogleChartsLoaderService {
             language: this.localeId,
             callback: resolve
         });
-      });
+      }).catch(err => reject());
     });
   }
 
