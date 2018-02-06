@@ -80,6 +80,8 @@ export class GoogleChartComponent implements OnChanges {
           this.wrapper.setOptions(this.options);
         }
         this.registerChartWrapperEvents();
+        this.reformat();
+        /*
         if(this.data.formatters !== undefined) {
             for(const formatterConfig of this.data.formatters) {
               const formatterConstructor = google.visualization[formatterConfig.type];
@@ -90,13 +92,31 @@ export class GoogleChartComponent implements OnChanges {
               }
           }
         }
+        */
         this.redraw();
       });
     }
   }
 
   public redraw(): void {
+    this.reformat();
     this.wrapper.draw(this.el.nativeElement.querySelector('div'));
+  }
+
+  /**
+   * Applies formatters to data columns, if defined
+   */
+  private reformat() {
+    if (this.data.formatters !== undefined) {
+      for (const formatterConfig of this.data.formatters) {
+        const formatterConstructor = google.visualization[formatterConfig.type];
+        const formatterOptions = formatterConfig.options;
+        const formatter = new formatterConstructor(formatterOptions);
+        for (const col of formatterConfig.columns) {
+          formatter.format(this.wrapper.getDataTable(), col);
+        }
+      }
+    }
   }
 
   private getSelectorBySeriesType(seriesType: string): string {
