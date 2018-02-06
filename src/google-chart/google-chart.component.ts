@@ -81,18 +81,6 @@ export class GoogleChartComponent implements OnChanges {
         }
         this.registerChartWrapperEvents();
         this.reformat();
-        /*
-        if(this.data.formatters !== undefined) {
-            for(const formatterConfig of this.data.formatters) {
-              const formatterConstructor = google.visualization[formatterConfig.type];
-              const formatterOptions = formatterConfig.options;
-              const formatter = new formatterConstructor(formatterOptions);
-              for(const col of formatterConfig.columns) {
-                formatter.format(this.wrapper.getDataTable(), col);
-              }
-          }
-        }
-        */
         this.redraw();
       });
     }
@@ -107,6 +95,10 @@ export class GoogleChartComponent implements OnChanges {
    * Applies formatters to data columns, if defined
    */
   private reformat() {
+    if(!this.data) {
+        return;
+    }
+
     if (this.data.formatters !== undefined) {
       for (const formatterConfig of this.data.formatters) {
         const formatterConstructor = google.visualization[formatterConfig.type];
