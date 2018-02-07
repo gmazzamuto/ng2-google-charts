@@ -44,15 +44,19 @@ export class GoogleChartsLoaderService {
     this.localeId = localeId;
   }
 
-  public load(chartType: string): Promise<any> {
+  public load(chartType: string, apiKey?: string): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
-        google.charts.load('45.2', {
+        const initializer: any = {
             packages: [this.chartPackage[chartType]],
             language: this.localeId,
             callback: resolve
-        });
+        };
+        if (apiKey) {
+          initializer.mapsApiKey = apiKey;
+        }
+        google.charts.load('45.2', initializer);
       }).catch(err => reject());
     });
   }
