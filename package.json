@@ -1,6 +1,6 @@
 {
   "name": "ng2-google-charts",
-  "version": "0.0.0",
+  "version": "3.3.1",
   "description": "Angular2 Google Charts module",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "build": "run-s lint build.ngm link",
     "build.ngm": "ngm build -p src --clean",
     "build.watch": "ngm build -p src --watch --skip-bundles",
+    "prepare": "ngm build -p src --clean",
     "start": "ng serve --aot"
   },
   "main": "bundles/ng2-google-charts.umd.js",
@@ -27,16 +28,17 @@
     "Google",
     "Charts"
   ],
-  "author": "Giacomo Mazzamuto",
+  "author": "Jago MF",
+  "originalAuthor": "Giacomo Mazzamuto",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gmazzamuto/ng2-google-charts.git"
+    "url": "git+ssh://git@github.com/jagomf/ng2-google-charts.git"
   },
   "bugs": {
-    "url": "https://github.com/gmazzamuto/ng2-google-charts/issues"
+    "url": "https://github.com/jagomf/ng2-google-charts/issues"
   },
-  "homepage": "https://github.com/gmazzamuto/ng2-google-charts",
+  "homepage": "https://github.com/jagomf/ng2-google-charts",
   "dependencies": {
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
