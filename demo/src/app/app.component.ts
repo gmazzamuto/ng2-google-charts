@@ -155,13 +155,13 @@ export class AppComponent {
   public tableChartData:any =  {
     chartType: 'Table',
     dataTable: [
-      ['Department', 'Revenues', 'Another column'],
-      ['Shoes', 10700, -100],
-      ['Sports', -15400, 25],
-      ['Toys', 12500, 40],
-      ['Electronics', -2100, 889],
-      ['Food', 22600, 78],
-      ['Art', 1100, 42]
+      ['Department', 'Revenues', 'Another column', 'ColorFormat'],
+      ['Shoes', 10700, -100, 100],
+      ['Sports', -15400, 25, 500],
+      ['Toys', 12500, 40, 800],
+      ['Electronics', -2100, 889, 1000],
+      ['Food', 22600, 78, 1100],
+      ['Art', 1100, 42, 400]
     ],
     formatters: [
       {
@@ -169,6 +169,15 @@ export class AppComponent {
         type: 'NumberFormat',
         options: {
           prefix: '&euro;', negativeColor: 'red', negativeParens: true
+        }
+      },
+      {
+        columns: [3],
+        type: 'ColorFormat',
+        options: {
+          ranges: [
+            {from: 100, to: 900, fromBgColor: 'green', toBgColor: 'yellow'}
+          ]
         }
       }
     ],
