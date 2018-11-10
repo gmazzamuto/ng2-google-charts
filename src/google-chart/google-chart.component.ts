@@ -104,6 +104,16 @@ export class GoogleChartComponent implements OnChanges {
         const formatterConstructor = google.visualization[formatterConfig.type];
         const formatterOptions = formatterConfig.options;
         const formatter = new formatterConstructor(formatterOptions);
+        if(formatterConfig.type === 'ColorFormat' && formatterOptions) {
+          for(const range of formatterOptions.ranges) {
+            if (typeof(range.fromBgColor) !== 'undefined' && typeof(range.toBgColor) !== 'undefined') {
+              formatter.addGradientRange(range.from, range.to,
+                                         range.color, range.fromBgColor, range.toBgColor);
+            } else {
+              formatter.addRange(range.from, range.to, range.color, range.bgcolor);
+            }
+          }
+        }
         for (const col of formatterConfig.columns) {
           formatter.format(this.wrapper.getDataTable(), col);
         }
