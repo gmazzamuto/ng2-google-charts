@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "demo.gh-pages": "run-s build demo.build demo.deploy",
-    "demo.ng-build": "ng build -prod --aot --preserve-symlinks -nc",
+    "demo.ng-build": "ng build --prod --aot --preserve-symlinks -nc",
     "demo.deploy": "gh-pages -d demo/dist",
     "demo.build": "run-s build link demo.ng-build",
     "link": "ngm link -p src --here",
