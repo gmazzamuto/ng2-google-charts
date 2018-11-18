@@ -49,6 +49,9 @@ pieChartData =  {
 };
 ```
 
+Make sure you are compiling your Angular app with the Ahead-of-Time (AOT)
+compiler (option --aot).
+
 ## Formatters
 
 You can specify an array of multiple formatter types and configurations like
@@ -285,5 +288,5 @@ export class AppComponent {
 [npm-url]: https://npmjs.org/package/ng2-google-charts
 [npm-downloads-image]: http://img.shields.io/npm/dm/ng2-google-charts.svg
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
-[example-page]: https://gmazzamuto.github.io/ng2-google-charts
+[example-page]: https://www.devrandom.it/software/ng2-google-charts/
 [google-charts-error-event]: https://developers.google.com/chart/interactive/docs/events#the-error-event
