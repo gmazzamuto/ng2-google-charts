@@ -36,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/gmazzamuto/ng2-google-charts/issues"
   },
-  "homepage": "https://github.com/gmazzamuto/ng2-google-charts",
+  "homepage": "https://www.devrandom.it/software/ng2-google-charts/",
   "dependencies": {
     "@angular/common": "^7.0.0",
     "@angular/compiler": "^7.0.0",
