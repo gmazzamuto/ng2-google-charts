@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
-import { ChartReadyEvent } from 'ng2-google-charts';
-import { ChartErrorEvent } from 'ng2-google-charts';
-import { ChartSelectEvent } from 'ng2-google-charts';
-import { ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
-
-import {ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
+   ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +13,7 @@ export class AppComponent {
 
   public selectEvent: ChartSelectEvent;
 
-  public columnChartData:any =  {
+  public columnChartData: any =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -31,7 +27,7 @@ export class AppComponent {
     options: {title: 'Countries'}
   };
 
-  public columnChartData2:any =  {
+  public columnChartData2: any =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -44,7 +40,7 @@ export class AppComponent {
     ],
     options: {
       title: 'Countries',
-      animation:{
+      animation: {
         duration: 1000,
         easing: 'out',
         startup: true
@@ -52,7 +48,7 @@ export class AppComponent {
     }
   };
 
-  public pieChartData:any =  {
+  public pieChartData: any =  {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -75,7 +71,7 @@ export class AppComponent {
     }
   };
 
-  public gaugeChartData:any =  {
+  public gaugeChartData: any =  {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -92,7 +88,7 @@ export class AppComponent {
     }
   };
 
-  public scatterChartData:any = {
+  public scatterChartData: any = {
     chartType: 'ScatterChart',
     dataTable: [
       ['Age', 'Weight'],
@@ -111,7 +107,7 @@ export class AppComponent {
     }
   };
 
- public timelineChartData:any =  {
+ public timelineChartData: any =  {
     chartType: 'Timeline',
     dataTable: [
       ['Name', 'From', 'To'],
@@ -119,9 +115,9 @@ export class AppComponent {
       [ 'Adams',      new Date(1797, 2, 4),  new Date(1801, 2, 4) ],
       [ 'Jefferson',  new Date(1801, 2, 4),  new Date(1809, 2, 4) ]
     ]
- }
+ };
 
- public lineChartData:any =  {
+ public lineChartData: any =  {
     chartType: 'LineChart',
     dataTable: [
       ['Year', 'Sales', 'Expenses'],
@@ -133,7 +129,7 @@ export class AppComponent {
     options: {title: 'Company Performance'}
   };
 
- public comboChartData:any =  {
+ public comboChartData: any =  {
     chartType: 'ComboChart',
     dataTable: [
       ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
@@ -152,7 +148,7 @@ export class AppComponent {
     }
   };
 
-  public tableChartData:any =  {
+  public tableChartData: any =  {
     chartType: 'Table',
     dataTable: [
       ['Department', 'Revenues', 'Another column', 'ColorFormat'],
@@ -184,7 +180,7 @@ export class AppComponent {
     options: {title: 'Countries', allowHtml: true}
   };
 
- public geoChartData:any =  {
+ public geoChartData: any =  {
     chartType: 'GeoChart',
     dataTable: [
       ['City',   'Population', 'Area'],
@@ -193,7 +189,7 @@ export class AppComponent {
       ['Naples',    959574,     117.27],
       ['Turin',     907563,     130.17],
       ['Palermo',   655875,     158.9],
-      ['Genoa',     607906,     243.60],
+      ['Genoa',     607906,     243.6],
       ['Bologna',   380181,     140.7],
       ['Florence',  371282,     102.41],
       ['Fiumicino', 67370,      213.44],
@@ -216,8 +212,8 @@ export class AppComponent {
    }
  }
 
- public changeData2():void {
-    let dataTable = this.cchart.wrapper.getDataTable();
+ public changeData2(): void {
+    const dataTable = this.cchart.wrapper.getDataTable();
     for (let i = 0; i < 6; i++) {
       dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
       dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
@@ -225,7 +221,7 @@ export class AppComponent {
     this.cchart.redraw();
   }
 
- public changeData():void {
+ public changeData(): void {
     // forces a reference update (otherwise angular won't detect the change
     this.columnChartData = Object.create(this.columnChartData);
     for (let i = 1; i < 7; i++) {
@@ -236,13 +232,14 @@ export class AppComponent {
     }
   }
 
- public changeChartType():void {
+ public changeChartType(): void {
     // forces a reference update (otherwise angular doesn't detect the change)
     this.columnChartData = Object.create(this.columnChartData);
-    if(this.columnChartData.chartType == 'ColumnChart')
+    if (this.columnChartData.chartType === 'ColumnChart') {
       this.columnChartData.chartType = 'PieChart';
-    else
+    } else {
       this.columnChartData.chartType = 'ColumnChart';
+    }
   }
 
   public ready(event: ChartReadyEvent) {
