@@ -1,6 +1,6 @@
 declare var google: any;
 
-import { Injectable, EventEmitter, LOCALE_ID, Inject } from '@angular/core';
+import { Injectable, EventEmitter, LOCALE_ID, Inject, Optional } from '@angular/core';
 
 @Injectable()
 export class GoogleChartsLoaderService {
@@ -38,10 +38,16 @@ export class GoogleChartsLoaderService {
   private googleScriptIsLoading: boolean;
   private localeId: string;
 
-  public constructor(@Inject(LOCALE_ID) localeId: string) {
+  public constructor(
+    @Inject(LOCALE_ID) localeId: string,
+    @Inject('googleChartsVersion') @Optional() private googleChartsVersion?: string
+    ) {
     this.googleScriptLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
     this.localeId = localeId;
+    if (this.googleChartsVersion === null) {
+      this.googleChartsVersion = '46';
+    }
   }
 
   public load(chartType: string, apiKey?: string): Promise<any> {
@@ -56,7 +62,7 @@ export class GoogleChartsLoaderService {
         if (apiKey) {
           initializer.mapsApiKey = apiKey;
         }
-        google.charts.load('45.2', initializer);
+        google.charts.load(this.googleChartsVersion, initializer);
       }).catch(err => reject());
     });
   }
