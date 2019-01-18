@@ -40,7 +40,8 @@ export class GoogleChartsLoaderService {
 
   public constructor(
     @Inject(LOCALE_ID) localeId: string,
-    @Inject('googleChartsVersion') @Optional() private googleChartsVersion?: string
+    @Inject('googleChartsVersion') @Optional() private googleChartsVersion?: string,
+    @Inject('mapsApiKey') @Optional() private mapsApiKey?: string
     ) {
     this.googleScriptLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
@@ -50,7 +51,7 @@ export class GoogleChartsLoaderService {
     }
   }
 
-  public load(chartType: string, apiKey?: string): Promise<any> {
+  public load(chartType: string): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
@@ -59,8 +60,8 @@ export class GoogleChartsLoaderService {
             language: this.localeId,
             callback: resolve
         };
-        if (apiKey) {
-          initializer.mapsApiKey = apiKey;
+        if (this.mapsApiKey) {
+          initializer.mapsApiKey = this.mapsApiKey;
         }
         google.charts.load(this.googleChartsVersion, initializer);
       }).catch(err => reject());
