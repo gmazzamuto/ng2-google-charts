@@ -25,6 +25,10 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
     ...
     Ng2GoogleChartsModule,
   ],
+  providers: [
+    //{provide: 'googleChartsVersion', useValue: '46'},
+    //{provide: 'mapsApiKey', useValue: 'MYGOOGLEMAPSAPIKEY'}
+  ],
 })
 export class AppModule { }
 ```
