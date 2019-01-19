@@ -70,6 +70,9 @@ export class GoogleChartComponent implements OnChanges {
       }
 
       this.options = this.data.options;
+      if (!this.options) {
+        this.options = {};
+      }
 
       this.loaderService.load(this.data.chartType).then(() => {
         if(this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
