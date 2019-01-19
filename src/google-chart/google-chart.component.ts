@@ -160,7 +160,6 @@ export class GoogleChartComponent implements OnChanges {
     if(this.cli) {
       const column = item.column;
       const series = this.getSeriesByColumn(column);
-      const bar = item.row;
       const row = item.row;
       let seriesType = this.options.seriesType;
       if(this.options.series && this.options.series[series] && this.options.series[series].type) {
