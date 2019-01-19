@@ -207,14 +207,31 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private parseMouseEvent(item: DataPointPosition): ChartMouseEvent {
-        const event = {
-          position: item,
-          boundingBox: this.getBoundingBoxForItem(item),
-          value: this.getValueAtPosition(item),
-          columnType: this.getColumnTypeAtPosition(item),
-          columnLabel: this.getColumnLabelAtPosition(item)
-        };
-        return event;
+    const chartType = this.wrapper.getChartType();
+    let eventColumn;
+    switch(chartType) {
+      case 'Timeline':
+        eventColumn = this.wrapper.getDataTable().getNumberOfColumns() === 3 ? 0 : 1;
+        break;
+      case 'PieChart':
+        eventColumn = 1;
+        break;
+      default:
+        eventColumn = item.column;
+    }
+    const eventRow = item.row;
+    const myItem = {
+      row: eventRow,
+      column: eventColumn
+    };
+    const event = {
+      position: item,
+      boundingBox: this.getBoundingBoxForItem(myItem),
+      value: this.getValueAtPosition(myItem),
+      columnType: this.getColumnTypeAtPosition(myItem),
+      columnLabel: this.getColumnLabelAtPosition(myItem)
+    };
+    return event;
   }
 
   private unregisterChartEvents(): void {
@@ -222,9 +239,9 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private registerChartEvents(): void {
+    const chart = this.wrapper.getChart();
+    this.cli = chart.getChartLayoutInterface ? chart.getChartLayoutInterface() : null;
     if(this.mouseOver.observers.length > 0) {
-      const chart = this.wrapper.getChart();
-      this.cli = chart.getChartLayoutInterface();
       google.visualization.events.addListener(chart, 'onmouseover', (item: DataPointPosition) => {
         const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
         event.tooltip = this.getHTMLTooltip();
@@ -233,8 +250,6 @@ export class GoogleChartComponent implements OnChanges {
     }
 
     if (this.mouseOut.observers.length > 0) {
-      const chart = this.wrapper.getChart();
-      this.cli = chart.getChartLayoutInterface();
       google.visualization.events.addListener(chart, 'onmouseout', (item: DataPointPosition) => {
         const event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
         this.mouseOut.emit(event);
@@ -243,7 +258,6 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   private registerChartWrapperEvents(): void {
-
     google.visualization.events.addListener(this.wrapper, 'ready', () => {
       this.chartReady.emit({message: 'Chart ready'});
       this.registerChartEvents();
@@ -290,5 +304,4 @@ export class GoogleChartComponent implements OnChanges {
       this.chartSelect.emit(event);
     });
   }
-
 }
