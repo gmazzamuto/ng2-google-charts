@@ -29,5 +29,8 @@
 <h1>Table with formatter</h1>
 <p></p>
 <google-chart [data]="tableChartData"></google-chart>
+<h1>OrgChart</h1>
+<google-chart #orgChart [data]="orgChartData"></google-chart>
+<input type="button" value="Toggle collapse" (click)="collapseOrgChart()">
 <p></p>
 <p>Code samples are adapted from <a href="https://developers.google.com/chart/">Google Charts</a> where they are licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.</p>

@@ -10,6 +10,7 @@ import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
 export class AppComponent {
 
   @ViewChild('cchart') cchart;
+  @ViewChild('orgChart') orgChart;
 
   public selectEvent: ChartSelectEvent;
 
@@ -221,6 +222,24 @@ export class AppComponent {
     }
   };
 
+  public orgChartData: any =  {
+    chartType: 'OrgChart',
+    dataTable: [
+      ['Name',   'Manager', 'Tooltip'],
+      [{v: 'Mike', f: 'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+      [{v: 'Jim', f: 'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+      ['Alice', 'Mike', ''],
+      ['Bob', 'Jim', 'Bob Sponge'],
+      ['Carol', 'Bob', '']
+    ],
+    options: {
+      allowHtml: true,
+      allowCollapse: true
+    }
+  };
+
+  private orgChartCollapsed = false;
+
  ngOnInit() {
    for (let i = 1; i < 7; i++) {
      this.columnChartData2.dataTable[i][1] = Math.round(
@@ -290,4 +309,9 @@ export class AppComponent {
     console.log('value: ' + JSON.stringify(event.value));
   }
 
+  public collapseOrgChart() {
+    this.orgChartCollapsed = !this.orgChartCollapsed;
+    const orgChartWrapper = this.orgChart.wrapper;
+    orgChartWrapper.getChart().collapse(0, this.orgChartCollapsed);
+  }
 }
