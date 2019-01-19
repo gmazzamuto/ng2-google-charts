@@ -5,35 +5,6 @@ import { Injectable, EventEmitter, LOCALE_ID, Inject, Optional } from '@angular/
 @Injectable()
 export class GoogleChartsLoaderService {
 
-  private chartPackage: { [id: string]: string } = {
-    AnnotationChart: 'annotationchart',
-    AreaChart: 'corechart',
-    Bar: 'bar',
-    BarChart: 'corechart',
-    BubbleChart: 'corechart',
-    Calendar: 'calendar',
-    CandlestickChart: 'corechart',
-    ColumnChart: 'corechart',
-    ComboChart: 'corechart',
-    PieChart: 'corechart',
-    Gantt: 'gantt',
-    Gauge: 'gauge',
-    GeoChart: 'geochart',
-    Histogram: 'corechart',
-    Line: 'line',
-    LineChart: 'corechart',
-    Map: 'map',
-    OrgChart: 'orgchart',
-    Sankey: 'sankey',
-    Scatter: 'scatter',
-    ScatterChart: 'corechart',
-    SteppedAreaChart: 'corechart',
-    Table: 'table',
-    Timeline: 'timeline',
-    TreeMap: 'treemap',
-    WordTree: 'wordtree'
-  };
-
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
   private googleScriptIsLoading: boolean;
   private localeId: string;
@@ -56,7 +27,6 @@ export class GoogleChartsLoaderService {
 
       this.loadGoogleChartsScript().then(() => {
         const initializer: any = {
-            packages: [this.chartPackage[chartType]],
             language: this.localeId,
             callback: resolve
         };
