@@ -22,7 +22,7 @@ export class GoogleChartsLoaderService {
     }
   }
 
-  public load(): Promise<any> {
+  public load(chartType: string): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
