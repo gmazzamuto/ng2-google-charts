@@ -49,9 +49,14 @@ pieChartData =  {
     ['Watch TV', 2],
     ['Sleep',    7]
   ],
+  //opt_firstRowIsData: true,
   options: {'title': 'Tasks'},
 };
 ```
+The value in `dataTable` will be passed to the `setDataTable()` method of
+`ChartWrapper` ([documentation][ChartWrapperMethods]).
+If `opt_firstRowIsData` is true, `dataTable` will be first passed to
+`arrayToDataTable(dataTable, true)` ([documentation][arrayToDataTable]).
 
 Make sure you are compiling your Angular app with the Ahead-of-Time (AOT)
 compiler (option --aot).
@@ -294,3 +299,5 @@ export class AppComponent {
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
 [example-page]: https://www.devrandom.it/software/ng2-google-charts/
 [google-charts-error-event]: https://developers.google.com/chart/interactive/docs/events#the-error-event
+[arrayToDataTable]: https://developers.google.com/chart/interactive/docs/reference#google.visualization.arraytodatatable
+[ChartWrapperMethods]: https://developers.google.com/chart/interactive/docs/reference#methods_4
