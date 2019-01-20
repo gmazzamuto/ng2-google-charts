@@ -276,10 +276,19 @@ export class GoogleChartComponent implements OnChanges {
     });
 
     google.visualization.events.addListener(this.wrapper, 'select', () => {
-      let event: ChartSelectEvent;
-      const selection: {row: number; column: number} = this.wrapper.visualization.getSelection()[0];
-
-      if (selection !== undefined) {
+      const event: ChartSelectEvent = {
+        message: 'select',
+        row: null,
+        column: null,
+        selectedRowValues: [],
+        selectedRowFormattedValues: [],
+        columnLabel: ''
+      };
+      const gs = this.wrapper.visualization.getSelection()[0];
+      if(!gs) {
+        event.message = 'deselect';
+      } else if (gs.row !== undefined) {
+        const selection: DataPointPosition = gs;
         const selectedRowValues = [];
         const selectedRowFormattedValues = [];
 
@@ -291,22 +300,13 @@ export class GoogleChartComponent implements OnChanges {
             selectedRowFormattedValues.push(dataTable.getFormattedValue(selection.row, i));
           }
         }
-
-        event = {
-          message: 'select',
-          row: selection.row,
-          column: selection.column,
-          ['selectedRowValues']: selectedRowValues,
-          ['selectedRowFormattedValues']: selectedRowFormattedValues
-        };
-      } else {
-        event = {
-          message: 'deselect',
-          row: null,
-          column: null,
-          selectedRowValues: [],
-          selectedRowFormattedValues: []
-        };
+        event.row = selection.row;
+        event.column = selection.column;
+        event.selectedRowValues = selectedRowValues;
+        event.selectedRowFormattedValues = selectedRowFormattedValues;
+        event.columnLabel = this.getColumnLabelAtPosition(selection);
+      } else if(gs.name) {
+        event.columnLabel = gs.name;
       }
 
       this.chartSelect.emit(event);
