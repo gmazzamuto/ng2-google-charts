@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
    ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
 
+import { shakespeareData } from './shakespeare';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -275,7 +277,35 @@ export class AppComponent {
     }
   };
 
+  public treeMapData = {
+    chartType: 'TreeMap',
+    dataTable: [
+      ['ID', 'Parent', 'Number of Lines'],
+      ['Shakespeare', null, 0],
+
+      ['Comedies', 'Shakespeare', null],
+      ['Tragedies', 'Shakespeare', null],
+      ['Histories', 'Shakespeare', null]
+    ],
+    options: {
+      highlightOnMouseOver: true,
+      maxDepth: 1,
+      maxPostDepth: 2,
+      minHighlightColor: '#8c6bb1',
+      midHighlightColor: '#9ebcda',
+      maxHighlightColor: '#edf8fb',
+      minColor: '#009688',
+      midColor: '#f7f7f7',
+      maxColor: '#ee8100',
+      headerHeight: 15,
+      showScale: true,
+      height: 200,
+      useWeightedAverageForAggregation: true
+    }
+  };
+
   private orgChartCollapsed = false;
+  private treeMapAppendCount = 0;
 
  ngOnInit() {
    for (let i = 1; i < 7; i++) {
@@ -284,6 +314,8 @@ export class AppComponent {
      this.columnChartData2.dataTable[i][2] = Math.round(
        Math.random() * 1000);
    }
+
+   this.appendDataToTreeMap();
  }
 
  public changeData2(): void {
@@ -350,5 +382,14 @@ export class AppComponent {
     this.orgChartCollapsed = !this.orgChartCollapsed;
     const orgChartWrapper = this.orgChart.wrapper;
     orgChartWrapper.getChart().collapse(0, this.orgChartCollapsed);
+  }
+
+  public appendDataToTreeMap() {
+    if (this.treeMapAppendCount >= shakespeareData.length) {
+      return;
+    }
+    this.treeMapData.dataTable = this.treeMapData.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
+    // force a reference update (otherwise angular doesn't detect the change)
+    this.treeMapData = Object.create(this.treeMapData);
   }
 }

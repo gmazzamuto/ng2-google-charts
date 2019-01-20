@@ -35,6 +35,10 @@
 <h1>OrgChart</h1>
 <google-chart #orgChart [data]="orgChartData"></google-chart>
 <input type="button" value="Toggle collapse" (click)="collapseOrgChart()">
+<h1>TreeMap</h1>
+<h2>click on the button below to append data</h2>
+<google-chart [data]="treeMapData"></google-chart>
+<input type="button" value="Append data" (click)="appendDataToTreeMap()">
 <h1>CandlestickChart</h1>
 <p></p>
 <google-chart [data]="candlestickChartData"></google-chart>
