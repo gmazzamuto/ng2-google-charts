@@ -7,7 +7,7 @@
     "demo.gh-pages": "run-s build demo.build demo.deploy",
     "demo.ng-build": "ng build --prod --aot --preserve-symlinks -nc",
     "demo.deploy": "gh-pages -d demo/dist",
-    "demo.build": "run-s build link demo.ng-build",
+    "demo.build": "npm run build && npm run link && npm run demo.ng-build",
     "link": "ngm link -p src --here",
     "lint": "tslint src/**/*.ts src/*.ts --exclude src/**/*.spec.ts src/*.spec.ts",
     "disable-lint": "tslint \"**/*.ts\" -c tslint.json --fix --type-check -t prose -e \"node_modules/**\" -e \"dist/**\" -e \"temp/**\" -e \"scripts/docs/**\"",
