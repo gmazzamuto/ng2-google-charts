@@ -76,10 +76,12 @@ export class GoogleChartComponent implements OnChanges {
 
       this.loaderService.load(this.data.chartType).then(() => {
         if(this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
+          this.convertOptions();
           this.wrapper = new google.visualization.ChartWrapper(this.data);
         } else {
           this.unregisterChartEvents();
           this.wrapper.setDataTable(this.data.dataTable);
+          this.convertOptions();
           this.wrapper.setOptions(this.options);
         }
         this.registerChartWrapperEvents();
@@ -306,5 +308,13 @@ export class GoogleChartComponent implements OnChanges {
 
       this.chartSelect.emit(event);
     });
+  }
+
+  private convertOptions() {
+    try {
+      this.options = google.charts[this.data.chartType].convertOptions(this.options);
+    } catch (error) {
+      return;
+    }
   }
 }
