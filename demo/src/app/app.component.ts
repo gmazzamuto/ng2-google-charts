@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
    ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
 
+declare var $: any;
 import { shakespeareData } from './shakespeare';
 
 @Component({
@@ -15,6 +16,7 @@ export class AppComponent {
   @ViewChild('orgChart') orgChart;
 
   public selectEvent: ChartSelectEvent;
+  public imageURI = '';
 
   public columnChartData: any =  {
     chartType: 'ColumnChart',
@@ -336,6 +338,11 @@ export class AppComponent {
       this.columnChartData.dataTable[i][2] = Math.round(
         Math.random() * 1000);
     }
+  }
+
+  public openAsPNG() {
+    this.imageURI = this.cchart.wrapper.getChart().getImageURI();
+    $('#exampleModal').modal();
   }
 
  public changeChartType(): void {

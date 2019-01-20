@@ -5,6 +5,26 @@
 <h4>Animated</h4>
 <google-chart #cchart [data]="columnChartData2"></google-chart>
 <input type="button" value="Change data" (click)="changeData2()">
+<input type="button" value="Open as PNG" (click)="openAsPNG()">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 90%; max-width:1200px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">PNG image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img [src]="[imageURI]" width="100%">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <p></p>
 <h4>Material</h4>
 <google-chart [data]="barChartData"></google-chart>
