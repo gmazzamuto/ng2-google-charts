@@ -29,6 +29,7 @@ npm-debug.log
 #System Files
 .DS_Store
 Thumbs.db
+.directory
 
 
 /demo/e2e/*.js
