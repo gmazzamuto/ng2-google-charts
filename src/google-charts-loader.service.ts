@@ -22,13 +22,14 @@ export class GoogleChartsLoaderService {
     }
   }
 
-  public load(chartType: string): Promise<any> {
+  public load(packages?: string[]): Promise<any> {
     return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
 
       this.loadGoogleChartsScript().then(() => {
         const initializer: any = {
-            language: this.localeId,
-            callback: resolve
+          language: this.localeId,
+          callback: resolve,
+          packages
         };
         if (this.mapsApiKey) {
           initializer.mapsApiKey = this.mapsApiKey;
