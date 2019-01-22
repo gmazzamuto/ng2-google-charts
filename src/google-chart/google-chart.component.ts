@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
+import { GoogleChartInterface, GoogleChartComponentInterface } from '../google-charts-interfaces';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
@@ -29,9 +30,9 @@ import { ChartHTMLTooltip } from './chart-html-tooltip';
   template: '<div></div>',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GoogleChartComponent implements OnChanges {
+export class GoogleChartComponent implements OnChanges, GoogleChartComponentInterface {
 
-  @Input() public data: any;
+  @Input() public data: GoogleChartInterface;
 
   @Output() public chartReady: EventEmitter<ChartReadyEvent>;
 
@@ -74,7 +75,9 @@ export class GoogleChartComponent implements OnChanges {
         this.options = {};
       }
 
-      this.loaderService.load(this.data.chartType).then(() => {
+      this.data.component = this;
+
+      this.loaderService.load().then(() => {
         if(this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
           this.convertOptions();
           if(this.data.opt_firstRowIsData && Array.isArray(this.data.dataTable)) {

@@ -1,9 +1,9 @@
 <h1>Column chart</h1>
-<google-chart [data]="columnChartData"></google-chart>
+<google-chart [data]="columnChart"></google-chart>
 <input type="button" value="Change data" (click)="changeData()"> <input type="button" value="Change chart type" (click)="changeChartType()">
 <p></p>
 <h4>Animated</h4>
-<google-chart #cchart [data]="columnChartData2"></google-chart>
+<google-chart [data]="columnChart2"></google-chart>
 <input type="button" value="Change data" (click)="changeData2()">
 <input type="button" value="Open as PNG" (click)="openAsPNG()">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -27,40 +27,40 @@
 
 <p></p>
 <h4>Material</h4>
-<google-chart [data]="barChartData"></google-chart>
+<google-chart [data]="barChart"></google-chart>
 <p></p>
 <h4>Stacked</h4>
-<google-chart [data]="stackedColumnChartData"></google-chart>
+<google-chart [data]="stackedColumnChart"></google-chart>
 <h1>Pie chart</h1>
-<google-chart [data]="pieChartData"></google-chart>
+<google-chart [data]="pieChart"></google-chart>
 <h1>Gauge</h1>
 <div style="width: 1px; margin: 0 auto;">
-  <google-chart [data]="gaugeChartData"></google-chart>
+  <google-chart [data]="gaugeChart"></google-chart>
 </div>
 <h1>Scatter chart</h1>
-<google-chart [data]="scatterChartData"></google-chart>
+<google-chart [data]="scatterChart"></google-chart>
 <h1>Timeline chart</h1>
-<google-chart [data]="timelineChartData"></google-chart>
+<google-chart [data]="timelineChart"></google-chart>
 <h1>Line chart with events</h1>
 <h4>Selected row: {{selectEvent?.row}}</h4>
 <h4>Selected column: {{selectEvent?.column}}</h4>
 <pre>{{selectEvent | json}}</pre>
-<google-chart [data]="lineChartData" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
+<google-chart [data]="lineChart" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
 <h1>Combo chart</h1>
 <p>See console log for mouse over events.
-<google-chart [data]="comboChartData" (mouseOver)="mouseOver($event)" (mouseOut)="mouseOut($event)"></google-chart>
+<google-chart [data]="comboChart" (mouseOver)="mouseOver($event)" (mouseOut)="mouseOut($event)"></google-chart>
 <h1>Table with formatter</h1>
 <p></p>
-<google-chart [data]="tableChartData"></google-chart>
+<google-chart [data]="tableChart"></google-chart>
 <h1>OrgChart</h1>
-<google-chart #orgChart [data]="orgChartData"></google-chart>
+<google-chart [data]="orgChart"></google-chart>
 <input type="button" value="Toggle collapse" (click)="collapseOrgChart()">
 <h1>TreeMap</h1>
 <h2>click on the button below to append data</h2>
-<google-chart [data]="treeMapData"></google-chart>
+<google-chart [data]="treeMap"></google-chart>
 <input type="button" value="Append data" (click)="appendDataToTreeMap()">
 <h1>CandlestickChart</h1>
 <p></p>
-<google-chart [data]="candlestickChartData"></google-chart>
+<google-chart [data]="candlestickChart"></google-chart>
 <p></p>
 <p>Code samples are adapted from <a href="https://developers.google.com/chart/">Google Charts</a> where they are licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.</p>

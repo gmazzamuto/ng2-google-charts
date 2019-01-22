@@ -35,11 +35,13 @@ export class AppModule { }
 
 In your templates, use the `google-chart` component like this:
 ```html
-<google-chart [data]="pieChartData"></google-chart>
+<google-chart [data]="pieChart"></google-chart>
 ```
 and in the corresponding `.ts` file:
 ```ts
-pieChartData =  {
+import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+
+public pieChart: GoogleChartInterface = {
   chartType: 'PieChart',
   dataTable: [
     ['Task', 'Hours per Day'],
@@ -66,7 +68,7 @@ compiler (option --aot).
 You can specify an array of multiple formatter types and configurations like
 this:
 ```ts
-public tableChartData =  {
+public tableChart =  {
   chartType: 'Table',
   dataTable: [
     ['Department', 'Revenues', 'Another column', 'ColorFormat'],
@@ -111,7 +113,7 @@ The `chartReady` event is fired when a chart is completely loaded.
 
 Bind the `chartReady` event in the `google-chart` component like this:
 ```html
-<google-chart [data]='pieChartData' (chartReady)='ready($event)'></google-chart>
+<google-chart [data]='pieChart' (chartReady)='ready($event)'></google-chart>
 ```
 
 Your `ready()` function is passed an event whose interface looks like this:
@@ -139,7 +141,7 @@ The `chartError` event is fired if there are some errors with a chart.
 
 Bind the `chartError` event in the `google-chart` component, like this:
 ```html
-<google-chart [data]='pieChartData' (chartError)='error($event)'></google-chart>
+<google-chart [data]='pieChart' (chartError)='error($event)'></google-chart>
 ```
 
 Your `error()` function is passed an event whose interface looks like this:
@@ -172,7 +174,7 @@ The `chartSelect` event is fired when a chart is selected/clicked.
 
 Bind the `chartSelect` event in the `google-chart` component, like this:
 ```html
-<google-chart [data]='pieChartData' (chartSelect)='select($event)'></google-chart>
+<google-chart [data]='pieChart' (chartSelect)='select($event)'></google-chart>
 ```
 
 Your `select()` function is passed an event whose interface looks like this:
@@ -181,6 +183,7 @@ interface ChartSelectEvent {
   message: string;
   row: number | null;
   column: number | null;
+  columnLabel: string;
   selectedRowValues: any[];
   selectedRowFormattedValues: any[];
 }
@@ -205,7 +208,7 @@ item.
 
 Bind the `MouseOver` event in the `google-chart` component like this:
 ```html
-<google-chart [data]="comboChartData" (mouseOver)="mouseOver($event)"></google-chart>
+<google-chart [data]="comboChart" (mouseOver)="mouseOver($event)"></google-chart>
 ```
 
 Your `mouseOver()` function is passed an event whose class looks like this:
@@ -239,7 +242,7 @@ item.
 
 Bind the `MouseOut` event in the `google-chart` component like this:
 ```html
-<google-chart [data]="comboChartData" (mouseOut)="mouseOut($event)"></google-chart>
+<google-chart [data]="comboChart" (mouseOut)="mouseOut($event)"></google-chart>
 ```
 
 Your `mouseOut()` function is passed an event whose class looks like this:
@@ -266,24 +269,34 @@ public mouseOut(event: ChartMouseOutEvent) {
 ```
 
 # Advanced usage
-You can access Google Chart's underlying [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the
-`wrapper` property of the component object:
+You can access Google Chart's underlying `GoogleChartComponent` and [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the `component` property:
 ```html
-<google-chart #cchart [data]="columnChartData"></google-chart>
+<google-chart [data]="columnChart"></google-chart>
 ```
 
 ```ts
-import {ViewChild} from '@angular/core';
-
 export class AppComponent {
 
-  @ViewChild('cchart') cchart;
+  public columnChart: GoogleChartInterface = {  // use :any or :GoogleChartInterface
+      chartType: 'ColumnChart',
+      dataTable: [
+        ['Country', 'Performance', 'Profits'],
+        ['Germany', 700, 1200],
+        ['USA', 300, 600],
+        ['Brazil', 400, 500],
+        ['Canada', 500, 1000],
+        ['France', 600, 1100],
+        ['RU', 800, 1000]
+      ],
+      options: {title: 'Countries'}
+  };
 
   myfunction() {
-    let googleChartWrapper = this.cchart.wrapper;
+    let ccComponent = this.columnChart.component;
+    let ccWrapper = ccComponent.wrapper;
 
     //force a redraw
-    this.cchart.redraw();
+    ccComponent.redraw();
   }
 
 }

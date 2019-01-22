@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
    ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
+import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 
 declare var $: any;
 import { shakespeareData } from './shakespeare';
@@ -12,13 +13,10 @@ import { shakespeareData } from './shakespeare';
 })
 export class AppComponent {
 
-  @ViewChild('cchart') cchart;
-  @ViewChild('orgChart') orgChart;
-
   public selectEvent: ChartSelectEvent;
   public imageURI = '';
 
-  public columnChartData: any =  {
+  public columnChart: GoogleChartInterface = {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -32,7 +30,7 @@ export class AppComponent {
     options: {title: 'Countries'}
   };
 
-  public columnChartData2: any =  {
+  public columnChart2: GoogleChartInterface =  {
     chartType: 'ColumnChart',
     dataTable: [
       ['Country', 'Performance', 'Profits'],
@@ -53,7 +51,7 @@ export class AppComponent {
     }
   };
 
-  public barChartData: any =  {
+  public barChart = {
     chartType: 'Bar',
     dataTable: [
       ['Year', 'Sales', 'Expenses', 'Profit'],
@@ -70,7 +68,7 @@ export class AppComponent {
     }
   };
 
-  public stackedColumnChartData: any =  {
+  public stackedColumnChart = {
     chartType: 'ColumnChart',
     dataTable: [
       ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
@@ -88,7 +86,7 @@ export class AppComponent {
     }
   };
 
-  public pieChartData: any =  {
+  public pieChart = {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -101,17 +99,13 @@ export class AppComponent {
     options: {
       title: 'Tasks',
       slices: {
-        0: {
-        offset: 0.3
-      },
-      1: {
-      offset: 0.2
-      }
+        0: {offset: 0.3},
+        1: {offset: 0.2}
       }
     }
   };
 
-  public gaugeChartData: any =  {
+  public gaugeChart = {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -128,7 +122,7 @@ export class AppComponent {
     }
   };
 
-  public scatterChartData: any = {
+  public scatterChart = {
     chartType: 'ScatterChart',
     dataTable: [
       ['Age', 'Weight'],
@@ -147,7 +141,7 @@ export class AppComponent {
     }
   };
 
- public timelineChartData: any =  {
+ public timelineChart = {
     chartType: 'Timeline',
     dataTable: [
       ['Name', 'From', 'To'],
@@ -157,7 +151,7 @@ export class AppComponent {
     ]
  };
 
- public lineChartData: any =  {
+ public lineChart = {
     chartType: 'LineChart',
     dataTable: [
       ['Year', 'Sales', 'Expenses'],
@@ -169,7 +163,7 @@ export class AppComponent {
     options: {title: 'Company Performance'}
   };
 
- public comboChartData: any =  {
+ public comboChart = {
     chartType: 'ComboChart',
     dataTable: [
       ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
@@ -188,7 +182,7 @@ export class AppComponent {
     }
   };
 
-  public tableChartData: any =  {
+  public tableChart = {
     chartType: 'Table',
     dataTable: [
       ['Department', 'Revenues', 'Another column', 'ColorFormat'],
@@ -220,7 +214,7 @@ export class AppComponent {
     options: {title: 'Countries', allowHtml: true}
   };
 
- public geoChartData: any =  {
+ public geoChart = {
     chartType: 'GeoChart',
     dataTable: [
       ['City',   'Population', 'Area'],
@@ -243,7 +237,7 @@ export class AppComponent {
     }
   };
 
-  public orgChartData: any =  {
+  public orgChart: GoogleChartInterface = {
     chartType: 'OrgChart',
     dataTable: [
       ['Name',   'Manager', 'Tooltip'],
@@ -259,7 +253,7 @@ export class AppComponent {
     }
   };
 
-  public candlestickChartData: any =  {
+  public candlestickChart = {
     chartType: 'CandlestickChart',
     dataTable: [
       ['Mon', 28, 28, 38, 38],
@@ -279,7 +273,7 @@ export class AppComponent {
     }
   };
 
-  public treeMapData = {
+  public treeMap = {
     chartType: 'TreeMap',
     dataTable: [
       ['ID', 'Parent', 'Number of Lines'],
@@ -311,47 +305,45 @@ export class AppComponent {
 
  ngOnInit() {
    for (let i = 1; i < 7; i++) {
-     this.columnChartData2.dataTable[i][1] = Math.round(
+     this.columnChart2.dataTable[i][1] = Math.round(
        Math.random() * 1000);
-     this.columnChartData2.dataTable[i][2] = Math.round(
+     this.columnChart2.dataTable[i][2] = Math.round(
        Math.random() * 1000);
    }
 
    this.appendDataToTreeMap();
  }
 
- public changeData2(): void {
-    const dataTable = this.cchart.wrapper.getDataTable();
+ public changeData(): void {
+    const dataTable = this.columnChart.component.wrapper.getDataTable();
     for (let i = 0; i < 6; i++) {
       dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
       dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
     }
-    this.cchart.redraw();
+    this.columnChart.component.redraw();
   }
 
- public changeData(): void {
-    // forces a reference update (otherwise angular won't detect the change
-    this.columnChartData = Object.create(this.columnChartData);
-    for (let i = 1; i < 7; i++) {
-      this.columnChartData.dataTable[i][1] = Math.round(
-        Math.random() * 1000);
-      this.columnChartData.dataTable[i][2] = Math.round(
-        Math.random() * 1000);
+ public changeData2(): void {
+    const dataTable = this.columnChart2.component.wrapper.getDataTable();
+    for (let i = 0; i < 6; i++) {
+      dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
+      dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
     }
+    this.columnChart2.component.redraw();
   }
 
   public openAsPNG() {
-    this.imageURI = this.cchart.wrapper.getChart().getImageURI();
+    this.imageURI = this.columnChart2.component.wrapper.getChart().getImageURI();
     $('#exampleModal').modal();
   }
 
  public changeChartType(): void {
     // forces a reference update (otherwise angular doesn't detect the change)
-    this.columnChartData = Object.create(this.columnChartData);
-    if (this.columnChartData.chartType === 'ColumnChart') {
-      this.columnChartData.chartType = 'PieChart';
+    this.columnChart = Object.create(this.columnChart);
+    if (this.columnChart.chartType === 'ColumnChart') {
+      this.columnChart.chartType = 'PieChart';
     } else {
-      this.columnChartData.chartType = 'ColumnChart';
+      this.columnChart.chartType = 'ColumnChart';
     }
   }
 
@@ -387,7 +379,7 @@ export class AppComponent {
 
   public collapseOrgChart() {
     this.orgChartCollapsed = !this.orgChartCollapsed;
-    const orgChartWrapper = this.orgChart.wrapper;
+    const orgChartWrapper = this.orgChart.component.wrapper;
     orgChartWrapper.getChart().collapse(0, this.orgChartCollapsed);
   }
 
@@ -395,8 +387,8 @@ export class AppComponent {
     if (this.treeMapAppendCount >= shakespeareData.length) {
       return;
     }
-    this.treeMapData.dataTable = this.treeMapData.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
+    this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
     // force a reference update (otherwise angular doesn't detect the change)
-    this.treeMapData = Object.create(this.treeMapData);
+    this.treeMap = Object.create(this.treeMap);
   }
 }
