@@ -219,16 +219,15 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
 
   private parseMouseEvent(item: DataPointPosition): ChartMouseEvent {
     const chartType = this.wrapper.getChartType();
-    let eventColumn;
-    switch(chartType) {
-      case 'Timeline':
-        eventColumn = this.wrapper.getDataTable().getNumberOfColumns() === 3 ? 0 : 1;
-        break;
-      case 'PieChart':
-        eventColumn = 1;
-        break;
-      default:
-        eventColumn = item.column;
+    let eventColumn = item.column;
+    if (eventColumn === null) {
+      switch(chartType) {
+        case 'Timeline':
+          eventColumn = this.wrapper.getDataTable().getNumberOfColumns() === 3 ? 0 : 1;
+          break;
+        default:
+          eventColumn = 0;
+      }
     }
     const eventRow = item.row;
     const myItem = {
