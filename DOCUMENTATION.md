@@ -312,7 +312,7 @@ export class AppComponent {
 [npm-url]: https://npmjs.org/package/ng2-google-charts
 [npm-downloads-image]: http://img.shields.io/npm/dm/ng2-google-charts.svg
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
-[example-page]: https://www.devrandom.it/software/ng2-google-charts/
+[example-page]: https://www.devrandom.it/software/ng2-google-charts/demo
 [google-charts-error-event]: https://developers.google.com/chart/interactive/docs/events#the-error-event
 [arrayToDataTable]: https://developers.google.com/chart/interactive/docs/reference#google.visualization.arraytodatatable
 [ChartWrapperMethods]: https://developers.google.com/chart/interactive/docs/reference#methods_4
