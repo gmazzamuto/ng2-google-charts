@@ -1,6 +1,6 @@
 # ng2-google-charts
 
-> Google Charts module for Angular 2
+> Google Charts module for Angular 2 and beyond.
 
 Please see [this page][example-page] for a live demo.
 
