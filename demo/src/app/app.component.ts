@@ -4,6 +4,7 @@ import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 
 declare var $: any;
+declare var google: any;
 import { shakespeareData } from './shakespeare';
 
 @Component({
@@ -48,6 +49,53 @@ export class AppComponent {
         easing: 'out',
         startup: true
       }
+    }
+  };
+
+  public columnChartWTooltips: GoogleChartInterface =  {
+    chartType: 'ColumnChart',
+    dataTable: [
+      ['Event', 'Highest Recent Viewership', {
+        type: 'string',
+        label: 'Tooltip Chart',
+        role: 'tooltip',
+        p: {html: true}
+      }],
+      ['NBA Finals', 22.4, ''],
+      ['NFL Super Bowl', 111.3, ''],
+      ['MLB World Series', 19.2, ''],
+      ['UEFA Champions League Final', 1.9, ''],
+      ['NHL Stanley Cup Finals', 6.4, ''],
+      ['Wimbledon Men\'s Championship', 2.4, '']
+    ],
+    options: {
+      title: 'Highest U.S. Viewership for Most Recent Event (in millions)',
+      legend: 'none',
+      tooltip: {isHtml: true} // This MUST be set to true for your chart to show.
+    }
+  };
+
+  public tooltipChart: GoogleChartInterface = {
+    chartType: 'LineChart',
+    dataTable: [
+      ['Year', 'NBA Finals', 'NFL Super Bowl', 'MLB World Series',
+      'UEFA Champions League Final', 'NHL Stanley Cup Finals',
+      'Wimbledon Men\'s Championship'],
+      ['2005', 12.5, 98.7, 25.3, 0.6, 3.3, 2.8],
+      ['2006', 13, 90.7, 17.1, 0.8, 2.8, 3.4],
+      ['2007', 9.3, 93, 15.8, 0.9, 1.8, 3.8],
+      ['2008', 14.9, 97.5, 17.1, 1.3, 4.4, 5.1],
+      ['2009', 14.3, 98.7, 13.6, 2.1, 4.9, 5.7],
+      ['2010', 18.2, 106.5, 19.4, 2.2, 5.2, 2.3],
+      ['2011', 17.4, 111, 14.3, 4.2, 4.6, 2.7],
+      ['2012', 16.8, 111.3, 16.6, 2, 2.9, 3.9],
+      ['2013', 16.6, 108.7, 12.7, 1.4, 5.8, 2.5],
+      ['2014', 15.7, 111.3, 15, 1.9, 4.7, 2.4]
+    ],
+    options: {
+      title: 'U.S. Viewership Over The Last 10 Years (in millions)',
+      legend: 'none',
+      width: 200
     }
   };
 
@@ -333,21 +381,49 @@ export class AppComponent {
  }
 
  public changeData(): void {
-    const dataTable = this.columnChart.component.wrapper.getDataTable();
-    for (let i = 0; i < 6; i++) {
-      dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
-      dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
+    const dataTable = this.columnChart.dataTable;
+    for (let i = 1; i < 7; i++) {
+      dataTable[i][1] = Math.round(Math.random() * 1000);
+      dataTable[i][2] = Math.round(Math.random() * 1000);
     }
-    this.columnChart.component.redraw();
+    this.columnChart.component.draw();
   }
 
  public changeData2(): void {
-    const dataTable = this.columnChart2.component.wrapper.getDataTable();
-    for (let i = 0; i < 6; i++) {
-      dataTable.setValue(i, 1, Math.round(Math.random() * 1000));
-      dataTable.setValue(i, 2, Math.round(Math.random() * 1000));
+    const dataTable = this.columnChart2.dataTable;
+    for (let i = 1; i < 7; i++) {
+      dataTable[i][1] = Math.round(Math.random() * 1000);
+      dataTable[i][2] = Math.round(Math.random() * 1000);
     }
-    this.columnChart2.component.redraw();
+    this.columnChart2.component.draw();
+  }
+
+  public setupTooltips() {
+    const data = this.tooltipChart.component.wrapper.getDataTable();
+    const view = new google.visualization.DataView(data);
+    for (let i = 0; i < this.columnChartWTooltips.dataTable.length - 1; i++) {
+      // Set the view for each event's data
+      view.setColumns([0, i + 1]);
+
+      const tooltipChart = this.tooltipChart.component.wrapper.getChart();
+
+      const el = google.visualization.events.addListener(tooltipChart, 'ready', () => {
+
+        // Get the PNG of the chart and set is as the src of an img tag.
+        const tooltipImg = '<img src="' + tooltipChart.getImageURI() + '">';
+
+        // Add the new tooltip image to your data rows.
+        this.columnChartWTooltips.dataTable[i + 1][2] = tooltipImg;
+
+        google.visualization.events.removeListener(el);
+      });
+
+      tooltipChart.draw(view, {
+        title: 'U.S. Viewership Over The Last 10 Years (in millions)',
+        legend: 'none'
+      });
+    }
+    this.columnChartWTooltips.component.draw();
   }
 
   public openAsPNG() {
@@ -370,7 +446,7 @@ export class AppComponent {
   }
 
   public error(event: ChartErrorEvent) {
-    console.error(event);
+    console.error("Error: " + event);
   }
 
   public select(event: ChartSelectEvent) {

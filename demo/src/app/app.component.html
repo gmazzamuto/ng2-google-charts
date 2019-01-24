@@ -24,7 +24,12 @@
       </div>
     </div>
   </div>
+<p></p>
 
+<h4>With charts in tooltip</h4>
+<p>Adapted from <a href="https://developers.google.com/chart/interactive/docs/customizing_tooltip_content#placing-charts-in-tooltips">here</a>.</p>
+<google-chart [data]="tooltipChart" hidden></google-chart>
+<google-chart [data]="columnChartWTooltips" (chartReadyOneTime)="setupTooltips()"></google-chart>
 <p></p>
 <h4>Material</h4>
 <google-chart [data]="barChart"></google-chart>

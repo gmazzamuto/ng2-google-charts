@@ -13,13 +13,13 @@ export interface GoogleChartComponentInterface {
   mouseOut: EventEmitter<ChartMouseOutEvent>;
   wrapper: any;
 
-  redraw(): void;
+  draw(): void;
 }
 
 export interface GoogleChartInterface {
   chartType: string;
   options?: object;
-  dataTable?: object;
+  dataTable?: any;
   opt_firstRowIsData?: boolean;
   formatters?: FormatterInterface[];
   component?: GoogleChartComponentInterface;

@@ -94,20 +94,20 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
             this.data.dataTable = google.visualization.arrayToDataTable(this.data.dataTable, true);
           }
           this.wrapper = new google.visualization.ChartWrapper(this.data);
+          this.registerChartWrapperEvents();
         } else {
-          this.unregisterChartEvents();
-          this.wrapper.setDataTable(this.data.dataTable);
-          this.convertOptions();
-          this.wrapper.setOptions(this.options);
+          // this.unregisterEvents();
+
         }
-        this.registerChartWrapperEvents();
-        this.reformat();
-        this.redraw();
+        this.draw();
       });
     }
   }
 
-  public redraw(): void {
+  public draw(): void {
+    this.wrapper.setDataTable(this.data.dataTable);
+    this.convertOptions();
+    this.wrapper.setOptions(this.options);
     this.reformat();
     this.wrapper.draw(this.el.nativeElement.querySelector('div'));
   }
@@ -135,8 +135,9 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
             }
           }
         }
+        const dt = this.wrapper.getDataTable();
         for (const col of formatterConfig.columns) {
-          formatter.format(this.wrapper.getDataTable(), col);
+          formatter.format(dt, col);
         }
       }
     }
