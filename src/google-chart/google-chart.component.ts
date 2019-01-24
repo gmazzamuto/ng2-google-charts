@@ -35,14 +35,19 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   @Input() public data: GoogleChartInterface;
 
   @Output() public chartReady: EventEmitter<ChartReadyEvent>;
+  @Output() public chartReadyOneTime: EventEmitter<ChartReadyEvent>;
 
   @Output() public chartError: EventEmitter<ChartErrorEvent>;
+  @Output() public chartErrorOneTime: EventEmitter<ChartErrorEvent>;
 
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
+  @Output() public chartSelectOneTime: EventEmitter<ChartSelectEvent>;
 
   @Output() public mouseOver: EventEmitter<ChartMouseOverEvent>;
+  @Output() public mouseOverOneTime: EventEmitter<ChartMouseOverEvent>;
 
   @Output() public mouseOut: EventEmitter<ChartMouseOutEvent>;
+  @Output() public mouseOutOneTime: EventEmitter<ChartMouseOutEvent>;
 
   public wrapper: any;
   private cli: any;
@@ -56,10 +61,15 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     this.el = el;
     this.loaderService = loaderService;
     this.chartSelect = new EventEmitter();
+    this.chartSelectOneTime = new EventEmitter();
     this.chartReady = new EventEmitter();
+    this.chartReadyOneTime = new EventEmitter();
     this.chartError = new EventEmitter();
+    this.chartErrorOneTime = new EventEmitter();
     this.mouseOver = new EventEmitter();
+    this.mouseOverOneTime = new EventEmitter();
     this.mouseOut = new EventEmitter();
+    this.mouseOutOneTime = new EventEmitter();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -192,7 +202,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   }
 
   private getValueAtPosition(position: DataPointPosition): any {
-    if(position.row === null) {
+    if(position.row == null) {
       return null;
     }
     const dataTable = this.wrapper.getDataTable();
@@ -220,7 +230,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   private parseMouseEvent(item: DataPointPosition): ChartMouseEvent {
     const chartType = this.wrapper.getChartType();
     let eventColumn = item.column;
-    if (eventColumn === null) {
+    if (eventColumn == null) {
       switch(chartType) {
         case 'Timeline':
           eventColumn = this.wrapper.getDataTable().getNumberOfColumns() === 3 ? 0 : 1;
@@ -244,7 +254,8 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     return event;
   }
 
-  private unregisterChartEvents(): void {
+  private unregisterEvents(): void {
+    google.visualization.events.removeAllListeners(this.wrapper.getChart());
     google.visualization.events.removeAllListeners(this.wrapper);
   }
 
@@ -258,6 +269,13 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
         this.mouseOver.emit(event);
       });
     }
+    if(this.mouseOverOneTime.observers.length > 0) {
+      google.visualization.events.addOneTimeListener(chart, 'onmouseover', (item: DataPointPosition) => {
+        const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
+        event.tooltip = this.getHTMLTooltip();
+        this.mouseOverOneTime.emit(event);
+      });
+    }
 
     if (this.mouseOut.observers.length > 0) {
       google.visualization.events.addListener(chart, 'onmouseout', (item: DataPointPosition) => {
@@ -265,11 +283,22 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
         this.mouseOut.emit(event);
       });
     }
+
+    if (this.mouseOutOneTime.observers.length > 0) {
+      google.visualization.events.addOneTimeListener(chart, 'onmouseout', (item: DataPointPosition) => {
+        const event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
+        this.mouseOutOneTime.emit(event);
+      });
+    }
   }
 
   private registerChartWrapperEvents(): void {
     google.visualization.events.addListener(this.wrapper, 'ready', () => {
       this.chartReady.emit({message: 'Chart ready'});
+    });
+
+    google.visualization.events.addOneTimeListener(this.wrapper, 'ready', () => {
+      this.chartReadyOneTime.emit({message: 'Chart ready (one time)'});
       this.registerChartEvents();
     });
 
@@ -277,44 +306,76 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
       this.chartError.emit(error as ChartErrorEvent);
     });
 
-    google.visualization.events.addListener(this.wrapper, 'select', () => {
-      const event: ChartSelectEvent = {
-        message: 'select',
-        row: null,
-        column: null,
-        selectedRowValues: [],
-        selectedRowFormattedValues: [],
-        columnLabel: ''
-      };
-      const s = this.wrapper.visualization.getSelection();
-      const gs = s[s.length - 1];
-      if(!gs) {
-        event.message = 'deselect';
-      } else if (gs.row !== undefined) {
-        const selection: DataPointPosition = gs;
-        event.row = selection.row;
-
-        const selectedRowValues = [];
-        const selectedRowFormattedValues = [];
-        const dataTable = this.wrapper.getDataTable();
-        const numberOfColumns = dataTable.getNumberOfColumns();
-        for (let i = 0; i < numberOfColumns; i++) {
-          selectedRowValues.push(dataTable.getValue(selection.row, i));
-          selectedRowFormattedValues.push(dataTable.getFormattedValue(selection.row, i));
-        }
-        event.selectedRowValues = selectedRowValues;
-        event.selectedRowFormattedValues = selectedRowFormattedValues;
-
-        if (selection.column !== null) {
-          event.column = selection.column;
-          event.columnLabel = this.getColumnLabelAtPosition(selection);
-        }
-      } else if(gs.name) {
-        event.columnLabel = gs.name;
-      }
-
-      this.chartSelect.emit(event);
+    google.visualization.events.addOneTimeListener(this.wrapper, 'error', (error: any) => {
+      this.chartErrorOneTime.emit(error as ChartErrorEvent);
     });
+
+    this.addListener(this.wrapper, 'select', this.selectListener, this.chartSelect);
+    this.addOneTimeListener(this.wrapper, 'select', this.selectListener, this.chartSelectOneTime);
+  }
+
+  private addListener(source: any, eventType: string, listenerFn: any, evEmitter: EventEmitter<any>) {
+    google.visualization.events.addListener(source, eventType, () => {
+      evEmitter.emit(listenerFn());
+    });
+  }
+
+  private addOneTimeListener(source: any, eventType: string, listenerFn: any, evEmitter: EventEmitter<any>) {
+    google.visualization.events.addOneTimeListener(source, eventType, () => {
+      evEmitter.emit(listenerFn());
+    });
+  }
+
+  private mouseOverListener = (item: DataPointPosition) => {
+    const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
+    event.tooltip = this.getHTMLTooltip();
+    return event;
+  }
+
+  private mouseOutListener = (item: DataPointPosition) => {
+    const event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
+    return event;
+  }
+
+  private selectListener = () => {
+    const event: ChartSelectEvent = {
+      message: 'select',
+      row: null,
+      column: null,
+      selectedRowValues: [],
+      selectedRowFormattedValues: [],
+      columnLabel: ''
+    };
+    const s = this.wrapper.visualization.getSelection();
+    const gs = s[s.length - 1];
+    if(!gs) {
+      event.message = 'deselect';
+      return event;
+    }
+    const selection: DataPointPosition = gs;
+    if (gs.row != null) {
+      event.row = selection.row;
+
+      const selectedRowValues = [];
+      const selectedRowFormattedValues = [];
+      const dataTable = this.wrapper.getDataTable();
+      const numberOfColumns = dataTable.getNumberOfColumns();
+      for (let i = 0; i < numberOfColumns; i++) {
+        selectedRowValues.push(dataTable.getValue(selection.row, i));
+        selectedRowFormattedValues.push(dataTable.getFormattedValue(selection.row, i));
+      }
+      event.selectedRowValues = selectedRowValues;
+      event.selectedRowFormattedValues = selectedRowFormattedValues;
+    }
+    if(selection.column != null) {
+      event.column = selection.column;
+      event.columnLabel = this.getColumnLabelAtPosition(selection);
+    }
+    if(gs.name) {
+      event.columnLabel = gs.name;
+    }
+
+    return event;
   }
 
   private convertOptions() {

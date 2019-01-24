@@ -106,6 +106,8 @@ Please refer to the Google Chart [documentation for formatter types and options]
 Please see [this page][example-page] for a demo with more examples.
 
 ## Events
+All events described below are also available as one time events:
+`chartReadyOneTime` and so on.
 
 ### chartReady
 
