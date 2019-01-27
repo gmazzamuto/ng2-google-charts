@@ -321,7 +321,7 @@ export class AppComponent {
     }
   };
 
-  public treeMap = {
+  public treeMap: GoogleChartInterface = {
     chartType: 'TreeMap',
     dataTable: [
       ['ID', 'Parent', 'Number of Lines'],
@@ -377,7 +377,7 @@ export class AppComponent {
        Math.random() * 1000);
    }
 
-   this.appendDataToTreeMap();
+   this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
  }
 
  public changeData(): void {
@@ -439,6 +439,7 @@ export class AppComponent {
     } else {
       this.columnChart.chartType = 'ColumnChart';
     }
+    this.columnChart.component.draw();
   }
 
   public ready(event: ChartReadyEvent) {
@@ -482,7 +483,6 @@ export class AppComponent {
       return;
     }
     this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
-    // force a reference update (otherwise angular doesn't detect the change)
-    this.treeMap = Object.create(this.treeMap);
+    this.treeMap.component.draw();
   }
 }
