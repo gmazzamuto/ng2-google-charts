@@ -10,3 +10,6 @@
 * fix events and listeners
 * load Google Charts v46 by default
 * `GoogleChartsLoaderService`: inject `googleChartsVersion` and `mapsApiKey`
+
+ ## Breaking changes
+ * rename method in GoogleChartComponent: redraw() -> draw()

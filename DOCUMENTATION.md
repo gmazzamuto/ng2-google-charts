@@ -298,7 +298,7 @@ export class AppComponent {
     let ccWrapper = ccComponent.wrapper;
 
     //force a redraw
-    ccComponent.redraw();
+    ccComponent.draw();
   }
 
 }
