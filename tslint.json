@@ -21,6 +21,7 @@
     "prefer-function-over-method": false,
     "prefer-template": false,
     "whitespace": [true, "check-decl", "check-operator", "check-module", "check-separator", "check-type"],
-    "max-file-line-count": false
+    "max-file-line-count": false,
+    "newline-per-chained-call": false
   }
 }
