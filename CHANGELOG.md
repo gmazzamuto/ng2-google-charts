@@ -1,3 +1,18 @@
+<a name="v5.0.0"></a>
+
+# Version 5.0.0
+
+* Add interface for remote data source
+* Add interfaces for all formatters
+* Add `regionClick` event for `GeoChart`
+* Add missing properties in `GoogleChartInterface`, implement loading data
+  from a remote source
+
+## Breaking changes
+* rename interface `FormatterOptionsInterface` -> `ColorFormatInterface`
+* in `GoogleChartInterface`, rename `opt_firstRowIsData` -> `firstRowIsData`
+
+
 <a name="v4.0.0"></a>
 
 # Version 4.0.0
