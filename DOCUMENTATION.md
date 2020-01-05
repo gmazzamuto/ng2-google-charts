@@ -53,13 +53,13 @@ public pieChart: GoogleChartInterface = {
     ['Watch TV', 2],
     ['Sleep',    7]
   ],
-  //opt_firstRowIsData: true,
+  //firstRowIsData: true,
   options: {'title': 'Tasks'},
 };
 ```
 The value in `dataTable` will be passed to the `setDataTable()` method of
 `ChartWrapper` ([documentation][ChartWrapperMethods]).
-If `opt_firstRowIsData` is true, `dataTable` will be first passed to
+If `firstRowIsData` is true, `dataTable` will be first passed to
 `arrayToDataTable(dataTable, true)` ([documentation][arrayToDataTable]).
 
 Make sure you are compiling your Angular app with the Ahead-of-Time (AOT)

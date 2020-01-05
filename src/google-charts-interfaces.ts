@@ -25,7 +25,7 @@ export interface GoogleChartInterface {
   dataSourceUrl?: string;
   query?: string;
   refreshInterval?: number;
-  opt_firstRowIsData?: boolean;
+  firstRowIsData?: boolean;
   formatters?: FormatterInterface[];
   view?: string | object | object[];
 

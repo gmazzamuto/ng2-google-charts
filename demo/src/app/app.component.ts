@@ -409,7 +409,7 @@ export class AppComponent {
       ['Thu', 77, 77, 66, 66],
       ['Fri', 66, 66, 22, 22]
     ],
-    opt_firstRowIsData: true,
+    firstRowIsData: true,
     options: {
       legend: 'none',
       bar: { groupWidth: '100%' }, // Remove space between bars.
