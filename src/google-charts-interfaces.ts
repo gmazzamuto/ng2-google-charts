@@ -20,6 +20,9 @@ export interface GoogleChartInterface {
   chartType: string;
   options?: object;
   dataTable?: any;
+  dataSourceUrl?: string;
+  query?: string;
+  refreshInterval?: number;
   opt_firstRowIsData?: boolean;
   formatters?: FormatterInterface[];
   component?: GoogleChartComponentInterface;

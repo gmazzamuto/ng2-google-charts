@@ -54,9 +54,14 @@
 <h1>Combo chart</h1>
 <p>See console log for mouse over events.
 <google-chart [data]="comboChart" (mouseOver)="mouseOver($event)" (mouseOut)="mouseOut($event)"></google-chart>
+
 <h1>Table with formatter</h1>
 <p></p>
 <google-chart [data]="tableChart"></google-chart>
+<p></p>
+<h4>With remote source</h4>
+<google-chart [data]="remoteSourceData"></google-chart>
+
 <h1>OrgChart</h1>
 <google-chart [data]="orgChart"></google-chart>
 <input type="button" value="Toggle collapse" (click)="collapseOrgChart()">

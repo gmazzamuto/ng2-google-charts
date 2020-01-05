@@ -262,6 +262,16 @@ export class AppComponent {
     options: {title: 'Countries', allowHtml: true}
   };
 
+  public remoteSourceData: GoogleChartInterface = {
+    dataSourceUrl: 'https://spreadsheets.google.com/a/google.com/tq?key=pCQbetd-CptGXxxQIG7VFIQ&pub=1',
+    query: 'SELECT A,D WHERE D > 100 ORDER BY D',
+    chartType: 'Table',
+    options: {
+      alternatingRowStyle: true,
+      showRowNumber : true,
+    },
+  }
+
  public geoChart = {
     chartType: 'GeoChart',
     dataTable: [

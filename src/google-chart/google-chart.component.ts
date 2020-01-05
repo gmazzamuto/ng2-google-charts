@@ -105,7 +105,30 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   }
 
   public draw(): void {
-    this.wrapper.setDataTable(this.data.dataTable);
+    if (this.data.dataTable) {
+      this.wrapper.setDataTable(this.data.dataTable);
+      this._draw();
+    } else if (this.data.dataSourceUrl) {
+      const query = new google.visualization.Query(this.data.dataSourceUrl);
+      if (this.data.refreshInterval) {
+        query.setRefreshInterval(this.data.refreshInterval);
+      }
+      if (this.data.query) {
+        query.setQuery(this.data.query);
+      }
+      query.send((queryResponse: any) => {
+        if(queryResponse.isError()) {
+          return;
+        }
+        const dt = queryResponse.getDataTable();
+        this.wrapper.setDataTable(dt);
+        this.data.dataTable = dt;
+        this._draw();
+      });
+    }
+  }
+
+  private _draw() {
     this.convertOptions();
     this.wrapper.setOptions(this.options);
     this.reformat();
