@@ -99,7 +99,7 @@ public tableChart: GoogleChartInterface = {
       }
     }
   ],
-  options: {title: 'Countries', allowHtml: true}
+  options: {allowHtml: true}
 };
 ```
 
