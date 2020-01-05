@@ -25,6 +25,7 @@ import {
   DataPointPosition
 } from './chart-mouse-event';
 import { ChartHTMLTooltip } from './chart-html-tooltip';
+import { RegionClickEvent } from './geochart-events';
 
 @Component({
   selector: 'google-chart',
@@ -50,6 +51,9 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   @Output() public mouseOut: EventEmitter<ChartMouseOutEvent>;
   @Output() public mouseOutOneTime: EventEmitter<ChartMouseOutEvent>;
 
+  @Output() public regionClick: EventEmitter<RegionClickEvent>;
+  @Output() public regionClickOneTime: EventEmitter<RegionClickEvent>;
+
   public wrapper: any;
   private cli: any;
   private options: any;
@@ -71,6 +75,8 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     this.mouseOverOneTime = new EventEmitter();
     this.mouseOut = new EventEmitter();
     this.mouseOutOneTime = new EventEmitter();
+    this.regionClick = new EventEmitter();
+    this.regionClickOneTime = new EventEmitter();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -325,6 +331,19 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
         const event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
         this.mouseOutOneTime.emit(event);
       });
+    }
+
+    if (this.data.chartType === 'GeoChart') {
+      if (this.regionClick.observers.length > 0) {
+        google.visualization.events.addListener(chart, 'regionClick', (item: RegionClickEvent) => {
+          this.regionClick.emit(item);
+        });
+      }
+      if (this.regionClickOneTime.observers.length > 0) {
+        google.visualization.events.addOneTimeListener(chart, 'regionClick', (item: RegionClickEvent) => {
+          this.regionClick.emit(item);
+        });
+      }
     }
   }
 

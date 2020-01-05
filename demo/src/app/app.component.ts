@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
-   ChartMouseOverEvent, ChartMouseOutEvent } from 'ng2-google-charts';
+   ChartMouseOverEvent, ChartMouseOutEvent, RegionClickEvent } from 'ng2-google-charts';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 
 declare var $: any;
@@ -15,6 +15,7 @@ import { shakespeareData } from './shakespeare';
 export class AppComponent {
 
   public selectEvent: ChartSelectEvent;
+  public regionClickEvent: RegionClickEvent;
   public imageURI = '';
 
   public columnChart: GoogleChartInterface = {
@@ -345,23 +346,41 @@ export class AppComponent {
  public geoChart: GoogleChartInterface = {
     chartType: 'GeoChart',
     dataTable: [
-      ['City',   'Population', 'Area'],
-      ['Rome',      2761477,    1285.31],
-      ['Milan',     1324110,    181.76],
-      ['Naples',    959574,     117.27],
-      ['Turin',     907563,     130.17],
-      ['Palermo',   655875,     158.9],
-      ['Genoa',     607906,     243.6],
-      ['Bologna',   380181,     140.7],
-      ['Florence',  371282,     102.41],
-      ['Fiumicino', 67370,      213.44],
-      ['Anzio',     52192,      43.43],
-      ['Ciampino',  38262,      11]
+      ['Country', 'Population (2019)'],
+      ['Austria',	8858775],
+      ['Belgium',	11467923],
+      ['Bulgaria', 7000039],
+      ['Croatia',	4076246],
+      ['Cyprus',	875898],
+      ['Czech Republic', 10649800],
+      ['Denmark',	5806081],
+      ['Estonia',	1324820],
+      ['Finland',	5517919],
+      ['France',	67028048],
+      ['Germany',	83019214],
+      ['Greece',	10722287],
+      ['Hungary',	9797561],
+      ['Ireland',	4904226],
+      ['Italy',	60359546],
+      ['Latvia', 1919968],
+      ['Lithuania',	2794184],
+      ['Luxembourg', 613894],
+      ['Malta',	493559],
+      ['Netherlands',	17282163],
+      ['Poland', 37972812],
+      ['Portugal', 10276617],
+      ['Romania',	19401658],
+      ['Slovakia', 5450421],
+      ['Slovenia', 2080908],
+      ['Spain',	46934632],
+      ['Sweden', 10230185],
     ],
     options: {
-      region: 'IT',
-      displayMode: 'markers',
-      colorAxis: {colors: ['green', 'blue']}
+      region: '150', // Europe
+      colorAxis: {colors: ['#ffc107', '#fd7e14', '#dc3545']},
+      backgroundColor: '#9cf',
+      datalessRegionColor: '#f8f9fa',
+      defaultColor: '#6c757d',
     }
   };
 
@@ -564,5 +583,9 @@ export class AppComponent {
     }
     this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
     this.treeMap.component.draw();
+  }
+
+  public geoChartRegionClick(event: RegionClickEvent) {
+    this.regionClickEvent = event;
   }
 }

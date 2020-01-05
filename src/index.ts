@@ -4,6 +4,7 @@ export { ChartErrorEvent } from './google-chart/chart-error-event';
 export { ChartSelectEvent } from './google-chart/chart-select-event';
 export { ChartHTMLTooltip } from './google-chart/chart-html-tooltip';
 export { ChartMouseOverEvent, ChartMouseOutEvent, MouseOverEvent } from './google-chart/chart-mouse-event';
+export { RegionClickEvent } from './google-chart/geochart-events';
 export { BoundingBox } from './google-chart/chart-mouse-event';
 export { DataPointPosition } from './google-chart/chart-mouse-event';
 export { Ng2GoogleChartsModule } from './google-charts.module';

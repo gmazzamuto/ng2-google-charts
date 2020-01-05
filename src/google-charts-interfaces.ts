@@ -1,6 +1,7 @@
 import { ChartReadyEvent } from './google-chart/chart-ready-event';
 import { ChartErrorEvent } from './google-chart/chart-error-event';
 import { ChartSelectEvent } from './google-chart/chart-select-event';
+import { RegionClickEvent } from './google-chart/geochart-events';
 import { ChartMouseOverEvent, ChartMouseOutEvent } from './google-chart/chart-mouse-event';
 import { EventEmitter } from '@angular/core';
 
@@ -11,6 +12,7 @@ export interface GoogleChartComponentInterface {
   chartSelect: EventEmitter<ChartSelectEvent>;
   mouseOver: EventEmitter<ChartMouseOverEvent>;
   mouseOut: EventEmitter<ChartMouseOutEvent>;
+  regionClick: EventEmitter<RegionClickEvent>;
   wrapper: any;
 
   draw(): void;

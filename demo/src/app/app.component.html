@@ -68,6 +68,12 @@
 <h4>With remote source</h4>
 <google-chart [data]="remoteSourceData"></google-chart>
 
+<h1>GeoChart</h1>
+<div class="alert alert-info" role="alert">
+  Selected region: <code>{{regionClickEvent | json}}</code>
+</div>
+<google-chart [data]="geoChart" (regionClick)="geoChartRegionClick($event)"></google-chart>
+
 <h1>OrgChart</h1>
 <google-chart [data]="orgChart"></google-chart>
 <input type="button" value="Toggle collapse" (click)="collapseOrgChart()">
@@ -80,4 +86,4 @@
 <h1>AnnotationChart</h1>
 <google-chart [data]="annotationChart"></google-chart>
 <p></p>
-<p>Code samples are adapted from <a href="https://developers.google.com/chart/">Google Charts</a> where they are licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.</p>
+<p>Some code samples are adapted from <a href="https://developers.google.com/chart/">Google Charts</a> where they are licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.</p>
