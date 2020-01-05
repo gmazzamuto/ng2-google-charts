@@ -52,7 +52,9 @@
 <pre>{{selectEvent | json}}</pre>
 <google-chart [data]="lineChart" (chartReady)="ready($event)" (chartError)="error($event)" (chartSelect)="select($event)"></google-chart>
 <h1>Combo chart</h1>
-<p>See console log for mouse over events.
+<div class="alert alert-info" role="alert">
+See console log for mouse over events.
+</div>
 <google-chart [data]="comboChart" (mouseOver)="mouseOver($event)" (mouseOut)="mouseOut($event)"></google-chart>
 
 <h1>Table with formatter</h1>
