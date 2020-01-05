@@ -12,7 +12,8 @@ import {
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
-import { GoogleChartInterface, GoogleChartComponentInterface, ColorFormatInterface } from '../google-charts-interfaces';
+import { GoogleChartInterface, GoogleChartComponentInterface, ColorFormatInterface,
+   PatternFormatInterface } from '../google-charts-interfaces';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
@@ -144,10 +145,20 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     }
 
     if (this.data.formatters !== undefined) {
+      const dt = this.wrapper.getDataTable();
+
       for (const formatterConfig of this.data.formatters) {
+        let formatter;
+        if (formatterConfig.type === 'PatternFormat') {
+          const _fmtOptions = formatterConfig.options as PatternFormatInterface;
+          formatter = new google.visualization.PatternFormat(_fmtOptions.pattern);
+          formatter.format(dt, formatterConfig.columns, _fmtOptions.dstColumnIndex);
+          continue;
+        }
+
         const formatterConstructor = google.visualization[formatterConfig.type];
         const formatterOptions = formatterConfig.options;
-        const formatter = new formatterConstructor(formatterOptions);
+        formatter = new formatterConstructor(formatterOptions);
         if(formatterConfig.type === 'ColorFormat' && formatterOptions) {
           const _fmtOptions = formatterOptions as ColorFormatInterface;
           for(const range of _fmtOptions.ranges) {
@@ -159,7 +170,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
             }
           }
         }
-        const dt = this.wrapper.getDataTable();
+
         for (const col of formatterConfig.columns) {
           formatter.format(dt, col);
         }

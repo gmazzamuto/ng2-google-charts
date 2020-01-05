@@ -269,6 +269,30 @@ export class AppComponent {
     options: {allowHtml: true},
   };
 
+  public tableWithPatternFormat: GoogleChartInterface = {
+    chartType: 'Table',
+    dataTable: [
+      ['Name', 'Email', 'Result'],
+      ['John Lennon', 'john@beatles.co.uk', ''],
+      ['Paul McCartney', 'paul@beatles.co.uk', ''],
+      ['George Harrison', 'george@beatles.co.uk', ''],
+      ['Ringo Starr', 'ringo@beatles.co.uk', '']
+    ],
+    formatters: [
+      {
+        columns: [0, 1],
+        type: 'PatternFormat',
+        options: {
+          pattern: '<a href="mailto:{1}">{0}</a>',
+          dstColumnIndex: 2,
+        }
+      },
+    ],
+    options: {
+      allowHtml: true, showRowNumber: true
+    }
+  };
+
   public tableWithDates: GoogleChartInterface = {
     chartType: 'Table',
     dataTable: [

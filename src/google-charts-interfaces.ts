@@ -75,6 +75,11 @@ export interface NumberFormatInterface {
   suffix?: string;
 }
 
+export interface PatternFormatInterface {
+  pattern: string;
+  dstColumnIndex?: number;
+}
+
 export interface FormatterInterface {
   type: string;
   options?: (
@@ -83,6 +88,7 @@ export interface FormatterInterface {
   | ColorFormatInterface
   | DateFormat
   | NumberFormatInterface
+  | PatternFormatInterface
   );
   columns: number[];
 }
