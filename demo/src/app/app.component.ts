@@ -99,7 +99,7 @@ export class AppComponent {
     }
   };
 
-  public barChart = {
+  public barChart: GoogleChartInterface = {
     chartType: 'Bar',
     dataTable: [
       ['Year', 'Sales', 'Expenses', 'Profit'],
@@ -116,7 +116,7 @@ export class AppComponent {
     }
   };
 
-  public stackedColumnChart = {
+  public stackedColumnChart: GoogleChartInterface = {
     chartType: 'ColumnChart',
     dataTable: [
       ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
@@ -134,7 +134,7 @@ export class AppComponent {
     }
   };
 
-  public pieChart = {
+  public pieChart: GoogleChartInterface = {
     chartType: 'PieChart',
     dataTable: [
       ['Task', 'Hours per Day'],
@@ -153,7 +153,7 @@ export class AppComponent {
     }
   };
 
-  public gaugeChart = {
+  public gaugeChart: GoogleChartInterface = {
     chartType: 'Gauge',
     dataTable: [
       ['Label', 'Value'],
@@ -170,7 +170,7 @@ export class AppComponent {
     }
   };
 
-  public scatterChart = {
+  public scatterChart: GoogleChartInterface = {
     chartType: 'ScatterChart',
     dataTable: [
       ['Age', 'Weight'],
@@ -189,7 +189,7 @@ export class AppComponent {
     }
   };
 
- public timelineChart = {
+ public timelineChart: GoogleChartInterface = {
     chartType: 'Timeline',
     dataTable: [
       ['Name', 'From', 'To'],
@@ -199,7 +199,7 @@ export class AppComponent {
     ]
  };
 
- public lineChart = {
+ public lineChart: GoogleChartInterface = {
     chartType: 'LineChart',
     dataTable: [
       ['Year', 'Sales', 'Expenses'],
@@ -211,7 +211,7 @@ export class AppComponent {
     options: {title: 'Company Performance'}
   };
 
- public comboChart = {
+ public comboChart: GoogleChartInterface = {
     chartType: 'ComboChart',
     dataTable: [
       ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
@@ -230,7 +230,7 @@ export class AppComponent {
     }
   };
 
-  public tableChart = {
+  public tableChart: GoogleChartInterface = {
     chartType: 'Table',
     dataTable: [
       ['Department', 'Revenues', 'Another column', 'ColorFormat'],
@@ -272,7 +272,7 @@ export class AppComponent {
     },
   }
 
- public geoChart = {
+ public geoChart: GoogleChartInterface = {
     chartType: 'GeoChart',
     dataTable: [
       ['City',   'Population', 'Area'],
@@ -311,7 +311,7 @@ export class AppComponent {
     }
   };
 
-  public candlestickChart = {
+  public candlestickChart: GoogleChartInterface = {
     chartType: 'CandlestickChart',
     dataTable: [
       ['Mon', 28, 28, 38, 38],
@@ -358,7 +358,7 @@ export class AppComponent {
     }
   };
 
-  public annotationChart = {
+  public annotationChart: GoogleChartInterface = {
     chartType: 'AnnotationChart',
     dataTable: [
       ['Date', 'Kepler-22b mission', 'Kepler title', 'Kepler text', 'Gliese 163 mission', 'Gliese title',

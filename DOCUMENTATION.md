@@ -70,7 +70,7 @@ compiler (option --aot).
 You can specify an array of multiple formatter types and configurations like
 this:
 ```ts
-public tableChart =  {
+public tableChart: GoogleChartInterface = {
   chartType: 'Table',
   dataTable: [
     ['Department', 'Revenues', 'Another column', 'ColorFormat'],
