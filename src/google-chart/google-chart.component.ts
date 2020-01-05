@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
-import { GoogleChartInterface, GoogleChartComponentInterface } from '../google-charts-interfaces';
+import { GoogleChartInterface, GoogleChartComponentInterface, ColorFormatInterface } from '../google-charts-interfaces';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
@@ -149,7 +149,8 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
         const formatterOptions = formatterConfig.options;
         const formatter = new formatterConstructor(formatterOptions);
         if(formatterConfig.type === 'ColorFormat' && formatterOptions) {
-          for(const range of formatterOptions.ranges) {
+          const _fmtOptions = formatterOptions as ColorFormatInterface;
+          for(const range of _fmtOptions.ranges) {
             if (typeof(range.fromBgColor) !== 'undefined' && typeof(range.toBgColor) !== 'undefined') {
               formatter.addGradientRange(range.from, range.to,
                                          range.color, range.fromBgColor, range.toBgColor);

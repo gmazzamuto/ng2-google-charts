@@ -257,9 +257,55 @@ export class AppComponent {
             {from: 100, to: 900, fromBgColor: 'green', toBgColor: 'yellow'}
           ]
         }
+      },
+      {
+        columns: [2],
+        type: 'ArrowFormat',
+        options: {
+          base: 60,
+        },
       }
     ],
     options: {title: 'Countries', allowHtml: true}
+  };
+
+  public tableWithDates: GoogleChartInterface = {
+    chartType: 'Table',
+    dataTable: [
+      ['Employee Name', 'Start Date (Long)', 'Start Date (Medium)', 'Start Date (Short)'],
+      ['Mike', new Date(2008, 1, 28, 0, 31, 26),
+               new Date(2008, 1, 28, 0, 31, 26),
+               new Date(2008, 1, 28, 0, 31, 26)],
+      ['Bob', new Date(2007, 5, 1, 0),
+              new Date(2007, 5, 1, 0),
+              new Date(2007, 5, 1, 0)],
+      ['Alice', new Date(2006, 7, 16),
+                new Date(2006, 7, 16),
+                new Date(2006, 7, 16)]
+    ],
+    formatters: [
+      {
+        columns: [1],
+        type: 'DateFormat',
+        options: {
+          formatType: 'long',
+        },
+      },
+      {
+        columns: [2],
+        type: 'DateFormat',
+        options: {
+          formatType: 'medium',
+        },
+      },
+      {
+        columns: [3],
+        type: 'DateFormat',
+        options: {
+          formatType: 'short',
+        },
+      },
+    ],
   };
 
   public remoteSourceData: GoogleChartInterface = {

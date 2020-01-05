@@ -28,21 +28,59 @@ export interface GoogleChartInterface {
   component?: GoogleChartComponentInterface;
 }
 
+export interface ArrowFormatInterface {
+  base: number;
+}
+
+export interface BarFormatInterface {
+  base?: number;
+  colorNegative?: string;
+  colorPositive?: string;
+  drawZeroLine?: boolean;
+  max?: number;
+  min?: number;
+  showValue?: boolean;
+  width?: number;
+}
+
 export interface RangeInterface {
   from: Number | Date | number[];
   to: Number | Date | number[];
-  color: string;
+  color?: string;
   bgcolor?: string;
   fromBgColor?: string;
   toBgColor?: string;
 }
 
-export interface FormatterOptionsInterface {
+export interface ColorFormatInterface {
   ranges?: RangeInterface[];
+}
+
+export interface DateFormat {
+  formatType?: string;
+  pattern?: string;
+  timeZone?: number;
+}
+
+export interface NumberFormatInterface {
+  decimalSymbol?: string;
+  fractionDigits?: number;
+  groupingSymbol?: string;
+  negativeColor?: string;
+  negativeParens?: boolean;
+  pattern?: string;
+  prefix?: string;
+  suffix?: string;
 }
 
 export interface FormatterInterface {
   type: string;
-  options?: FormatterOptionsInterface;
+  options?: (
+    ArrowFormatInterface
+  | BarFormatInterface
+  | ColorFormatInterface
+  | DateFormat
+  | NumberFormatInterface
+  );
   columns: number[];
 }
