@@ -14,7 +14,7 @@
     "build": "npm run lint && npm run build.ngm && npm run link",
     "build.ngm": "ngm build -p src --clean",
     "build.watch": "ngm build -p src --watch --skip-bundles",
-    "start": "ng serve --aot"
+    "start": "ng serve --aot --poll 2000"
   },
   "main": "bundles/ng2-google-charts.umd.js",
   "module": "index.js",
