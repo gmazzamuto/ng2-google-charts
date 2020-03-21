@@ -46,6 +46,7 @@
 <google-chart [data]="scatterChart"></google-chart>
 <h1>Timeline chart</h1>
 <google-chart [data]="timelineChart"></google-chart>
+<input type="button" value="Clear selection" (click)="clearTimelineSelection()">
 <h1>Line chart with events</h1>
 <h4>Selected row: {{selectEvent?.row}}</h4>
 <h4>Selected column: {{selectEvent?.column}}</h4>

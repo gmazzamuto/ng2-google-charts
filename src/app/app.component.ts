@@ -587,4 +587,8 @@ export class AppComponent implements OnInit {
   public geoChartRegionClick(event: RegionClickEvent) {
     this.regionClickEvent = event;
   }
+
+  public clearTimelineSelection() {
+    this.timelineChart.component.wrapper.getChart().setSelection([]);
+  }
 }
