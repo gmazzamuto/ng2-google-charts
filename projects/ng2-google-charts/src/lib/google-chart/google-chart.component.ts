@@ -81,9 +81,9 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
 
   public ngOnChanges(changes: SimpleChanges): void {
     const key = 'data';
-    if(changes[key]) {
+    if (changes[key]) {
 
-      if(!this.data) {
+      if (!this.data) {
         return;
       }
 
@@ -95,9 +95,9 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
       this.data.component = this;
 
       this.loaderService.load().then(() => {
-        if(this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
+        if (this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
           this.convertOptions();
-          if(this.data.firstRowIsData && Array.isArray(this.data.dataTable)) {
+          if (this.data.firstRowIsData && Array.isArray(this.data.dataTable)) {
             this.data.dataTable = google.visualization.arrayToDataTable(this.data.dataTable, true);
           }
           this.wrapper = new google.visualization.ChartWrapper(this.data);
@@ -124,7 +124,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
         query.setQuery(this.data.query);
       }
       query.send((queryResponse: any) => {
-        if(queryResponse.isError()) {
+        if (queryResponse.isError()) {
           return;
         }
         const dt = queryResponse.getDataTable();
@@ -146,7 +146,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
    * Applies formatters to data columns, if defined
    */
   private reformat() {
-    if(!this.data) {
+    if (!this.data) {
         return;
     }
 
@@ -156,18 +156,18 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
       for (const formatterConfig of this.data.formatters) {
         let formatter;
         if (formatterConfig.type === 'PatternFormat') {
-          const _fmtOptions = formatterConfig.options as PatternFormatInterface;
-          formatter = new google.visualization.PatternFormat(_fmtOptions.pattern);
-          formatter.format(dt, formatterConfig.columns, _fmtOptions.dstColumnIndex);
+          const fmtOptions = formatterConfig.options as PatternFormatInterface;
+          formatter = new google.visualization.PatternFormat(fmtOptions.pattern);
+          formatter.format(dt, formatterConfig.columns, fmtOptions.dstColumnIndex);
           continue;
         }
 
         const formatterConstructor = google.visualization[formatterConfig.type];
         const formatterOptions = formatterConfig.options;
         formatter = new formatterConstructor(formatterOptions);
-        if(formatterConfig.type === 'ColorFormat' && formatterOptions) {
-          const _fmtOptions = formatterOptions as ColorFormatInterface;
-          for(const range of _fmtOptions.ranges) {
+        if (formatterConfig.type === 'ColorFormat' && formatterOptions) {
+          const fmtOptions = formatterOptions as ColorFormatInterface;
+          for (const range of fmtOptions.ranges) {
             if (typeof(range.fromBgColor) !== 'undefined' && typeof(range.toBgColor) !== 'undefined') {
               formatter.addGradientRange(range.from, range.to,
                                          range.color, range.fromBgColor, range.toBgColor);
@@ -208,10 +208,10 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   private getSeriesByColumn(column: number): number  {
     let series = 0;
     const dataTable = this.wrapper.getDataTable();
-    for(let i = column - 1; i >= 0; i--) {
+    for (let i = column - 1; i >= 0; i--) {
       const role = dataTable.getColumnRole(i);
       const type = dataTable.getColumnType(i);
-      if(role === 'data' || type === 'number') {
+      if (role === 'data' || type === 'number') {
         series++;
       }
     }
@@ -220,20 +220,20 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
 
   private getBoundingBoxForItem(item: DataPointPosition): BoundingBox {
     let boundingBox = {top: 0, left: 0, width: 0, height: 0};
-    if(this.cli) {
+    if (this.cli) {
       const column = item.column;
       const series = this.getSeriesByColumn(column);
       const row = item.row;
       let seriesType = this.options.seriesType;
-      if(this.options.series && this.options.series[series] && this.options.series[series].type) {
+      if (this.options.series && this.options.series[series] && this.options.series[series].type) {
         seriesType = this.options.series[series].type;
       }
-      if(seriesType) {
+      if (seriesType) {
         let selector = this.getSelectorBySeriesType(seriesType);
-        if(selector) {
+        if (selector) {
              selector = selector.replace('%s', series + '').replace('%c', column + '').replace('%r', row + '');
              const box = this.cli.getBoundingBox(selector);
-             if(box) {
+             if (box) {
               boundingBox = box;
              }
         }
@@ -244,7 +244,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   }
 
   private getValueAtPosition(position: DataPointPosition): any {
-    if(position.row == null) {
+    if (position.row == null) {
       return null;
     }
     const dataTable = this.wrapper.getDataTable();
@@ -273,7 +273,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     const chartType = this.wrapper.getChartType();
     let eventColumn = item.column;
     if (eventColumn == null) {
-      switch(chartType) {
+      switch (chartType) {
         case 'Timeline':
           eventColumn = this.wrapper.getDataTable().getNumberOfColumns() === 3 ? 0 : 1;
           break;
@@ -304,14 +304,14 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
   private registerChartEvents(): void {
     const chart = this.wrapper.getChart();
     this.cli = chart.getChartLayoutInterface ? chart.getChartLayoutInterface() : null;
-    if(this.mouseOver.observers.length > 0) {
+    if (this.mouseOver.observers.length > 0) {
       google.visualization.events.addListener(chart, 'onmouseover', (item: DataPointPosition) => {
         const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
         event.tooltip = this.getHTMLTooltip();
         this.mouseOver.emit(event);
       });
     }
-    if(this.mouseOverOneTime.observers.length > 0) {
+    if (this.mouseOverOneTime.observers.length > 0) {
       google.visualization.events.addOneTimeListener(chart, 'onmouseover', (item: DataPointPosition) => {
         const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
         event.tooltip = this.getHTMLTooltip();
@@ -403,7 +403,7 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
     };
     const s = this.wrapper.visualization.getSelection();
     const gs = s[s.length - 1];
-    if(!gs) {
+    if (!gs) {
       event.message = 'deselect';
       return event;
     }
@@ -422,11 +422,11 @@ export class GoogleChartComponent implements OnChanges, GoogleChartComponentInte
       event.selectedRowValues = selectedRowValues;
       event.selectedRowFormattedValues = selectedRowFormattedValues;
     }
-    if(selection.column != null) {
+    if (selection.column != null) {
       event.column = selection.column;
       event.columnLabel = this.getColumnLabelAtPosition(selection);
     }
-    if(gs.name) {
+    if (gs.name) {
       event.columnLabel = gs.name;
     }
 

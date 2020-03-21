@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
    ChartMouseOverEvent, ChartMouseOutEvent, RegionClickEvent, GoogleChartInterface } from 'ng2-google-charts';
 
@@ -11,7 +11,7 @@ import { shakespeareData } from './shakespeare';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public selectEvent: ChartSelectEvent;
   public regionClickEvent: RegionClickEvent;
@@ -340,7 +340,7 @@ export class AppComponent {
       alternatingRowStyle: true,
       showRowNumber : true,
     },
-  }
+  };
 
  public geoChart: GoogleChartInterface = {
     chartType: 'GeoChart',
@@ -545,7 +545,7 @@ export class AppComponent {
   }
 
   public error(event: ChartErrorEvent) {
-    console.error("Error: " + event);
+    console.error('Error: ' + event);
   }
 
   public select(event: ChartSelectEvent) {

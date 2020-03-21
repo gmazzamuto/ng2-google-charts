@@ -48,8 +48,8 @@ export interface BarFormatInterface {
 }
 
 export interface RangeInterface {
-  from: Number | Date | number[];
-  to: Number | Date | number[];
+  from: number | Date | number[];
+  to: number | Date | number[];
   color?: string;
   bgcolor?: string;
   fromBgColor?: string;
