@@ -1,31 +1,27 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { GoogleChartComponent, GoogleChartsLoaderService } from 'ng2-google-charts';
+import { I18nSelectPipe } from '@angular/common';
+
+declare var google: any;
+let service: GoogleChartsLoaderService;
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(async(async () => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        GoogleChartComponent,
       ],
+      providers: [{ provide: GoogleChartsLoaderService}]
     }).compileComponents();
+    service = TestBed.inject(GoogleChartsLoaderService);
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'prova'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('prova');
-  });
-
-  it('should render title', () => {
+  it('should create the app', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('prova app is running!');
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

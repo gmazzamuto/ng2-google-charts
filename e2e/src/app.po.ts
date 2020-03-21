@@ -5,7 +5,9 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
-  getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  getColumnChartText(): Promise<Array<string>> {
+    return element(by.id('columnChart'))
+           .all(by.tagName('text'))
+           .map(x => x.getText()) as Promise<Array<string>>;
   }
 }

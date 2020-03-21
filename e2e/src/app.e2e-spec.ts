@@ -1,16 +1,29 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, by, logging, ExpectedConditions, element } from 'protractor';
 
-describe('workspace-project App', () => {
+describe('demo App', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should render Column chart', async () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('ng2-google-charts app is running!');
+
+    await new Promise( resolve => setTimeout(resolve, 5000) );
+
+    const text = await page.getColumnChartText();
+
+    const expected = ['Countries', 'Germany', 'USA', 'Brazil', 'Canada',
+                      'France', 'RU'];
+    for (const elm of expected) {
+      if (text.includes(elm)) {
+        continue;
+      } else {
+        fail(elm + ' not found');
+      }
+    }
   });
 
   afterEach(async () => {

@@ -2,7 +2,9 @@ declare var google: any;
 
 import { Injectable, EventEmitter, LOCALE_ID, Inject, Optional } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class GoogleChartsLoaderService {
 
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
