@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartReadyEvent, ChartErrorEvent, ChartSelectEvent,
-   ChartMouseOverEvent, ChartMouseOutEvent, RegionClickEvent } from 'ng2-google-charts';
-import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+   ChartMouseOverEvent, ChartMouseOutEvent, RegionClickEvent, GoogleChartInterface } from 'ng2-google-charts';
 
 declare var $: any;
 declare var google: any;

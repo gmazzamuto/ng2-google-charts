@@ -1,0 +1,9 @@
+{
+  "name": "ng2-google-charts",
+  "version": "5.0.0",
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "tslib": "^1.10.0"
+  }
+}

@@ -1,7 +1,0 @@
-{
-  "name": "ng2-google-charts",
-  "version": "5.0.0",
-  "peerDependencies": {
-    "@angular/core": "*"
-  }
-}

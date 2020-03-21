@@ -1,21 +1,29 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
-    "noImplicitAny": true,
-    "declaration": true,
-    "outDir": "build",
-    "removeComments": true
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "ng2-google-charts": [
+        "dist/ng2-google-charts/ng2-google-charts",
+        "dist/ng2-google-charts"
+      ]
+    }
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "./typings/index.d.ts",
-    "./ng2-google-charts.ts"
-  ]
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
 }
