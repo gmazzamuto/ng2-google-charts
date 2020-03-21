@@ -13,3 +13,4 @@ export * from './lib/google-chart/geochart-events';
 export * from './lib/google-chart/chart-mouse-event';
 export * from './lib/google-chart/chart-mouse-event';
 export * from './lib/ng2-google-charts.module';
+export * from './lib/google-charts-loader.service';
