@@ -28,20 +28,6 @@ export class AppComponent implements OnInit {
       ['France', 600, 1100],
       ['RU', 800, 1000]
     ],
-    options: {title: 'Countries'}
-  };
-
-  public columnChart2: GoogleChartInterface =  {
-    chartType: 'ColumnChart',
-    dataTable: [
-      ['Country', 'Performance', 'Profits'],
-      ['Germany', 0, 0],
-      ['USA', 0, 0],
-      ['Brazil', 0, 0],
-      ['Canada', 0, 0],
-      ['France', 0, 0],
-      ['RU', 0, 0]
-    ],
     options: {
       title: 'Countries',
       animation: {
@@ -468,13 +454,6 @@ export class AppComponent implements OnInit {
   private treeMapAppendCount = 0;
 
  ngOnInit() {
-   for (let i = 1; i < 7; i++) {
-     this.columnChart2.dataTable[i][1] = Math.round(
-       Math.random() * 1000);
-     this.columnChart2.dataTable[i][2] = Math.round(
-       Math.random() * 1000);
-   }
-
    this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
  }
 
@@ -485,15 +464,6 @@ export class AppComponent implements OnInit {
       dataTable[i][2] = Math.round(Math.random() * 1000);
     }
     this.columnChart.component.draw();
-  }
-
- public changeData2(): void {
-    const dataTable = this.columnChart2.dataTable;
-    for (let i = 1; i < 7; i++) {
-      dataTable[i][1] = Math.round(Math.random() * 1000);
-      dataTable[i][2] = Math.round(Math.random() * 1000);
-    }
-    this.columnChart2.component.draw();
   }
 
   public setupTooltips() {
@@ -525,7 +495,7 @@ export class AppComponent implements OnInit {
   }
 
   public openAsPNG() {
-    this.imageURI = this.columnChart2.component.wrapper.getChart().getImageURI();
+    this.imageURI = this.columnChart.component.wrapper.getChart().getImageURI();
     $('#exampleModal').modal();
   }
 
