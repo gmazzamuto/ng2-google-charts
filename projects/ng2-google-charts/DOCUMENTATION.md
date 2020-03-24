@@ -19,7 +19,13 @@ npm i --save ng2-google-charts
 
 Import the `Ng2GoogleChartsModule` in your `app.module.ts`:
 ```ts
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
+
+// const MyGoogleChartsSettings: GoogleChartsSettings = {
+//   mapsApiKey: 'YOUR_API_KEY',
+//   googleChartsVersion: '46',
+//   language: 'it',
+// };
 
 @NgModule({
   ...
@@ -28,8 +34,10 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
     Ng2GoogleChartsModule,
   ],
   providers: [
-    //{provide: 'googleChartsVersion', useValue: '46'},
-    //{provide: 'mapsApiKey', useValue: 'MYGOOGLEMAPSAPIKEY'}
+    // {
+    //   provide: 'googleChartsSettings',
+    //   useValue: MyGoogleChartsSettings,
+    // },
   ],
 })
 export class AppModule { }

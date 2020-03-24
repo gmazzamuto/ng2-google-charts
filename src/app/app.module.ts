@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
+
+// const MyGoogleChartsSettings: GoogleChartsSettings = {
+  // mapsApiKey: 'YOUR_API_KEY',
+  // googleChartsVersion: '47',
+  // language: 'it',
+  // safeMode: false,
+// };
 
 @NgModule({
   declarations: [
@@ -14,8 +21,10 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
     Ng2GoogleChartsModule
   ],
   providers: [
-    // {provide: 'googleChartsVersion', useValue: '46'},
-    // {provide: 'mapsApiKey', useValue: 'MYGOOGLEMAPSAPIKEY'}
+    // {
+    //   provide: 'googleChartsSettings',
+    //   useValue: MyGoogleChartsSettings,
+    // },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,11 @@
 declare var google: any;
 
 import { Injectable, EventEmitter, LOCALE_ID, Inject, Optional } from '@angular/core';
+import { GoogleChartsSettings } from './google-charts-interfaces';
+
+interface InternalGoogleChartsSettings extends GoogleChartsSettings {
+  callback?(): any;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,40 +15,17 @@ export class GoogleChartsLoaderService {
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
   private googleScriptIsLoading: boolean;
   private localeId: string;
+  private loadGoogleChartsScriptPromise: Promise<void>;
 
   public constructor(
     @Inject(LOCALE_ID) localeId: string,
-    @Inject('googleChartsVersion') @Optional() private googleChartsVersion?: string,
-    @Inject('mapsApiKey') @Optional() private mapsApiKey?: string
-    ) {
+    @Inject('googleChartsSettings') @Optional() private googleChartsSettings?: GoogleChartsSettings,
+  ) {
     this.googleScriptLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
     this.localeId = localeId;
-    if (this.googleChartsVersion === null) {
-      this.googleChartsVersion = '46';
-    }
-  }
 
-  public load(packages?: string[]): Promise<any> {
-    return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
-
-      this.loadGoogleChartsScript().then(() => {
-        const initializer: any = {
-          language: this.localeId,
-          callback: resolve,
-          packages
-        };
-        if (this.mapsApiKey) {
-          initializer.mapsApiKey = this.mapsApiKey;
-        }
-        google.charts.load(this.googleChartsVersion, initializer);
-      }).catch(err => reject());
-    });
-  }
-
-  private loadGoogleChartsScript(): Promise<any> {
-    return new Promise((resolve: any = Function.prototype, reject: any = Function.prototype) => {
-
+    this.loadGoogleChartsScriptPromise = new Promise((resolve, reject) => {
       if (typeof google !== 'undefined' && google.charts) {
         resolve();
       } else if (!this.googleScriptIsLoading) {
@@ -76,7 +58,32 @@ export class GoogleChartsLoaderService {
           }
         });
       }
+    });
+  }
 
+  public async load(settings?: GoogleChartsSettings): Promise<void> {
+    await this.loadGoogleChartsScriptPromise;
+
+    await new Promise((resolve) => {
+      if (!settings) {
+        settings = Object.create(this.googleChartsSettings);
+      }
+      if (!settings) {
+        settings = {};
+      }
+
+      if (!settings.language) {
+        settings.language = this.localeId;
+      }
+
+      if (!settings.googleChartsVersion) {
+        settings.googleChartsVersion = '46';
+      }
+
+      const _settings: InternalGoogleChartsSettings = settings;
+      _settings.callback = resolve;
+
+      google.charts.load(settings.googleChartsVersion, _settings);
     });
   }
 }
