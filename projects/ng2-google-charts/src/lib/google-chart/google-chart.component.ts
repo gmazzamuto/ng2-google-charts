@@ -3,11 +3,9 @@ declare var google: any;
 import {
   Component,
   ElementRef,
-  ChangeDetectionStrategy,
-  OnChanges,
+  OnInit,
   Input,
   Output,
-  SimpleChanges,
   EventEmitter
 } from '@angular/core';
 
@@ -28,7 +26,7 @@ import { RegionClickEvent } from './geochart-events';
 
 export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
   chartType: string;
-  options?: object;
+  options?: any;
 
   component?: GoogleChartComponent;
 }
@@ -36,9 +34,8 @@ export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
 @Component({
   selector: 'google-chart',
   template: '<div></div>',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GoogleChartComponent implements OnChanges {
+export class GoogleChartComponent implements OnInit {
 
   @Input() public data: GoogleChartInterface;
 
@@ -85,22 +82,14 @@ export class GoogleChartComponent implements OnChanges {
     this.regionClickOneTime = new EventEmitter();
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
+  public ngOnInit(): void {
     this.HTMLel = this.el.nativeElement.querySelector('div');
     this.data.component = this;
-    const key = 'data';
-    if (changes[key]) {
+    this.options = this.data.options;
 
-      if (!this.data) {
-        return;
-      }
-
-      this.options = this.data.options;
-
-      this.init().then(() => {
-        this.draw();
-      });
-    }
+    this.init().then(() => {
+      this.draw();
+    });
   }
 
   public async init() {
@@ -118,8 +107,16 @@ export class GoogleChartComponent implements OnChanges {
         temp.dataTable = this.dataTable.getDataTable();
       }
       this.wrapper = new google.visualization.ChartWrapper(temp);
-
       this.registerChartWrapperEvents();
+
+      /* Calling draw even without data is the only way to pass the HTMl element
+         when using the chart in a dashboard. Don't do this in all other cases:
+         it breaks formatters with remote data source, hence the conditional. */
+      if (temp.dataTable === undefined && temp.dataSourceUrl === undefined) {
+        try {
+          this.wrapper.draw(this.HTMLel);
+        } catch (err) {}
+      }
     }
   }
 

@@ -18,6 +18,9 @@ describe('GoogleChartsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GoogleChartComponent);
     component = fixture.componentInstance;
+    component.data = {
+      chartType: 'PieChart',
+    };
     fixture.detectChanges();
   });
 

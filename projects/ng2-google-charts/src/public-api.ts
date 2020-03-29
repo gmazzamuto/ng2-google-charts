@@ -3,6 +3,8 @@
  */
 
 export * from './lib/google-chart/google-chart.component';
+export * from './lib/google-charts-dashboard/google-charts-dashboard.component';
+export * from './lib/google-charts-control/google-charts-control.component';
 export * from './lib/google-charts-interfaces';
 export * from './lib/google-chart/chart-ready-event';
 export * from './lib/google-chart/chart-error-event';

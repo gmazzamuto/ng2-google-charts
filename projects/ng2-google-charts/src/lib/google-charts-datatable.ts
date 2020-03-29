@@ -72,6 +72,14 @@ export interface GoogleChartsDataTableInterface {
   /** Refresh interval, in seconds, when using remote data source. */
   refreshInterval?: number;
 
+  /** Timeout in seconds, when using remote data source */
+  timeout?: number;
+
+  /** Called after query executed. DataTable is updated automatically.
+   * @param queryResponse google.visualization.QueryResponse
+   */
+  queryCallback?: (queryResponse: any) => any;
+
   formatters?: FormatterInterface[];
   view?: string | object | object[];
 }
@@ -83,10 +91,27 @@ import {
 
 export class GoogleChartsDataTable {
   private dataTable: any;
+  public query: any;
+  public tid: any;
+
   @Output() dataTableChanged: EventEmitter<any> = new EventEmitter();
 
   constructor(private opt: GoogleChartsDataTableInterface) {
-    this._setDataTable(opt.dataTable, opt.firstRowIsData);
+    if (opt) {
+      this._setDataTable(opt.dataTable, opt.firstRowIsData);
+    }
+  }
+
+  private send() {
+    if (this.query === undefined) {
+      return;
+    }
+    this.query.send((queryResponse: any) => {
+      this.setDataTable(queryResponse.getDataTable());
+      if (this.opt.queryCallback) {
+        this.opt.queryCallback(queryResponse);
+      }
+    });
   }
 
   public init(opt?: GoogleChartsDataTableInterface) {
@@ -94,22 +119,28 @@ export class GoogleChartsDataTable {
       this.opt = opt;
     }
 
-    if (this.opt.dataSourceUrl) {
-      const query = new google.visualization.Query(this.opt.dataSourceUrl);
-      if (this.opt.refreshInterval) {
-        query.setRefreshInterval(this.opt.refreshInterval);
-      }
-      if (this.opt.query) {
-        query.setQuery(this.opt.query);
-      }
-      query.send((queryResponse: any) => {
-        if (queryResponse.isError()) {
-          console.error(query.getReasons());
-          return;
-        }
+    if (this.tid !== undefined) {
+      // doesn't work, see https://github.com/google/google-visualization-issues/issues/2381
+      // this.query.abort();
+      window.clearInterval(this.tid);
+      this.tid = undefined;
+    }
 
-        this.setDataTable(queryResponse.getDataTable());
-      });
+    if (this.opt.dataSourceUrl) {
+      this.query = new google.visualization.Query(this.opt.dataSourceUrl);
+      if (this.opt.query) {
+        this.query.setQuery(this.opt.query);
+      }
+      if (this.opt.timeout !== undefined) {
+        this.query.setTimeout(this.opt.timeout);
+      }
+      if (this.opt.refreshInterval) {
+        // this.query.setRefreshInterval(this.opt.refreshInterval);
+        this.tid = window.setInterval(() => {
+          this.send();
+        }, this.opt.refreshInterval * 1000);
+      }
+      this.send();
     } else {
       this.setDataTable(this.opt.dataTable);
     }

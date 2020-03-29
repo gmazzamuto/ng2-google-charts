@@ -1,3 +1,19 @@
+<h1>Dashboard with controls</h1>
+<google-charts-dashboard [data]="dashboard"></google-charts-dashboard>
+<div class="row">
+  <div class="col-6">
+    <google-charts-control [data]="slider"></google-charts-control>
+    <google-chart [data]="dashboardPieChart"></google-chart>
+  </div>
+  <div class="col-6">
+    <google-charts-control [data]="categoryPicker"></google-charts-control>
+    <p></p>
+    <google-chart [data]="dashboardTable"></google-chart>
+    <p></p>
+    <input type="button" value="Toggle row numbers" (click)="toggleRowNumbers()">
+  </div>
+</div>
+
 <h1>Column chart</h1>
 <google-chart id="columnChart" [data]="columnChart"></google-chart>
 <input type="button" value="Change data" (click)="changeData()"> <input type="button" value="Change chart type" (click)="changeChartType()">
