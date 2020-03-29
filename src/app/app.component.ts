@@ -321,11 +321,27 @@ export class AppComponent implements OnInit {
   public remoteSourceData: GoogleChartInterface = {
     dataSourceUrl: 'https://spreadsheets.google.com/a/google.com/tq?key=pCQbetd-CptGXxxQIG7VFIQ&pub=1',
     query: 'SELECT A,D WHERE D > 100 ORDER BY D',
+    // refreshInterval: 5,
+    queryCallback: (queryResponse) => {
+      console.log('has errors: ' + queryResponse.isError());
+    },
     chartType: 'Table',
     options: {
       alternatingRowStyle: true,
       showRowNumber : true,
+      allowHtml: true,
     },
+    formatters: [
+      {
+        columns: [1],
+        type: 'ColorFormat',
+        options: {
+          ranges: [
+            {from: 0, to: 1100, fromBgColor: 'green', toBgColor: 'red'}
+          ]
+        }
+      },
+    ],
   };
 
  public geoChart: GoogleChartInterface = {
@@ -453,11 +469,11 @@ export class AppComponent implements OnInit {
   private orgChartCollapsed = false;
   private treeMapAppendCount = 0;
 
- ngOnInit() {
-   this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
- }
+  ngOnInit() {
+    this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
+  }
 
- public changeData(): void {
+  public changeData(): void {
     const dataTable = this.columnChart.dataTable;
     for (let i = 1; i < 7; i++) {
       dataTable[i][1] = Math.round(Math.random() * 1000);

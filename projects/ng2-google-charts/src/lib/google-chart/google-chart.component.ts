@@ -12,8 +12,7 @@ import {
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
-import { GoogleChartInterface, ColorFormatInterface,
-  PatternFormatInterface } from '../google-charts-interfaces';
+import { GoogleChartsDataTable, GoogleChartsDataTableInterface } from '../google-charts-datatable';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
@@ -26,6 +25,13 @@ import {
 } from './chart-mouse-event';
 import { ChartHTMLTooltip } from './chart-html-tooltip';
 import { RegionClickEvent } from './geochart-events';
+
+export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
+  chartType: string;
+  options?: object;
+
+  component?: GoogleChartComponent;
+}
 
 @Component({
   selector: 'google-chart',
@@ -58,12 +64,12 @@ export class GoogleChartComponent implements OnChanges {
   private cli: any;
   private options: any;
 
-  private el: ElementRef;
+  private HTMLel: HTMLElement;
   private loaderService: GoogleChartsLoaderService;
+  private dataTable: GoogleChartsDataTable;
 
-  public constructor(el: ElementRef,
+  public constructor(private el: ElementRef,
                      loaderService: GoogleChartsLoaderService) {
-    this.el = el;
     this.loaderService = loaderService;
     this.chartSelect = new EventEmitter();
     this.chartSelectOneTime = new EventEmitter();
@@ -80,6 +86,8 @@ export class GoogleChartComponent implements OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
+    this.HTMLel = this.el.nativeElement.querySelector('div');
+    this.data.component = this;
     const key = 'data';
     if (changes[key]) {
 
@@ -88,100 +96,54 @@ export class GoogleChartComponent implements OnChanges {
       }
 
       this.options = this.data.options;
-      if (!this.options) {
-        this.options = {};
-      }
 
-      this.data.component = this;
-
-      this.loaderService.load().then(() => {
-        if (this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
-          this.convertOptions();
-          if (this.data.firstRowIsData && Array.isArray(this.data.dataTable)) {
-            this.data.dataTable = google.visualization.arrayToDataTable(this.data.dataTable, true);
-          }
-          this.wrapper = new google.visualization.ChartWrapper(this.data);
-          this.registerChartWrapperEvents();
-        } else {
-          // this.unregisterEvents();
-
-        }
+      this.init().then(() => {
         this.draw();
       });
     }
   }
 
-  public draw(): void {
-    if (this.data.dataTable) {
-      this.wrapper.setDataTable(this.data.dataTable);
-      this._draw();
-    } else if (this.data.dataSourceUrl) {
-      const query = new google.visualization.Query(this.data.dataSourceUrl);
-      if (this.data.refreshInterval) {
-        query.setRefreshInterval(this.data.refreshInterval);
-      }
-      if (this.data.query) {
-        query.setQuery(this.data.query);
-      }
-      query.send((queryResponse: any) => {
-        if (queryResponse.isError()) {
-          return;
-        }
-        const dt = queryResponse.getDataTable();
-        this.wrapper.setDataTable(dt);
-        this.data.dataTable = dt;
+  public async init() {
+    await this.loaderService.load();
+    if (this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
+      this.dataTable = new GoogleChartsDataTable(this.data);
+      this.dataTable.dataTableChanged.subscribe((dt: any) => {
         this._draw();
       });
+
+      // see dataTable in https://developers.google.com/chart/interactive/docs/reference#google.visualization.drawchart
+      let temp: GoogleChartInterface = this.data;
+      if (this.data.firstRowIsData) {
+        temp = Object.assign(temp, this.data);
+        temp.dataTable = this.dataTable.getDataTable();
+      }
+      this.wrapper = new google.visualization.ChartWrapper(temp);
+
+      this.registerChartWrapperEvents();
     }
   }
 
-  private _draw() {
+  private async _draw() {
+    const dt = this.dataTable.getDataTable();
+    if (dt === undefined) {
+      return;
+    }
     this.convertOptions();
     this.wrapper.setOptions(this.options);
-    this.reformat();
-    this.wrapper.draw(this.el.nativeElement.querySelector('div'));
+    this.wrapper.setDataTable(dt);
+    this.wrapper.draw(this.HTMLel);
   }
 
-  /**
-   * Applies formatters to data columns, if defined
-   */
-  private reformat() {
-    if (!this.data) {
-        return;
+  public getDataTable(): GoogleChartsDataTable {
+    return this.dataTable;
+  }
+
+  public draw(value?: GoogleChartInterface) {
+    if (value === undefined) {
+      value = this.data;
     }
-
-    if (this.data.formatters !== undefined) {
-      const dt = this.wrapper.getDataTable();
-
-      for (const formatterConfig of this.data.formatters) {
-        let formatter;
-        if (formatterConfig.type === 'PatternFormat') {
-          const fmtOptions = formatterConfig.options as PatternFormatInterface;
-          formatter = new google.visualization.PatternFormat(fmtOptions.pattern);
-          formatter.format(dt, formatterConfig.columns, fmtOptions.dstColumnIndex);
-          continue;
-        }
-
-        const formatterConstructor = google.visualization[formatterConfig.type];
-        const formatterOptions = formatterConfig.options;
-        formatter = new formatterConstructor(formatterOptions);
-        if (formatterConfig.type === 'ColorFormat' && formatterOptions) {
-          const fmtOptions = formatterOptions as ColorFormatInterface;
-          for (const range of fmtOptions.ranges) {
-            if (typeof(range.fromBgColor) !== 'undefined' && typeof(range.toBgColor) !== 'undefined') {
-              formatter.addGradientRange(range.from, range.to,
-                                         range.color, range.fromBgColor, range.toBgColor);
-            } else {
-              formatter.addRange(range.from, range.to, range.color, range.bgcolor);
-            }
-          }
-        }
-
-        for (const col of formatterConfig.columns) {
-          formatter.format(dt, col);
-        }
-      }
-    }
+    this.options = value.options;
+    this.dataTable.init(value);
   }
 
   private getSelectorBySeriesType(seriesType: string): string {
