@@ -1,9 +1,4 @@
-import { ChartReadyEvent } from './google-chart/chart-ready-event';
-import { ChartErrorEvent } from './google-chart/chart-error-event';
-import { ChartSelectEvent } from './google-chart/chart-select-event';
-import { RegionClickEvent } from './google-chart/geochart-events';
-import { ChartMouseOverEvent, ChartMouseOutEvent } from './google-chart/chart-mouse-event';
-import { EventEmitter } from '@angular/core';
+import { GoogleChartComponent } from './google-chart/google-chart.component';
 
 export interface GoogleChartsSettings {
   /** (v45) An API key that you may use with Geochart and Map Chart */
@@ -24,19 +19,6 @@ export interface GoogleChartsSettings {
   packages?: string[];
 }
 
-export interface GoogleChartComponentInterface {
-  data: GoogleChartInterface;
-  chartReady: EventEmitter<ChartReadyEvent>;
-  chartError: EventEmitter<ChartErrorEvent>;
-  chartSelect: EventEmitter<ChartSelectEvent>;
-  mouseOver: EventEmitter<ChartMouseOverEvent>;
-  mouseOut: EventEmitter<ChartMouseOutEvent>;
-  regionClick: EventEmitter<RegionClickEvent>;
-  wrapper: any;
-
-  draw(): void;
-}
-
 export interface GoogleChartInterface {
   chartType: string;
   options?: object;
@@ -48,7 +30,7 @@ export interface GoogleChartInterface {
   formatters?: FormatterInterface[];
   view?: string | object | object[];
 
-  component?: GoogleChartComponentInterface;
+  component?: GoogleChartComponent;
 }
 
 export interface ArrowFormatInterface {

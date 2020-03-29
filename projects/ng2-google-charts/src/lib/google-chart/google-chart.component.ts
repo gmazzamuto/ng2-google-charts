@@ -12,8 +12,8 @@ import {
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
-import { GoogleChartInterface, GoogleChartComponentInterface, ColorFormatInterface,
-   PatternFormatInterface } from '../google-charts-interfaces';
+import { GoogleChartInterface, ColorFormatInterface,
+  PatternFormatInterface } from '../google-charts-interfaces';
 import { ChartReadyEvent } from './chart-ready-event';
 import { ChartErrorEvent } from './chart-error-event';
 import { ChartSelectEvent } from './chart-select-event';
@@ -32,7 +32,7 @@ import { RegionClickEvent } from './geochart-events';
   template: '<div></div>',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GoogleChartComponent implements OnChanges, GoogleChartComponentInterface {
+export class GoogleChartComponent implements OnChanges {
 
   @Input() public data: GoogleChartInterface;
 
