@@ -77,7 +77,7 @@ export class GoogleChartsLoaderService {
       }
 
       if (!settings.googleChartsVersion) {
-        settings.googleChartsVersion = '46';
+        settings.googleChartsVersion = '47';
       }
 
       const _settings: InternalGoogleChartsSettings = settings;
