@@ -94,6 +94,10 @@ export class GoogleChartComponent implements OnInit {
 
   public async init() {
     await this.loaderService.load();
+    this.recreateWrapper();
+  }
+
+  private recreateWrapper() {
     if (this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
       this.dataTable = new GoogleChartsDataTable(this.data);
       this.dataTable.dataTableChanged.subscribe((dt: any) => {
@@ -126,6 +130,7 @@ export class GoogleChartComponent implements OnInit {
       return;
     }
     this.convertOptions();
+    this.recreateWrapper();
     this.wrapper.setOptions(this.options);
     this.wrapper.setDataTable(dt);
     this.wrapper.draw(this.HTMLel);

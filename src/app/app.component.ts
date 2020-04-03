@@ -598,9 +598,7 @@ export class AppComponent implements OnInit {
     $('#exampleModal').modal();
   }
 
- public changeChartType(): void {
-    // forces a reference update (otherwise angular doesn't detect the change)
-    this.columnChart = Object.create(this.columnChart);
+ public changeChartType() {
     if (this.columnChart.chartType === 'ColumnChart') {
       this.columnChart.chartType = 'PieChart';
     } else {
