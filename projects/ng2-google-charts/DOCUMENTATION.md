@@ -23,6 +23,7 @@ npm i --save ng2-google-charts
 * [Usage](doc/Usage.md)
 * [Formatters](doc/Formatters.md)
 * [Events](doc/Events.md)
+* [Dashboard and controls](doc/Dashboard_and_controls.md)
 * [Advanced usage](doc/Advanced_usage.md)
 
 ## License
