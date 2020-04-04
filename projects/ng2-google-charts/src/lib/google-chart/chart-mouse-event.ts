@@ -12,16 +12,16 @@ export interface BoundingBox {
   height: number;
 }
 
-export class ChartMouseEvent {
-  public position: DataPointPosition;
-  public boundingBox: BoundingBox;
-  public value: any;
-  public columnType: string;
-  public columnLabel: string;
+export interface ChartMouseEvent {
+  position: DataPointPosition;
+  boundingBox: BoundingBox;
+  value: any;
+  columnType: string;
+  columnLabel: string;
 }
 
-export class ChartMouseOverEvent extends ChartMouseEvent {
-  public tooltip: ChartHTMLTooltip | null;
+export interface ChartMouseOverEvent extends ChartMouseEvent {
+  tooltip: ChartHTMLTooltip | null;
 }
 
-export class ChartMouseOutEvent extends ChartMouseEvent {}
+export interface ChartMouseOutEvent extends ChartMouseEvent {}
