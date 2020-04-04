@@ -4,7 +4,10 @@
 
 Please see [this page][example-page] for a live demo.
 
-[![Donate][donate-btn]][donate-url] *To support development, please consider making a donation if you find this package useful.*
+## Sponsoring
+
+*If you are using this package commercially or if you find it useful, please
+consider [sponsoring][donate-url] this project.*
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads][npm-downloads-image]][npm-downloads-url]
@@ -323,8 +326,4 @@ export class AppComponent {
 [npm-downloads-image]: https://img.shields.io/npm/dm/ng2-google-charts.svg
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
 [example-page]: https://www.devrandom.it/software/ng2-google-charts/demo
-[google-charts-error-event]: https://developers.google.com/chart/interactive/docs/events#the-error-event
-[arrayToDataTable]: https://developers.google.com/chart/interactive/docs/reference#google.visualization.arraytodatatable
-[ChartWrapperMethods]: https://developers.google.com/chart/interactive/docs/reference#methods_4
-[donate-btn]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif
-[donate-url]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H94QELJUXWFWA&source=url
+[donate-url]: https://github.com/gmazzamuto/ng2-google-charts?sponsor=1
