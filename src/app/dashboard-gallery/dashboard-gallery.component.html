@@ -1,0 +1,17 @@
+See <a href="https://developers.google.com/chart/interactive/docs/gallery/controls#controls-gallery">here</a> for options and reference documentation.
+
+<h1>CategoryFilter</h1>
+<google-charts-dashboard [data]="categoryFilterDashboard"></google-charts-dashboard>
+<div class="row">
+    <div class="col-3">
+        <google-charts-control [data]="categoryFilter"></google-charts-control>
+    </div>
+    <div class="col-9" >
+        <google-chart [data]="gaugeChart"></google-chart>  
+    </div>
+</div>
+
+<h1>DateRangeFilter</h1>
+<google-charts-dashboard [data]="dateRangeFilterDashboard"></google-charts-dashboard>
+<google-charts-control [data]="slider"></google-charts-control>
+<google-chart [data]="tableChart"></google-chart>

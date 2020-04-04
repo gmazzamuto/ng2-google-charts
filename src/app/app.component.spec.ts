@@ -1,9 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { GoogleChartComponent, GoogleChartsLoaderService } from 'ng2-google-charts';
-import { I18nSelectPipe } from '@angular/common';
+import { GoogleChartsLoaderService } from 'ng2-google-charts';
 
-declare var google: any;
 let service: GoogleChartsLoaderService;
 
 describe('AppComponent', () => {
@@ -11,7 +9,6 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        GoogleChartComponent,
       ],
       providers: [{ provide: GoogleChartsLoaderService}]
     }).compileComponents();
