@@ -20,13 +20,6 @@ export class ChartMouseEvent {
   public columnLabel: string;
 }
 
-/**
- * @deprecated Use ChartMouseOverEvent instead
- */
-export class MouseOverEvent extends ChartMouseEvent {
-  public tooltip: ChartHTMLTooltip | null;
-}
-
 export class ChartMouseOverEvent extends ChartMouseEvent {
   public tooltip: ChartHTMLTooltip | null;
 }
