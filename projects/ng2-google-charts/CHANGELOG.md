@@ -1,3 +1,24 @@
+<a name="v6.0.0"></a>
+
+# Version 6.0.0
+
+This version features some major changes under the hood, however breaking
+changes are minimal and updating should be straightforward.
+
+* `GoogleChartInterface` now extends a new interface: `GoogleChartsDataTable`
+* Add support for Controls and Dashboards
+* Load Google Charts v47 by default
+
+
+## Breaking changes:
+* `GoogleChartInterface` and `GoogleChartsLoaderService` are now exported as
+  part of the public API
+* Remove unneeded interface: `GoogleChartComponentInterface`
+* `GoogleChartComponent` now implements `OnInit` rather than `OnChanges`
+* Use `GoogleChartsSettings` to provide settings to the Google Charts library
+* Remove deprecated `ChartMouseOverEvent`
+
+
 <a name="v5.0.0"></a>
 
 # Version 5.0.0
