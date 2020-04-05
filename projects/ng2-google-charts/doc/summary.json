@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Usage",
+        "file": "Usage.md"
+    },
+    {
+        "title": "Formatters",
+        "file": "Formatters.md"
+    },
+    {
+        "title": "Events",
+        "file": "Events.md"
+    },
+    {
+        "title": "Dashboard and controls",
+        "file": "Dashboard_and_controls.md"
+    },
+    {
+        "title": "Advanced usage",
+        "file": "Advanced_usage.md"
+    }
+]

@@ -1,0 +1,11 @@
+tsconfig: ./tsconfig.lib.json
+output: ../../dist/documentation/
+includes: doc
+includesName: "How to use"
+toggleMenuItems: 
+  - additionalPages
+hideGenerator: true
+disableGraph: false
+disablePrivate: true
+disableInternal: true
+disableCoverage: true
