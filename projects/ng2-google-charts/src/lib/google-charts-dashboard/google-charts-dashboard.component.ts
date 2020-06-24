@@ -30,13 +30,11 @@ export class GoogleChartsDashboardComponent implements OnInit {
 
   @Input() public data: GoogleChartsDashboardInterface;
 
-  private el: ElementRef;
-  private loaderService: GoogleChartsLoaderService;
   public dashboard: any;
   public dataTable: GoogleChartsDataTable;
 
-  public constructor(el: ElementRef,
-                     loaderService: GoogleChartsLoaderService) {
+  public constructor(private el: ElementRef,
+                     private loaderService: GoogleChartsLoaderService) {
     this.el = el;
     this.loaderService = loaderService;
   }

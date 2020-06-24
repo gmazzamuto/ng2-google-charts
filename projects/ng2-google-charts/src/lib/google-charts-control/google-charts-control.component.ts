@@ -25,12 +25,10 @@ export class GoogleChartsControlComponent implements OnInit {
 
   @Input() public data: GoogleChartsControlInterface;
 
-  private el: ElementRef;
-  private loaderService: GoogleChartsLoaderService;
   public wrapper: any;
 
-  public constructor(el: ElementRef,
-                     loaderService: GoogleChartsLoaderService) {
+  public constructor(private el: ElementRef,
+                     private loaderService: GoogleChartsLoaderService) {
     this.el = el;
     this.loaderService = loaderService;
   }

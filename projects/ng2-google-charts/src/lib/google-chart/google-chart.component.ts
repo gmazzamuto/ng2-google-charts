@@ -62,12 +62,10 @@ export class GoogleChartComponent implements OnInit {
   private options: any;
 
   private HTMLel: HTMLElement;
-  private loaderService: GoogleChartsLoaderService;
   private dataTable: GoogleChartsDataTable;
 
   public constructor(private el: ElementRef,
-                     loaderService: GoogleChartsLoaderService) {
-    this.loaderService = loaderService;
+                     private loaderService: GoogleChartsLoaderService) {
     this.chartSelect = new EventEmitter();
     this.chartSelectOneTime = new EventEmitter();
     this.chartReady = new EventEmitter();
