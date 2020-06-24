@@ -1,3 +1,11 @@
+<a name="v6.0.1"></a>
+
+# Version 6.0.1
+* `GoogleChartInterface`: do not set the `component` property if the passed
+  object is non-extensible
+* support Angular 8
+
+
 <a name="v6.0.0"></a>
 
 # Version 6.0.0
