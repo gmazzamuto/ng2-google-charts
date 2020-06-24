@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "compodoc": "cd projects/ng2-google-charts && compodoc -c .compodocrc.yml",
-    "prod": "rm -fr dist && ng build --prod ng2-google-charts && ng build --prod demo && npm run compodoc",
+    "prod-lib": "rm -fr dist && ng build --prod ng2-google-charts",
+    "prod-demo": "ng build --prod demo && npm run compodoc",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
