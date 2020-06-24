@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+  },
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableIvy": false,
   }
 }
