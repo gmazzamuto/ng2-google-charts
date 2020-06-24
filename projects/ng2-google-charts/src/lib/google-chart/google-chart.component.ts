@@ -82,7 +82,9 @@ export class GoogleChartComponent implements OnInit {
 
   public ngOnInit(): void {
     this.HTMLel = this.el.nativeElement.querySelector('div');
-    this.data.component = this;
+    if (Object.isExtensible(this.data)) {
+      this.data.component = this;
+    }
     this.options = this.data.options;
 
     this.init().then(() => {

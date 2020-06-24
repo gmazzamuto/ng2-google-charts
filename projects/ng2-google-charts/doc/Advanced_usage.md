@@ -4,6 +4,9 @@ You can access Google Chart's underlying `GoogleChartComponent` and [ChartWrappe
 <google-chart [data]="columnChart"></google-chart>
 ```
 
+This property is available only if the `columnChart` object is extensible
+(i.e. `Object.isExtensible(columnChart) == true`).
+
 ```ts
 export class AppComponent {
 
