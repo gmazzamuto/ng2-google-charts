@@ -12,6 +12,10 @@
         "file": "Events.md"
     },
     {
+        "title": "Chart editor",
+        "file": "Chart_editor.md"
+    },
+    {
         "title": "Dashboard and controls",
         "file": "Dashboard_and_controls.md"
     },

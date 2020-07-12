@@ -16,3 +16,30 @@ export interface GoogleChartsSettings {
 
   packages?: string[];
 }
+
+export interface GoogleChartWrapper {
+  draw(containerRef?: any): void;
+  toJSON(): string;
+  clone(): GoogleChartWrapper;
+  getDataSourceUrl(): string;
+  getDataTable(): any;
+  getChartType(): string;
+  getChartName(): string;
+  getChart(): any;
+  getContainerId(): string;
+  getQuery(): string;
+  getRefreshInterval(): string;
+  getOption(key: string, defaultVal?: any): any;
+  getOptions(): any;
+  getView(): any;
+  setDataSourceUrl(url: string): void;
+  setDataTable(dt: any): void;
+  setChartType(type: string): void;
+  setChartName(name: string): void;
+  setContainerId(id: string): void;
+  setQuery(q: string): void;
+  setRefreshInterval(interval: number): void;
+  setOption(key: string, value: any): void;
+  setOptions(opt: any): void;
+  setView(view: any): void;
+}
