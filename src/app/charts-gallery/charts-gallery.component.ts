@@ -595,12 +595,12 @@ export class ChartsGalleryComponent implements OnInit {
 
   public openAsPNG() {
     this.imageURI = this.columnChart.component.wrapper.getChart().getImageURI();
-    $('#exampleModal').modal();
+    $('#pngModal').modal('show');
   }
 
- public changeChartType() {
+  public changeChartType() {
     if (this.columnChart.chartType === 'ColumnChart') {
-      this.columnChart.chartType = 'PieChart';
+      this.columnChart.chartType = 'LineChart';
     } else {
       this.columnChart.chartType = 'ColumnChart';
     }

@@ -1,16 +1,16 @@
 <h1>Dashboard with controls</h1>
 <google-charts-dashboard [data]="dashboard"></google-charts-dashboard>
-<div class="row">
-  <div class="col-6">
+<div class="ui equal width grid">
+  <div class="five wide column">
     <google-charts-control [data]="slider"></google-charts-control>
     <google-chart [data]="dashboardPieChart"></google-chart>
   </div>
-  <div class="col-6">
+  <div class="column">
     <google-charts-control [data]="categoryPicker"></google-charts-control>
     <p></p>
     <google-chart [data]="dashboardTable"></google-chart>
     <p></p>
-    <input type="button" value="Toggle row numbers" (click)="toggleRowNumbers()">
+    <input type="button" class="ui button" value="Toggle row numbers" (click)="toggleRowNumbers()">
   </div>
 </div>
 <p></p>
@@ -18,27 +18,13 @@
 
 <h1>Column chart</h1>
 <google-chart id="columnChart" [data]="columnChart"></google-chart>
-<input type="button" value="Change data" (click)="changeData()"> <input type="button" value="Change chart type" (click)="changeChartType()">
-<input type="button" value="Open as PNG" (click)="openAsPNG()">
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="width: 90%; max-width:1200px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">PNG image</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <img [src]="[imageURI]" width="100%">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-<p></p>
+<input type="button" class="ui button" value="Change data" (click)="changeData()">
+<input type="button" class="ui button" value="Change chart type" (click)="changeChartType()">
+<input type="button" class="ui button" value="Open as PNG" (click)="openAsPNG()">
+<div class="ui modal" id="pngModal" style="width: 90%; max-width:1200px;">
+  <div class="header">PNG image</div>
+  <img class="image" [src]="[imageURI]">
+</div>
 
 <h4>With charts in tooltip</h4>
 <p>Adapted from <a href="https://developers.google.com/chart/interactive/docs/customizing_tooltip_content#placing-charts-in-tooltips">here</a>.</p>
@@ -60,7 +46,7 @@
 <google-chart [data]="scatterChart"></google-chart>
 <h1>Timeline chart</h1>
 <google-chart [data]="timelineChart"></google-chart>
-<input type="button" value="Clear selection" (click)="clearTimelineSelection()">
+<input class="ui button" type="button" value="Clear selection" (click)="clearTimelineSelection()">
 <h1>Line chart with events</h1>
 <h4>Selected row: {{selectEvent?.row}}</h4>
 <h4>Selected column: {{selectEvent?.column}}</h4>
@@ -93,11 +79,11 @@ See console log for mouse over events.
 
 <h1>OrgChart</h1>
 <google-chart [data]="orgChart"></google-chart>
-<input type="button" value="Toggle collapse" (click)="collapseOrgChart()">
+<input class="ui button" type="button" value="Toggle collapse" (click)="collapseOrgChart()">
 <h1>TreeMap</h1>
 <h2>click on the button below to append data</h2>
 <google-chart [data]="treeMap"></google-chart>
-<input type="button" value="Append data" (click)="appendDataToTreeMap()">
+<input class="ui button" type="button" value="Append data" (click)="appendDataToTreeMap()">
 <h1>CandlestickChart</h1>
 <google-chart [data]="candlestickChart"></google-chart>
 <h1>AnnotationChart</h1>
