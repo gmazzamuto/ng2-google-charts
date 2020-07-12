@@ -1,9 +1,16 @@
 # ng2-google-charts
 
-> Google Charts module for Angular 2 and beyond.
+> Angular Google Charts module (works with Angular 8, Angular 9).
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads][npm-downloads-image]][npm-downloads-url]
+
+## Features
+* All chart types
+* Dashboard and controls
+* Chart Editor
+* Formatters
+* Events
 
 ## Sponsoring
 
@@ -14,6 +21,45 @@ consider [sponsoring][donate-url] this project.*
 
 ```bash
 npm i --save ng2-google-charts
+```
+
+## Quick start
+Import the module in your `app.module.ts`:
+```ts
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    Ng2GoogleChartsModule,
+  ],
+  providers: [
+})
+export class AppModule { }
+```
+
+In your templates, use the `google-chart` component like this:
+```html
+<google-chart [data]="pieChart"></google-chart>
+```
+and in the corresponding `.ts` file:
+```ts
+import { GoogleChartInterface } from 'ng2-google-charts';
+
+public pieChart: GoogleChartInterface = {
+  chartType: 'PieChart',
+  dataTable: [
+    ['Task', 'Hours per Day'],
+    ['Work',     11],
+    ['Eat',      2],
+    ['Commute',  2],
+    ['Watch TV', 2],
+    ['Sleep',    7]
+  ],
+  //firstRowIsData: true,
+  options: {'title': 'Tasks'},
+};
 ```
 
 ## Usage & Demo
@@ -27,6 +73,6 @@ Check out the [reference documentation][reference] and the [live demo][example-p
 [npm-url]: https://npmjs.org/package/ng2-google-charts
 [npm-downloads-image]: https://img.shields.io/npm/dm/ng2-google-charts.svg
 [npm-downloads-url]: https://npmjs.org/package/ng2-google-charts
-[reference]: https://www.devrandom.it/software/ng2-google-charts/
+[reference]: https://www.devrandom.it/software/ng2-google-charts/additional-documentation/usage.html
 [example-page]: https://www.devrandom.it/software/ng2-google-charts/demo
 [donate-url]: https://github.com/gmazzamuto/ng2-google-charts?sponsor=1

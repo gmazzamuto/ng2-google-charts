@@ -53,8 +53,5 @@ The value in `dataTable` will be passed to the `setDataTable()` method of
 If `firstRowIsData` is true, `dataTable` will be first passed to
 `arrayToDataTable(dataTable, true)` ([documentation][arrayToDataTable]).
 
-Make sure you are compiling your Angular app with the Ahead-of-Time (AOT)
-compiler (option --aot).
-
 [ChartWrapperMethods]: https://developers.google.com/chart/interactive/docs/reference#methods_4
 [arrayToDataTable]: https://developers.google.com/chart/interactive/docs/reference#google.visualization.arraytodatatable
