@@ -9,6 +9,8 @@ import {
   GoogleChartInterface,
   GoogleChartsControlInterface,
   GoogleChartsDashboardInterface,
+  GoogleChartEditor,
+  GoogleChartWrapper,
 } from 'ng2-google-charts';
 
 declare var $: any;
@@ -552,6 +554,8 @@ export class ChartsGalleryComponent implements OnInit {
   private orgChartCollapsed = false;
   private treeMapAppendCount = 0;
 
+  constructor(private chartEditor: GoogleChartEditor) {}
+
   ngOnInit() {
     this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
   }
@@ -596,6 +600,15 @@ export class ChartsGalleryComponent implements OnInit {
   public openAsPNG() {
     this.imageURI = this.columnChart.component.wrapper.getChart().getImageURI();
     $('#pngModal').modal('show');
+  }
+
+  public editChart() {
+    this.chartEditor.openDialog(this.columnChart)
+                    .then((wrapper: GoogleChartWrapper) => {
+                      console.log('dialog OK');
+                      console.log('new chart type: ', wrapper.getChartType());
+                    })
+                    .catch(() => console.log('dialog cancelled'));
   }
 
   public changeChartType() {
