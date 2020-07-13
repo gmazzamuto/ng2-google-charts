@@ -1,1 +1,0 @@
-projects/ng2-google-charts/LICENSE.md
