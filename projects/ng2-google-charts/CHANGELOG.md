@@ -1,3 +1,9 @@
+<a name="v6.1.0"></a>
+
+# Version 6.1.0
+* add `GoogleChartEditor`
+
+
 <a name="v6.0.1"></a>
 
 # Version 6.0.1
