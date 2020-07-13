@@ -1,8 +1,8 @@
-tsconfig: ./tsconfig.lib.json
-output: ../../dist/documentation/
+tsconfig: ./projects/ng2-google-charts/tsconfig.lib.json
+output: dist/documentation/
 includes: doc
 includesName: "How to use"
-toggleMenuItems: 
+toggleMenuItems:
   - additionalPages
 hideGenerator: true
 disableGraph: false
