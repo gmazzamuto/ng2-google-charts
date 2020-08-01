@@ -260,11 +260,6 @@ export class GoogleChartComponent implements OnInit {
     return event;
   }
 
-  private unregisterEvents(): void {
-    google.visualization.events.removeAllListeners(this.wrapper.getChart());
-    google.visualization.events.removeAllListeners(this.wrapper);
-  }
-
   private registerChartEvents(): void {
     const chart = this.wrapper.getChart();
     this.cli = chart.getChartLayoutInterface ? chart.getChartLayoutInterface() : null;
@@ -343,17 +338,6 @@ export class GoogleChartComponent implements OnInit {
     google.visualization.events.addOneTimeListener(source, eventType, () => {
       evEmitter.emit(listenerFn());
     });
-  }
-
-  private mouseOverListener = (item: DataPointPosition) => {
-    const event: ChartMouseOverEvent = this.parseMouseEvent(item) as ChartMouseOverEvent;
-    event.tooltip = this.getHTMLTooltip();
-    return event;
-  }
-
-  private mouseOutListener = (item: DataPointPosition) => {
-    const event: ChartMouseOutEvent = this.parseMouseEvent(item) as ChartMouseOutEvent;
-    return event;
   }
 
   private selectListener = () => {
