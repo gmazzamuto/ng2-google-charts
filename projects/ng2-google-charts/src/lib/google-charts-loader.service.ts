@@ -13,16 +13,22 @@ interface InternalGoogleChartsSettings extends GoogleChartsSettings {
 export class GoogleChartsLoaderService {
 
   private googleScriptLoadingNotifier: EventEmitter<boolean>;
+  private googleChartLoadingNotifier: EventEmitter<void>;
   private googleScriptIsLoading: boolean;
+  private googleChartIsLoading: boolean;
   private localeId: string;
   private loadGoogleChartsScriptPromise: Promise<void>;
+  private loadedPackages: string[] = [];
+  private loaded = false;
 
   public constructor(
     @Inject(LOCALE_ID) localeId: string,
     @Inject('googleChartsSettings') @Optional() private googleChartsSettings?: GoogleChartsSettings,
   ) {
     this.googleScriptLoadingNotifier = new EventEmitter();
+    this.googleChartLoadingNotifier = new EventEmitter();
     this.googleScriptIsLoading = false;
+    this.googleChartIsLoading = false;
     this.localeId = localeId;
 
     this.loadGoogleChartsScriptPromise = new Promise((resolve, reject) => {
@@ -65,25 +71,62 @@ export class GoogleChartsLoaderService {
     await this.loadGoogleChartsScriptPromise;
 
     await new Promise((resolve) => {
-      if (!settings) {
-        settings = Object.create(this.googleChartsSettings);
-      }
-      if (!settings) {
-        settings = {};
-      }
 
-      if (!settings.language) {
-        settings.language = this.localeId;
+      if (this.googleChartIsLoading) {
+        this.googleChartLoadingNotifier.subscribe(() => {
+          this.doLoad(resolve, settings);
+        });
+
+        return;
       }
 
-      if (!settings.googleChartsVersion) {
-        settings.googleChartsVersion = '47';
-      }
+      this.doLoad(resolve, settings);
 
-      const _settings: InternalGoogleChartsSettings = settings;
-      _settings.callback = resolve;
-
-      google.charts.load(settings.googleChartsVersion, _settings);
     });
+  }
+
+  private doLoad(resolve: (value?: unknown) => void, settings?: GoogleChartsSettings) {
+    if (!settings) {
+      settings = Object.create(this.googleChartsSettings);
+    }
+    if (!settings) {
+      settings = {};
+    }
+
+    if (!settings.language) {
+      settings.language = this.localeId;
+    }
+
+    if (!settings.googleChartsVersion) {
+      settings.googleChartsVersion = '47';
+    }
+
+    if (!settings.packages && this.loaded) {
+      resolve();
+      return;
+    }
+
+    if (settings.packages) {
+      let pkgs = settings.packages.filter(p => this.loadedPackages.indexOf(p) < 0);
+
+      if (pkgs.length == 0 && this.loaded) {
+        resolve();
+        return;
+      }
+
+      settings.packages = pkgs;
+    }
+
+    const _settings: InternalGoogleChartsSettings = settings;
+    _settings.callback = () => {
+      this.googleChartIsLoading = false;
+      this.loadedPackages = this.loadedPackages.concat(_settings.packages);
+      this.loaded = true;
+      this.googleChartLoadingNotifier.emit();
+      resolve();
+    };
+
+    this.googleChartIsLoading = true;
+    google.charts.load(settings.googleChartsVersion, _settings);
   }
 }
