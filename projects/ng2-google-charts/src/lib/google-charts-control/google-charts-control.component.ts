@@ -8,7 +8,10 @@ export interface GoogleChartsControlInterface {
 }
 
 import {
-  Component, OnInit, Input,
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
   ElementRef
 } from '@angular/core';
 
@@ -21,7 +24,7 @@ interface InternalGoogleChartsControlOptions extends GoogleChartsControlInterfac
   selector: 'google-charts-control',
   template: '<div></div>',
 })
-export class GoogleChartsControlComponent implements OnInit {
+export class GoogleChartsControlComponent implements OnInit, OnDestroy {
 
   @Input() public data!: GoogleChartsControlInterface;
 
@@ -35,6 +38,15 @@ export class GoogleChartsControlComponent implements OnInit {
 
   ngOnInit() {
     this.data.component = this;
+  }
+
+  ngOnDestroy() {
+    this.el.nativeElement.innerHTML = '';
+    this.el.nativeElement.remove();
+    try{
+      Object.keys(this.wrapper).forEach((key) => { delete this.wrapper[key]; });
+      delete this.wrapper;
+    } catch (e) { }
   }
 
   public async ensureInit() {

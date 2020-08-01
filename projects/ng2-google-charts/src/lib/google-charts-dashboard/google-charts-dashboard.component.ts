@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  OnDestroy,
   Input,
 } from '@angular/core';
 
@@ -26,7 +27,7 @@ export interface GoogleChartsDashboardInterface extends
   selector: 'google-charts-dashboard',
   template: '<div></div>',
 })
-export class GoogleChartsDashboardComponent implements OnInit {
+export class GoogleChartsDashboardComponent implements OnInit, OnDestroy {
 
   @Input() public data!: GoogleChartsDashboardInterface;
 
@@ -51,6 +52,15 @@ export class GoogleChartsDashboardComponent implements OnInit {
       }
       this.draw();
     });
+  }
+
+  ngOnDestroy() {
+    this.el.nativeElement.innerHTML = '';
+    this.el.nativeElement.remove();
+    try {
+      Object.keys(this.dashboard).forEach((key) => { delete this.dashboard[key]; });
+      delete this.dashboard;
+    } catch (e) {}
   }
 
   public async init() {

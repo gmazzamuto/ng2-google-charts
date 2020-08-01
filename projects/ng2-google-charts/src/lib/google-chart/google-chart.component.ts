@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  OnDestroy,
   Input,
   Output,
   EventEmitter
@@ -61,7 +62,7 @@ export enum GoogleChartType {
   selector: 'google-chart',
   template: '<div></div>',
 })
-export class GoogleChartComponent implements OnInit {
+export class GoogleChartComponent implements OnInit, OnDestroy {
 
   @Input() public data!: GoogleChartInterface;
 
@@ -116,6 +117,26 @@ export class GoogleChartComponent implements OnInit {
     this.init().then(() => {
       this.draw();
     });
+  }
+
+  ngOnDestroy() {
+    try {
+      const chart = this.wrapper.getChart();
+      chart.clearChart();
+      chart.hv = {}; chart.iv = {}; chart.jv = {};
+      Object.keys(chart).forEach(function(key) { delete chart[key]; });
+    } catch (e) { }
+    try {
+      delete this.data.component;
+    } catch (e) { }
+
+    this.el.nativeElement.innerHTML = '';
+    this.el.nativeElement.remove();
+
+    try {
+      Object.keys(this.wrapper).forEach((key) => { delete this.wrapper[key]; });
+      delete this.wrapper;
+    } catch (e) { }
   }
 
   public async init() {

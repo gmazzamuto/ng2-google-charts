@@ -218,4 +218,8 @@ export class GoogleChartsDataTable {
       }
     }
   }
+
+  public delete() {
+    Object.keys(this.dataTable).forEach((key) => { delete this.dataTable[key]; });
+  }
 }
