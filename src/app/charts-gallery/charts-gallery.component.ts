@@ -602,8 +602,8 @@ export class ChartsGalleryComponent implements OnInit {
     $('#pngModal').modal('show');
   }
 
-  public editChart() {
-    this.chartEditor.openDialog(this.columnChart)
+  public editChart(chart: GoogleChartInterface) {
+    this.chartEditor.openDialog(chart)
                     .then((wrapper: GoogleChartWrapper) => {
                       console.log('dialog OK');
                       console.log('new chart type: ', wrapper.getChartType());
