@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  OnDestroy,
   Input,
   ViewChild,
 } from '@angular/core';
@@ -27,7 +28,7 @@ export interface GoogleChartsDashboardInterface extends
   selector: 'google-charts-dashboard',
   template: '<div #el></div>',
 })
-export class GoogleChartsDashboardComponent implements OnInit {
+export class GoogleChartsDashboardComponent implements OnInit, OnDestroy {
 
   @Input() public data: GoogleChartsDashboardInterface;
   @ViewChild('el') private elRef: ElementRef<HTMLElement>
@@ -44,6 +45,9 @@ export class GoogleChartsDashboardComponent implements OnInit {
 
     this.init().then(() => {
       if (!this.dataTable) {
+        if (this.dataTable) {
+          this.dataTable.delete();
+        }
         this.dataTable = new GoogleChartsDataTable(this.data);
         this.dataTable.dataTableChanged.subscribe((dt: any) => {
           this._draw();
@@ -51,6 +55,15 @@ export class GoogleChartsDashboardComponent implements OnInit {
       }
       this.draw();
     });
+  }
+
+  ngOnDestroy() {
+    this.elRef.nativeElement.innerHTML = '';
+    this.elRef.nativeElement.remove();
+    try {
+      Object.keys(this.dashboard).forEach(function(key) { delete this.dashboard[key]; });
+      delete this.dashboard;
+    } catch (e) {}
   }
 
   public async init() {

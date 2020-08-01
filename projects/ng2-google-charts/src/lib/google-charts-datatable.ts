@@ -214,4 +214,8 @@ export class GoogleChartsDataTable {
       }
     }
   }
+
+  public delete() {
+    Object.keys(this.dataTable).forEach(function(key) { delete this.dataTable[key]; });
+  }
 }

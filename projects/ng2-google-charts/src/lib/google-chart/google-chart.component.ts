@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  OnDestroy,
   Input,
   Output,
   EventEmitter,
@@ -36,7 +37,7 @@ export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
   selector: 'google-chart',
   template: '<div #el></div>',
 })
-export class GoogleChartComponent implements OnInit {
+export class GoogleChartComponent implements OnInit, OnDestroy {
 
   @Input() public data: GoogleChartInterface;
 
@@ -91,6 +92,26 @@ export class GoogleChartComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    try {
+      const chart = this.wrapper.getChart();
+      chart.clearChart();
+      chart.hv = {}; chart.iv = {}; chart.jv = {};
+      Object.keys(chart).forEach(function(key) { delete chart[key]; });
+    } catch (e) { }
+    try {
+      delete this.data.component;
+    } catch (e) { }
+
+    this.elRef.nativeElement.innerHTML = '';
+    this.elRef.nativeElement.remove();
+
+    try {
+      Object.keys(this.wrapper).forEach(function(key) { delete this.wrapper[key]; });
+      delete this.wrapper;
+    } catch (e) { }
+  }
+
   public async init() {
     await this.loaderService.load();
     this.recreateWrapper();
@@ -98,6 +119,9 @@ export class GoogleChartComponent implements OnInit {
 
   private recreateWrapper() {
     if (this.wrapper === undefined || this.wrapper.getChartType() !== this.data.chartType) {
+      if (this.dataTable) {
+        this.dataTable.delete();
+      }
       this.dataTable = new GoogleChartsDataTable(this.data);
       this.dataTable.dataTableChanged.subscribe((dt: any) => {
         this._draw();
