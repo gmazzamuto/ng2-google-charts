@@ -5,6 +5,7 @@ import {
   ElementRef,
   OnInit,
   Input,
+  ViewChild,
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
@@ -24,18 +25,17 @@ export interface GoogleChartsDashboardInterface extends
 
 @Component({
   selector: 'google-charts-dashboard',
-  template: '<div></div>',
+  template: '<div #el></div>',
 })
 export class GoogleChartsDashboardComponent implements OnInit {
 
   @Input() public data: GoogleChartsDashboardInterface;
+  @ViewChild('el') private elRef: ElementRef<HTMLElement>
 
   public dashboard: any;
   public dataTable: GoogleChartsDataTable;
 
-  public constructor(private el: ElementRef,
-                     private loaderService: GoogleChartsLoaderService) {
-    this.el = el;
+  public constructor(private loaderService: GoogleChartsLoaderService) {
     this.loaderService = loaderService;
   }
 
@@ -56,8 +56,7 @@ export class GoogleChartsDashboardComponent implements OnInit {
   public async init() {
     await this.loaderService.load({packages: ['controls'] });
 
-    this.dashboard = new google.visualization.Dashboard(
-      this.el.nativeElement.querySelector('div'));
+    this.dashboard = new google.visualization.Dashboard(this.elRef.nativeElement);
 
     for (const b of this.data.bind) {
       let controls = b[0];

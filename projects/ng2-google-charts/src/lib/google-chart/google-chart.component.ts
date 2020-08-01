@@ -6,7 +6,8 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ViewChild,
 } from '@angular/core';
 
 import { GoogleChartsLoaderService } from '../google-charts-loader.service';
@@ -33,7 +34,7 @@ export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
 
 @Component({
   selector: 'google-chart',
-  template: '<div></div>',
+  template: '<div #el></div>',
 })
 export class GoogleChartComponent implements OnInit {
 
@@ -61,11 +62,10 @@ export class GoogleChartComponent implements OnInit {
   private cli: any;
   private options: any;
 
-  private HTMLel: HTMLElement;
+  @ViewChild('el') private elRef: ElementRef<HTMLElement>;
   private dataTable: GoogleChartsDataTable;
 
-  public constructor(private el: ElementRef,
-                     private loaderService: GoogleChartsLoaderService) {
+  public constructor(private loaderService: GoogleChartsLoaderService) {
     this.chartSelect = new EventEmitter();
     this.chartSelectOneTime = new EventEmitter();
     this.chartReady = new EventEmitter();
@@ -81,7 +81,6 @@ export class GoogleChartComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.HTMLel = this.el.nativeElement.querySelector('div');
     if (Object.isExtensible(this.data)) {
       this.data.component = this;
     }
@@ -118,7 +117,7 @@ export class GoogleChartComponent implements OnInit {
          it breaks formatters with remote data source, hence the conditional. */
       if (temp.dataTable === undefined && temp.dataSourceUrl === undefined) {
         try {
-          this.wrapper.draw(this.HTMLel);
+          this.wrapper.draw(this.elRef.nativeElement);
         } catch (err) {}
       }
     }
@@ -133,7 +132,7 @@ export class GoogleChartComponent implements OnInit {
     this.recreateWrapper();
     this.wrapper.setOptions(this.options);
     this.wrapper.setDataTable(dt);
-    this.wrapper.draw(this.HTMLel);
+    this.wrapper.draw(this.elRef.nativeElement);
   }
 
   public getDataTable(): GoogleChartsDataTable {
@@ -229,7 +228,7 @@ export class GoogleChartComponent implements OnInit {
   }
 
   private getHTMLTooltip(): ChartHTMLTooltip {
-    const tooltipER = new ElementRef(this.el.nativeElement.querySelector('.google-visualization-tooltip'));
+    const tooltipER = new ElementRef(this.elRef.nativeElement.querySelector('.google-visualization-tooltip'));
     return new ChartHTMLTooltip(tooltipER);
   }
 
