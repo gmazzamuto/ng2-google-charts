@@ -12,6 +12,7 @@ import {
   GoogleChartEditor,
   GoogleChartWrapper,
 } from 'ng2-google-charts';
+import { GoogleChartType } from 'projects/ng2-google-charts/src/public-api';
 
 declare var $: any;
 declare var google: any;
@@ -53,7 +54,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public dashboardPieChart: GoogleChartInterface = {
-    chartType: 'PieChart',
+    chartType: GoogleChartType.PieChart,
     options: {
       width: 250,
       height: 250,
@@ -65,7 +66,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public dashboardTable: GoogleChartInterface = {
-    chartType: 'Table',
+    chartType: GoogleChartType.Table,
     options: {
       alternatingRowStyle: true,
       showRowNumber : true,
@@ -103,7 +104,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public columnChart: GoogleChartInterface = {
-    chartType: 'ColumnChart',
+    chartType: GoogleChartType.ColumnChart,
     dataTable: [
       ['Country', 'Performance', 'Profits'],
       ['Germany', 700, 1200],
@@ -124,7 +125,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public columnChartWTooltips: GoogleChartInterface =  {
-    chartType: 'ColumnChart',
+    chartType: GoogleChartType.ColumnChart,
     dataTable: [
       ['Event', 'Highest Recent Viewership', {
         type: 'string',
@@ -147,7 +148,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public tooltipChart: GoogleChartInterface = {
-    chartType: 'LineChart',
+    chartType: GoogleChartType.LineChart,
     dataTable: [
       ['Year', 'NBA Finals', 'NFL Super Bowl', 'MLB World Series',
       'UEFA Champions League Final', 'NHL Stanley Cup Finals',
@@ -171,7 +172,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public barChart: GoogleChartInterface = {
-    chartType: 'Bar',
+    chartType: GoogleChartType.BarChart,
     dataTable: [
       ['Year', 'Sales', 'Expenses', 'Profit'],
       ['2014', 1000, 400, 200],
@@ -188,7 +189,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public stackedColumnChart: GoogleChartInterface = {
-    chartType: 'ColumnChart',
+    chartType: GoogleChartType.ColumnChart,
     dataTable: [
       ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
        'Western', 'Literature', { role: 'annotation' } ],
@@ -206,7 +207,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public pieChart: GoogleChartInterface = {
-    chartType: 'PieChart',
+    chartType: GoogleChartType.PieChart,
     dataTable: [
       ['Task', 'Hours per Day'],
       ['Work',     11],
@@ -225,7 +226,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public gaugeChart: GoogleChartInterface = {
-    chartType: 'Gauge',
+    chartType: GoogleChartType.Gauge,
     dataTable: [
       ['Label', 'Value'],
       ['Value', 1.78]
@@ -242,7 +243,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public scatterChart: GoogleChartInterface = {
-    chartType: 'ScatterChart',
+    chartType: GoogleChartType.ScatterChart,
     dataTable: [
       ['Age', 'Weight'],
       [ 8,      12],
@@ -261,7 +262,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
  public timelineChart: GoogleChartInterface = {
-    chartType: 'Timeline',
+    chartType: GoogleChartType.Timeline,
     dataTable: [
       ['Name', 'From', 'To'],
       [ 'Washington', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
@@ -271,7 +272,7 @@ export class ChartsGalleryComponent implements OnInit {
  };
 
  public lineChart: GoogleChartInterface = {
-    chartType: 'LineChart',
+    chartType: GoogleChartType.LineChart,
     dataTable: [
       ['Year', 'Sales', 'Expenses'],
       ['2004',  1000,      400],
@@ -283,7 +284,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
  public comboChart: GoogleChartInterface = {
-    chartType: 'ComboChart',
+    chartType: GoogleChartType.ComboChart,
     dataTable: [
       ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
       ['2004/05',  165,      938,         522,             998,           450,      614.6],
@@ -302,7 +303,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public tableChart: GoogleChartInterface = {
-    chartType: 'Table',
+    chartType: GoogleChartType.Table,
     dataTable: [
       ['Department', 'Revenues', 'Another column', 'ColorFormat'],
       ['Shoes', 10700, -100, 100],
@@ -341,7 +342,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public tableWithPatternFormat: GoogleChartInterface = {
-    chartType: 'Table',
+    chartType: GoogleChartType.Table,
     dataTable: [
       ['Name', 'Email', 'Result'],
       ['John Lennon', 'john@beatles.co.uk', ''],
@@ -365,7 +366,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public tableWithDates: GoogleChartInterface = {
-    chartType: 'Table',
+    chartType: GoogleChartType.Table,
     dataTable: [
       ['Employee Name', 'Start Date (Long)', 'Start Date (Medium)', 'Start Date (Short)'],
       ['Mike', new Date(2008, 1, 28, 0, 31, 26),
@@ -410,7 +411,7 @@ export class ChartsGalleryComponent implements OnInit {
     queryCallback: (queryResponse) => {
       console.log('has errors: ' + queryResponse.isError());
     },
-    chartType: 'Table',
+    chartType: GoogleChartType.Table,
     options: {
       alternatingRowStyle: true,
       showRowNumber : true,
@@ -430,7 +431,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
  public geoChart: GoogleChartInterface = {
-    chartType: 'GeoChart',
+    chartType: GoogleChartType.GeoChart,
     dataTable: [
       ['Country', 'Population (2019)'],
       ['Austria',	8858775],
@@ -471,7 +472,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public orgChart: GoogleChartInterface = {
-    chartType: 'OrgChart',
+    chartType: GoogleChartType.OrgChart,
     dataTable: [
       ['Name',   'Manager', 'Tooltip'],
       [{v: 'Mike', f: 'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
@@ -487,7 +488,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public candlestickChart: GoogleChartInterface = {
-    chartType: 'CandlestickChart',
+    chartType: GoogleChartType.CandlestickChart,
     dataTable: [
       ['Mon', 28, 28, 38, 38],
       ['Tue', 38, 38, 55, 55],
@@ -507,7 +508,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public treeMap: GoogleChartInterface = {
-    chartType: 'TreeMap',
+    chartType: GoogleChartType.TreeMap,
     dataTable: [
       ['ID', 'Parent', 'Number of Lines'],
       ['Shakespeare', null, 0],
@@ -534,7 +535,7 @@ export class ChartsGalleryComponent implements OnInit {
   };
 
   public annotationChart: GoogleChartInterface = {
-    chartType: 'AnnotationChart',
+    chartType: GoogleChartType.AnnotationChart,
     dataTable: [
       ['Date', 'Kepler-22b mission', 'Kepler title', 'Kepler text', 'Gliese 163 mission', 'Gliese title',
         'Gliese text'],

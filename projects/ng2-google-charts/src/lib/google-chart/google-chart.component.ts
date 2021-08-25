@@ -25,10 +25,36 @@ import { ChartHTMLTooltip } from './chart-html-tooltip';
 import { RegionClickEvent } from './geochart-events';
 
 export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
-  chartType: string;
+  chartType: string | GoogleChartType;
   options?: any;
 
   component?: GoogleChartComponent;
+}
+
+export enum GoogleChartType {
+  AnnotationChart = 'AnnotationChart',
+  AreaChart = 'AreaChart',
+  BarChart = 'BarChart',
+  BubbleChart = 'BubbleChart',
+  Calendar = 'Calendar',
+  CandlestickChart = 'CandlestickChart',
+  ColumnChart = 'ColumnChart',
+  ComboChart = 'ComboChart',
+  Gantt = 'Gantt',
+  Gauge = 'Gauge',
+  GeoChart = 'GeoChart',
+  Histogram = 'Histogram',
+  LineChart = 'LineChart',
+  Map = 'Map',
+  OrgChart = 'OrgChart',
+  PieChart = 'PieChart',
+  Sankey = 'Sankey',
+  ScatterChart = 'ScatterChart',
+  SteppedAreaChart = 'SteppedAreaChart',
+  Table = 'Table',
+  Timeline = 'Timeline',
+  TreeMap = 'TreeMap',
+  WordTree = 'WordTree'
 }
 
 @Component({

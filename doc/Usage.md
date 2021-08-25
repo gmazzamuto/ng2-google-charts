@@ -32,10 +32,10 @@ In your templates, use the `google-chart` component like this:
 ```
 and in the corresponding `.ts` file:
 ```ts
-import { GoogleChartInterface } from 'ng2-google-charts';
+import { GoogleChartInterface, GoogleChartType } from 'ng2-google-charts';
 
 public pieChart: GoogleChartInterface = {
-  chartType: 'PieChart',
+  chartType: GoogleChartType.PieChart,  // or chartType: 'PieChart'
   dataTable: [
     ['Task', 'Hours per Day'],
     ['Work',     11],
