@@ -1,7 +1,16 @@
+<a name="v7.0.0"></a>
+
+# Version 7.0.0
+* Build with Angular 12 in Ivy partial compilation mode
+* Load Google Charts v50 by default
+* Add VegaChart
+
+
 <a name="v6.2.0"></a>
 
 # Version 6.2.0
 * Add `GoogleChartType` enum
+* Some fixes in `GoogleChartsLoaderService`
 
 
 <a name="v6.1.0"></a>

@@ -1,9 +1,16 @@
 # ng2-google-charts
 
-> Angular Google Charts module (works with Angular 8, Angular 9).
+> Angular Google Charts module
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads][npm-downloads-image]][npm-downloads-url]
+
+
+## Versions
+* Version 6 is built with Angular 9, should work with Angular versions from 8 to
+  13.
+* Version 7 is built with Angular 12 in Ivy partial compilation mode, works with
+  Angular versions from 12 to 13.
 
 ## Features
 * All chart types
