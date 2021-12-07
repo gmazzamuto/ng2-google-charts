@@ -6,16 +6,19 @@ describe('GoogleChartsControlComponent', () => {
   let component: GoogleChartsControlComponent;
   let fixture: ComponentFixture<GoogleChartsControlComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ GoogleChartsControlComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GoogleChartsControlComponent);
     component = fixture.componentInstance;
+    component.data = {
+      controlType: 'CategoryFilter',
+    };
     fixture.detectChanges();
   });
 

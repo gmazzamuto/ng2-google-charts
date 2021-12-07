@@ -11,8 +11,8 @@ describe('ChartsGalleryComponent', () => {
   let component: ChartsGalleryComponent;
   let fixture: ComponentFixture<ChartsGalleryComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [
         ChartsGalleryComponent,
         GoogleChartComponent,
@@ -21,7 +21,7 @@ describe('ChartsGalleryComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChartsGalleryComponent);

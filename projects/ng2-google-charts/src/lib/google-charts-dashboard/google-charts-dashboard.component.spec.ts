@@ -7,13 +7,13 @@ describe('GoogleChartsDashboardComponent', () => {
   let component: GoogleChartsDashboardComponent;
   let fixture: ComponentFixture<GoogleChartsDashboardComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ GoogleChartsDashboardComponent ],
       providers: [{ provide: GoogleChartsLoaderService}]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GoogleChartsDashboardComponent);
