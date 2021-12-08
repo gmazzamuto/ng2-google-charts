@@ -1,3 +1,9 @@
+<a name="v6.2.0"></a>
+
+# Version 6.2.0
+* Add `GoogleChartType` enum
+
+
 <a name="v6.1.0"></a>
 
 # Version 6.1.0
