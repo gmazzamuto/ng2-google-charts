@@ -47,13 +47,13 @@ export class GoogleChartEditor {
 
     return new Promise((resolve, reject) => {
       this.comp = isComponent(chart) ? chart : chart.component;
-      this.chartEditor.openDialog(this.comp.wrapper, options);
       google.visualization.events.addListener(this.chartEditor, 'ok', () => {
         resolve(this.comp.wrapper);
       });
       google.visualization.events.addListener(this.chartEditor, 'cancel', () => {
         reject();
       });
+      this.chartEditor.openDialog(this.comp.wrapper, options);
     });
   }
 
