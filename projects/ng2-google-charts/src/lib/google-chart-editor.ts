@@ -21,7 +21,7 @@ export class GoogleChartEditor {
 
   chartEditor: any;
 
-  private comp: GoogleChartComponent;
+  private comp!: GoogleChartComponent;
 
   public constructor(private loaderService: GoogleChartsLoaderService){}
 
@@ -33,12 +33,12 @@ export class GoogleChartEditor {
     this.chartEditor = new google.visualization.ChartEditor();
     google.visualization.events.addListener(this.chartEditor, 'ok', () => {
       const wrapper = this.chartEditor.getChartWrapper();
-      this.comp.wrapper = wrapper;
-      this.comp.data.chartType = wrapper.getChartType();
-      if (this.comp.data.options !== undefined || Object.isExtensible(this.comp.data)) {
-        this.comp.data.options = wrapper.getOptions();
+      this.comp!.wrapper = wrapper;
+      this.comp!.data.chartType = wrapper.getChartType();
+      if (this.comp!.data.options !== undefined || Object.isExtensible(this.comp!.data)) {
+        this.comp!.data.options = wrapper.getOptions();
       }
-      this.comp.wrapper.draw();
+      this.comp!.wrapper.draw();
     });
   }
 
@@ -46,14 +46,14 @@ export class GoogleChartEditor {
     await this.createEditor();
 
     return new Promise((resolve, reject) => {
-      this.comp = isComponent(chart) ? chart : chart.component;
+      this.comp = isComponent(chart) ? chart : chart.component!;
       google.visualization.events.addListener(this.chartEditor, 'ok', () => {
-        resolve(this.comp.wrapper);
+        resolve(this.comp!.wrapper);
       });
       google.visualization.events.addListener(this.chartEditor, 'cancel', () => {
         reject();
       });
-      this.chartEditor.openDialog(this.comp.wrapper, options);
+      this.chartEditor.openDialog(this.comp!.wrapper, options);
     });
   }
 

@@ -85,10 +85,12 @@ export interface GoogleChartsDataTableInterface {
 }
 
 import {
+  Directive,
   EventEmitter,
   Output,
 } from '@angular/core';
 
+@Directive()
 export class GoogleChartsDataTable {
   private dataTable: any;
   public query: any;
@@ -198,13 +200,15 @@ export class GoogleChartsDataTable {
       formatter = new formatterConstructor(formatterOptions);
       if (formatterConfig.type === 'ColorFormat' && formatterOptions) {
         const fmtOptions = formatterOptions as ColorFormatInterface;
-        for (const range of fmtOptions.ranges) {
-          if (typeof (range.fromBgColor) !== 'undefined'
-              && typeof (range.toBgColor) !== 'undefined') {
-            formatter.addGradientRange(range.from, range.to,
-              range.color, range.fromBgColor, range.toBgColor);
-          } else {
-            formatter.addRange(range.from, range.to, range.color, range.bgcolor);
+        if (fmtOptions.ranges) {
+          for (const range of fmtOptions.ranges) {
+            if (typeof (range.fromBgColor) !== 'undefined'
+                && typeof (range.toBgColor) !== 'undefined') {
+              formatter.addGradientRange(range.from, range.to,
+                range.color, range.fromBgColor, range.toBgColor);
+            } else {
+              formatter.addRange(range.from, range.to, range.color, range.bgcolor);
+            }
           }
         }
       }

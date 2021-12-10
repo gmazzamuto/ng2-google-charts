@@ -23,7 +23,7 @@ interface InternalGoogleChartsControlOptions extends GoogleChartsControlInterfac
 })
 export class GoogleChartsControlComponent implements OnInit {
 
-  @Input() public data: GoogleChartsControlInterface;
+  @Input() public data!: GoogleChartsControlInterface;
 
   public wrapper: any;
 

@@ -111,7 +111,9 @@ export class GoogleChartsLoaderService {
     const _settings: InternalGoogleChartsSettings = settings;
     _settings.callback = () => {
       this.googleChartIsLoading = false;
-      this.loadedPackages = this.loadedPackages.concat(_settings.packages);
+      if (_settings.packages !== undefined) {
+        this.loadedPackages = this.loadedPackages.concat(_settings.packages);
+      }
       this.loaded = true;
       this.googleChartLoadingNotifier.emit();
       resolve();

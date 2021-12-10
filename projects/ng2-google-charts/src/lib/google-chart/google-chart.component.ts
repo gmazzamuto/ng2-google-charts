@@ -27,7 +27,6 @@ import { RegionClickEvent } from './geochart-events';
 export interface GoogleChartInterface extends GoogleChartsDataTableInterface {
   chartType: string | GoogleChartType;
   options?: any;
-
   component?: GoogleChartComponent;
 }
 
@@ -64,7 +63,7 @@ export enum GoogleChartType {
 })
 export class GoogleChartComponent implements OnInit {
 
-  @Input() public data: GoogleChartInterface;
+  @Input() public data!: GoogleChartInterface;
 
   @Output() public chartReady: EventEmitter<ChartReadyEvent>;
   @Output() public chartReadyOneTime: EventEmitter<ChartReadyEvent>;
@@ -88,8 +87,8 @@ export class GoogleChartComponent implements OnInit {
   private cli: any;
   private options: any;
 
-  private HTMLel: HTMLElement;
-  private dataTable: GoogleChartsDataTable;
+  private HTMLel!: HTMLElement;
+  private dataTable!: GoogleChartsDataTable;
 
   public constructor(private el: ElementRef,
                      private loaderService: GoogleChartsLoaderService) {

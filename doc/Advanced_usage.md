@@ -25,7 +25,7 @@ export class AppComponent {
   };
 
   myfunction() {
-    let ccComponent = this.columnChart.component;
+    let ccComponent = this.columnChart.component!;
     let ccWrapper = ccComponent.wrapper;
 
     //force a redraw

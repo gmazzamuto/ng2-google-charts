@@ -25,8 +25,8 @@ import { shakespeareData } from './shakespeare';
 })
 export class ChartsGalleryComponent implements OnInit {
 
-  public selectEvent: ChartSelectEvent;
-  public regionClickEvent: RegionClickEvent;
+  public selectEvent!: ChartSelectEvent;
+  public regionClickEvent!: RegionClickEvent;
   public imageURI = '';
 
   public slider: GoogleChartsControlInterface = {
@@ -617,17 +617,17 @@ export class ChartsGalleryComponent implements OnInit {
       dataTable[i][1] = Math.round(Math.random() * 1000);
       dataTable[i][2] = Math.round(Math.random() * 1000);
     }
-    this.columnChart.component.draw();
+    this.columnChart.component!.draw();
   }
 
   public setupTooltips() {
-    const data = this.tooltipChart.component.wrapper.getDataTable();
+    const data = this.tooltipChart.component!.wrapper.getDataTable();
     const view = new google.visualization.DataView(data);
     for (let i = 0; i < this.columnChartWTooltips.dataTable.length - 1; i++) {
       // Set the view for each event's data
       view.setColumns([0, i + 1]);
 
-      const tooltipChart = this.tooltipChart.component.wrapper.getChart();
+      const tooltipChart = this.tooltipChart.component!.wrapper.getChart();
 
       const el = google.visualization.events.addListener(tooltipChart, 'ready', () => {
 
@@ -645,11 +645,11 @@ export class ChartsGalleryComponent implements OnInit {
         legend: 'none'
       });
     }
-    this.columnChartWTooltips.component.draw();
+    this.columnChartWTooltips.component!.draw();
   }
 
   public openAsPNG() {
-    this.imageURI = this.columnChart.component.wrapper.getChart().getImageURI();
+    this.imageURI = this.columnChart.component!.wrapper.getChart().getImageURI();
     $('#pngModal').modal('show');
   }
 
@@ -668,7 +668,7 @@ export class ChartsGalleryComponent implements OnInit {
     } else {
       this.columnChart.chartType = 'ColumnChart';
     }
-    this.columnChart.component.draw();
+    this.columnChart.component!.draw();
   }
 
   public ready(event: ChartReadyEvent) {
@@ -703,7 +703,7 @@ export class ChartsGalleryComponent implements OnInit {
 
   public collapseOrgChart() {
     this.orgChartCollapsed = !this.orgChartCollapsed;
-    const orgChartWrapper = this.orgChart.component.wrapper;
+    const orgChartWrapper = this.orgChart.component!.wrapper;
     orgChartWrapper.getChart().collapse(0, this.orgChartCollapsed);
   }
 
@@ -712,7 +712,7 @@ export class ChartsGalleryComponent implements OnInit {
       return;
     }
     this.treeMap.dataTable = this.treeMap.dataTable.concat(shakespeareData[this.treeMapAppendCount++]);
-    this.treeMap.component.draw();
+    this.treeMap.component!.draw();
   }
 
   public geoChartRegionClick(event: RegionClickEvent) {
@@ -720,11 +720,11 @@ export class ChartsGalleryComponent implements OnInit {
   }
 
   public clearTimelineSelection() {
-    this.timelineChart.component.wrapper.getChart().setSelection([]);
+    this.timelineChart.component!.wrapper.getChart().setSelection([]);
   }
 
   public toggleRowNumbers() {
     this.dashboardTable.options.showRowNumber = !this.dashboardTable.options.showRowNumber;
-    this.dashboard.component.draw();
+    this.dashboard.component!.draw();
   }
 }

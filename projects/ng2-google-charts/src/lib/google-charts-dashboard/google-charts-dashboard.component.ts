@@ -28,10 +28,10 @@ export interface GoogleChartsDashboardInterface extends
 })
 export class GoogleChartsDashboardComponent implements OnInit {
 
-  @Input() public data: GoogleChartsDashboardInterface;
+  @Input() public data!: GoogleChartsDashboardInterface;
 
   public dashboard: any;
-  public dataTable: GoogleChartsDataTable;
+  public dataTable!: GoogleChartsDataTable;
 
   public constructor(private el: ElementRef,
                      private loaderService: GoogleChartsLoaderService) {
@@ -72,10 +72,13 @@ export class GoogleChartsDashboardComponent implements OnInit {
       }
 
       for (const c of controls) {
-        await c.component.ensureInit();
+        await c.component!.ensureInit();
       }
 
       for (const c of charts) {
+        if (!c.component) {
+          continue;
+        }
         await c.component.init();
         const data = c.component.data;
         if (data.dataTable !== undefined || data.dataSourceUrl !== undefined) {
@@ -84,8 +87,8 @@ export class GoogleChartsDashboardComponent implements OnInit {
         }
       }
 
-      this.dashboard.bind(controls.map(x => x.component.wrapper),
-                          charts.map(x => x.component.wrapper));
+      this.dashboard.bind(controls.map(x => x.component!.wrapper),
+                          charts.map(x => x.component!.wrapper));
     }
   }
 
