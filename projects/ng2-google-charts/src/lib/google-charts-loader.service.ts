@@ -25,7 +25,7 @@ export class GoogleChartsLoaderService {
     @Inject('googleChartsSettings') @Optional() private googleChartsSettings: GoogleChartsSettings,
   ) {
     const defaultSettings: GoogleChartsSettings = {
-      googleChartsVersion: '47',
+      googleChartsVersion: '50',
       language: localeId,
     };
     this.googleChartsSettings = {...defaultSettings, ...this.googleChartsSettings};

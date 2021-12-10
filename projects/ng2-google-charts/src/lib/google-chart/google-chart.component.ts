@@ -54,7 +54,8 @@ export enum GoogleChartType {
   Table = 'Table',
   Timeline = 'Timeline',
   TreeMap = 'TreeMap',
-  WordTree = 'WordTree'
+  VegaChart = 'VegaChart',
+  WordTree = 'WordTree',
 }
 
 @Component({
