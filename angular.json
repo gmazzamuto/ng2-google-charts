@@ -160,39 +160,6 @@
             "tsConfig": "projects/ng2-google-charts/tsconfig.spec.json",
             "karmaConfig": "projects/ng2-google-charts/karma.conf.js"
           }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "ng2-google-charts:serve",
-            "configFile": "projects/ng2-google-charts/cypress.json"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ng2-google-charts:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false,
-            "configFile": "projects/ng2-google-charts/cypress.json"
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "ng2-google-charts:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ng2-google-charts:serve:production"
-            }
-          }
         }
       }
     }

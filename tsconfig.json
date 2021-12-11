@@ -6,9 +6,17 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "ng2-google-charts": [
+        "dist/ng2-google-charts/ng2-google-charts",
+        "dist/ng2-google-charts"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "paths": {
@@ -23,7 +31,7 @@
     "target": "es2017",
     "module": "es2020",
     "lib": [
-      "es2018",
+      "es2020",
       "dom"
     ]
   },

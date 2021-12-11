@@ -88,6 +88,7 @@ import {
   Directive,
   EventEmitter,
   Output,
+  Directive,
 } from '@angular/core';
 
 @Directive()

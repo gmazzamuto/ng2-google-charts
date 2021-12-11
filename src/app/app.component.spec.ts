@@ -12,7 +12,7 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent,
+        AppComponent
       ],
       providers: [{ provide: GoogleChartsLoaderService}]
     }).compileComponents();
